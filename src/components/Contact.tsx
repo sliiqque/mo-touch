@@ -15,7 +15,6 @@ const Contact: React.FC = () => {
 
   useEffect(() => {
     const audioUrls = {
-      hover: "https://assets.codepen.io/7558/whoosh-fx-001.mp3",
       click: "https://assets.codepen.io/7558/glitch-fx-001.mp3",
     };
 
