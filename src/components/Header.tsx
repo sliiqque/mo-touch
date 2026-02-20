@@ -16,9 +16,6 @@ const Header: React.FC = () => {
   );
   const [time, setTime] = useState("");
 
-  // Audio refs
-  const audioRefs = useRef<{ [key: string]: HTMLAudioElement }>({});
-
   useEffect(() => {
     const checkMobile = () => setIsMobile(window.innerWidth <= 768);
     checkMobile();
@@ -43,28 +40,6 @@ const Header: React.FC = () => {
     const interval = setInterval(updateTime, 1000);
     return () => clearInterval(interval);
   }, []);
-
-  // Audio setup
-  useEffect(() => {
-    const audioUrls = {
-      hover: "https://assets.codepen.io/7558/click-glitch-001.mp3",
-      click: "https://assets.codepen.io/7558/glitch-fx-001.mp3",
-    };
-
-    Object.entries(audioUrls).forEach(([key, url]) => {
-      const audio = new Audio(url);
-      audio.volume = 0.2;
-      audioRefs.current[key] = audio;
-    });
-  }, []);
-
-  const playSound = (name: string) => {
-    if (audioRefs.current[name]) {
-      const audio = audioRefs.current[name];
-      audio.currentTime = 0;
-      audio.play().catch(() => {});
-    }
-  };
 
   // Animations
   useLayoutEffect(() => {
@@ -91,7 +66,6 @@ const Header: React.FC = () => {
             duration: 0.3,
             ease: "back.out(1.7)",
           });
-          playSound("hover");
         });
         logoRef.current.addEventListener("mouseleave", () => {
           gsap.to(".circle-1", { scale: 1, duration: 0.3 });
@@ -113,7 +87,6 @@ const Header: React.FC = () => {
       const links = document.querySelectorAll(".nav-link");
       links.forEach((link) => {
         link.addEventListener("mouseenter", () => {
-          playSound("hover");
           gsap.to(link, { y: -2, duration: 0.2 });
           // Dim others
           gsap.to(links, { opacity: 0.3, duration: 0.2, overwrite: true });
@@ -123,7 +96,6 @@ const Header: React.FC = () => {
           gsap.to(link, { y: 0, duration: 0.2 });
           gsap.to(links, { opacity: 1, duration: 0.2 });
         });
-        link.addEventListener("click", () => playSound("click"));
       });
     }, headerRef);
 

@@ -1,7 +1,7 @@
+import React, { useLayoutEffect, useRef } from "react";
+import gsap from "gsap";
 import { Draggable } from "gsap/all";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import gsap from "gsap";
-import React, { useEffect, useRef, useLayoutEffect } from "react";
 
 gsap.registerPlugin(Draggable, ScrollTrigger);
 
@@ -9,9 +9,6 @@ const About: React.FC = () => {
   const containerRef = useRef<HTMLDivElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
   const proxyRef = useRef<HTMLDivElement>(document.createElement("div"));
-  const cursorRef = useRef<HTMLDivElement>(null);
-
-  // const [skew, setSkew] = useState(0);
 
   // Team Data
   const team = [
@@ -36,22 +33,6 @@ const About: React.FC = () => {
       img: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80",
     },
   ];
-
-  // Custom Cursor Logic
-  useEffect(() => {
-    const onMouseMove = (e: MouseEvent) => {
-      if (cursorRef.current) {
-        gsap.to(cursorRef.current, {
-          x: e.clientX,
-          y: e.clientY,
-          duration: 0.1,
-          ease: "power2.out",
-        });
-      }
-    };
-    window.addEventListener("mousemove", onMouseMove);
-    return () => window.removeEventListener("mousemove", onMouseMove);
-  }, []);
 
   // Draggable & Skew Logic
   useLayoutEffect(() => {
@@ -164,31 +145,7 @@ const About: React.FC = () => {
             color: #e0e0e0;
             overflow: hidden;
             font-family: 'PPNeueMontreal', sans-serif;
-            cursor: none; /* Custom cursor */
-        }
-        .custom-cursor {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 20px;
-            height: 20px;
-            background: #fff;
-            border-radius: 50%;
-            pointer-events: none;
-            mix-blend-mode: difference;
-            z-index: 9999;
-            transform: translate(-50%, -50%);
-        }
-        .noise-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 9000;
-            opacity: 0.05;
-            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+            /* Cursor managed by Layout/CustomCursor */
         }
         .scroll-content {
             display: flex;
@@ -236,7 +193,7 @@ const About: React.FC = () => {
             border-bottom: 1px solid rgba(255,255,255,0.2);
             overflow: hidden;
             transition: width 0.5s cubic-bezier(0.25, 1, 0.5, 1);
-            cursor: none;
+            /* Cursor managed by global CSS/CustomCursor */
         }
         .team-card:first-child {
             border-left: 1px solid rgba(255,255,255,0.2);
@@ -283,7 +240,7 @@ const About: React.FC = () => {
             font-size: 1vw;
             color: #A64B23;
         }
-        .marquee-section {
+        .about-marquee-section {
             font-size: 10vw;
             font-weight: 900;
             white-space: nowrap;
@@ -326,9 +283,6 @@ const About: React.FC = () => {
             transform-origin: left;
         }
       `}</style>
-
-      <div className="noise-overlay"></div>
-      <div className="custom-cursor" ref={cursorRef}></div>
 
       <div className="scroll-content" ref={contentRef}>
         {/* Section 1: Hero */}
@@ -395,7 +349,7 @@ const About: React.FC = () => {
         </div>
 
         {/* Section 4: Marquee/Services */}
-        <div className="section marquee-section">
+        <div className="section about-marquee-section">
           {["STRATEGY", "DESIGN", "DEVELOPMENT", "MOTION", "3D_VISUALS"].map(
             (item, i) => (
               <span key={i} className="marquee-item reveal-text">

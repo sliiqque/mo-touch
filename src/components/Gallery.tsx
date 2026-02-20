@@ -1,4 +1,10 @@
-import React, { useEffect, useRef, useState, useLayoutEffect } from "react";
+import React, {
+  useEffect,
+  useRef,
+  useState,
+  useLayoutEffect,
+  useCallback,
+} from "react";
 import { createPortal } from "react-dom";
 import gsap from "gsap";
 import { Draggable, Flip, CustomEase } from "gsap/all";
@@ -38,11 +44,9 @@ const Gallery: React.FC = () => {
   const zoomTargetRef = useRef<HTMLDivElement>(null);
   const overlayRef = useRef<HTMLDivElement>(null);
   const closeButtonRef = useRef<HTMLButtonElement>(null);
-  const soundCanvasRef = useRef<HTMLCanvasElement>(null);
 
   // Refs for animation/logic state
   const draggableInstance = useRef<Draggable[] | null>(null);
-  const animationFrameRef = useRef<number>(0);
 
   // Temporary storage for zoom transition elements
   const currentScalingOverlayRef = useRef<HTMLDivElement | null>(null);
@@ -52,43 +56,16 @@ const Gallery: React.FC = () => {
     item: GridItem;
   } | null>(null);
   const currentFlipAnimationRef = useRef<gsap.core.Tween | null>(null);
-  const currentAmplitudeRef = useRef(0);
 
   const [isZoomed, setIsZoomed] = useState(false);
   const [activeZoom, setActiveZoom] = useState(0.6); // Default zoom level
+  const activeZoomRef = useRef(activeZoom);
+
+  useLayoutEffect(() => {
+    activeZoomRef.current = activeZoom;
+  }, [activeZoom]);
+
   const [loadingProgress, setLoadingProgress] = useState(0); // For percentage indicator
-  const [isSoundActive, setIsSoundActive] = useState(false);
-
-  // Sound System State
-  const audioRefs = useRef<{ [key: string]: HTMLAudioElement }>({});
-
-  // Initialize Audio
-  useEffect(() => {
-    const audioUrls = {
-      click: "https://assets.codepen.io/7558/glitch-fx-001.mp3",
-      open: "https://assets.codepen.io/7558/click-glitch-001.mp3",
-      close: "https://assets.codepen.io/7558/click-glitch-001.mp3",
-      "zoom-in": "https://assets.codepen.io/7558/whoosh-fx-001.mp3",
-      "zoom-out": "https://assets.codepen.io/7558/whoosh-fx-001.mp3",
-    };
-
-    Object.entries(audioUrls).forEach(([key, url]) => {
-      const audio = new Audio(url);
-      audio.volume = 0.3;
-      audioRefs.current[key] = audio;
-    });
-  }, []);
-
-  const playSound = (name: string) => {
-    if (!isSoundActive || !audioRefs.current[name]) return;
-    try {
-      const audio = audioRefs.current[name];
-      audio.currentTime = 0;
-      audio.play().catch(() => {});
-    } catch {
-      // Ignore audio errors
-    }
-  };
 
   // Helper to split text into lines matching reference logic
   const splitTextIntoLines = (element: HTMLElement, text: string) => {
@@ -205,8 +182,8 @@ const Gallery: React.FC = () => {
   }, []); // Run once on mount
 
   // Calculate bounds for Draggable
-  const getBounds = (zoomLevel = activeZoom) => {
-    const zoom = zoomLevel;
+  const getBounds = useCallback((zoomLevel?: number) => {
+    const zoom = zoomLevel ?? activeZoomRef.current;
     const cols = 20;
     const rows = 20;
     const scaledWidth = BASE_WIDTH * zoom;
@@ -238,7 +215,7 @@ const Gallery: React.FC = () => {
       minY: viewportHeight - maxGridY,
       maxY: -minGridY,
     };
-  };
+  }, []);
 
   // Handle Zoom Change Effects (Draggable updates)
   useEffect(() => {
@@ -248,7 +225,7 @@ const Gallery: React.FC = () => {
     if (draggableInstance.current && draggableInstance.current[0]) {
       draggableInstance.current[0].applyBounds(getBounds());
     }
-  }, [activeZoom, isZoomed]);
+  }, [activeZoom, isZoomed, getBounds]);
 
   // Handle Resize
   useEffect(() => {
@@ -259,17 +236,17 @@ const Gallery: React.FC = () => {
     };
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
-  }, [activeZoom]);
+  }, [getBounds]);
 
-  // Initialize Draggable and Animations
+  // Initialize Draggable and Intro Animation
   useEffect(() => {
-    if (!canvasWrapperRef.current || isZoomed) return;
+    if (!canvasWrapperRef.current) return;
 
-    // Center the grid initially (vw/2, vh/2 because items are centered around 0,0)
+    // Center the grid initially
     gsap.set(canvasWrapperRef.current, {
       x: window.innerWidth / 2,
       y: window.innerHeight / 2,
-      scale: activeZoom,
+      scale: activeZoomRef.current,
     });
 
     // Initialize Draggable
@@ -278,9 +255,6 @@ const Gallery: React.FC = () => {
       edgeResistance: 0.65,
       bounds: getBounds(),
       inertia: true,
-      onDrag: function () {
-        // Optional: parallax or other effects
-      },
     });
 
     // Intro Animation for Grid Items
@@ -296,6 +270,7 @@ const Gallery: React.FC = () => {
           amount: 1.5,
           grid: [20, 20],
           from: "center",
+          ease: "power2.inOut",
         },
         ease: "power3.out",
         onComplete: () => {
@@ -311,114 +286,29 @@ const Gallery: React.FC = () => {
         draggableInstance.current[0].kill();
       }
     };
-  }, [items.length]); // Re-run when items are generated
+  }, [getBounds]);
+
+  // Update Layout on Zoom Change
+  useEffect(() => {
+    if (!canvasWrapperRef.current || isZoomed) return;
+
+    // Animate scale update
+    gsap.to(canvasWrapperRef.current, {
+      scale: activeZoom,
+      duration: 0.5,
+      ease: "power2.out",
+    });
+
+    // Update Draggable bounds
+    if (draggableInstance.current && draggableInstance.current[0]) {
+      draggableInstance.current[0].applyBounds(getBounds(activeZoom));
+    }
+  }, [activeZoom, isZoomed, getBounds]);
 
   // Sound System Logic
   useEffect(() => {
-    const canvas = soundCanvasRef.current;
-    if (!canvas) return;
-
-    const ctx = canvas.getContext("2d");
-    if (!ctx) return;
-
-    const startTime = Date.now();
-
-    const interpolateColor = (
-      color1: string,
-      color2: string,
-      factor: number,
-    ) => {
-      const r1 = parseInt(color1.substring(1, 3), 16);
-      const g1 = parseInt(color1.substring(3, 5), 16);
-      const b1 = parseInt(color1.substring(5, 7), 16);
-
-      const r2 = parseInt(color2.substring(1, 3), 16);
-      const g2 = parseInt(color2.substring(3, 5), 16);
-      const b2 = parseInt(color2.substring(5, 7), 16);
-
-      const r = Math.round(r1 + factor * (r2 - r1))
-        .toString(16)
-        .padStart(2, "0");
-      const g = Math.round(g1 + factor * (g2 - g1))
-        .toString(16)
-        .padStart(2, "0");
-      const b = Math.round(b1 + factor * (b2 - b1))
-        .toString(16)
-        .padStart(2, "0");
-
-      return `#${r}${g}${b}`;
-    };
-
-    const drawWave = () => {
-      const targetAmplitude = isSoundActive ? 1 : 0;
-      currentAmplitudeRef.current +=
-        (targetAmplitude - currentAmplitudeRef.current) * 0.08;
-
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-      // Stop drawing if silent and amplitude is negligible
-      if (!isSoundActive && currentAmplitudeRef.current < 0.01) {
-        ctx.fillStyle = "#D9C4AA"; // Mute color
-        ctx.fillRect(0, canvas.height / 2, canvas.width, 2);
-        return;
-      }
-
-      const time = (Date.now() - startTime) / 1000;
-      const centerY = canvas.height / 2;
-      const width = canvas.width;
-      const height = canvas.height;
-      const muteFactor = 1 - currentAmplitudeRef.current;
-
-      const primaryColor = "#18181B"; // Zinc 900
-      const accentColor = "#A64B23";
-      const muteColor = "#52525b"; // Zinc 600
-
-      // First wave
-      ctx.fillStyle = interpolateColor(primaryColor, muteColor, muteFactor);
-      for (let i = 0; i < width; i++) {
-        const x = i - width / 2;
-        // Gaussian window
-        const e = Math.exp((-x * x) / 50);
-        const y =
-          centerY +
-          Math.cos(x * 0.4 - time * 8) *
-            e *
-            height *
-            0.35 *
-            currentAmplitudeRef.current;
-        ctx.fillRect(i, Math.round(y), 1, 2);
-      }
-
-      // Second wave (accent)
-      ctx.fillStyle = interpolateColor(accentColor, muteColor, muteFactor);
-      for (let i = 0; i < width; i++) {
-        const x = i - width / 2;
-        const e = Math.exp((-x * x) / 80);
-        const y =
-          centerY +
-          Math.cos(x * 0.3 - time * 5) *
-            e *
-            height *
-            0.25 *
-            currentAmplitudeRef.current;
-        ctx.fillRect(i, Math.round(y), 1, 2);
-      }
-
-      animationFrameRef.current = requestAnimationFrame(drawWave);
-    };
-
-    drawWave();
-
-    return () => cancelAnimationFrame(animationFrameRef.current);
-  }, [isSoundActive]);
-
-  const toggleSound = () => {
-    if (!isSoundActive) {
-      // Just turned on
-      setTimeout(() => playSound("click"), 50);
-    }
-    setIsSoundActive(!isSoundActive);
-  };
+    // Sound system logic removed
+  }, []);
 
   // Zoom Logic
   const handleItemClick = (item: GridItem, e: React.MouseEvent) => {
@@ -432,8 +322,8 @@ const Gallery: React.FC = () => {
       draggableInstance.current[0].disable();
     }
 
-    playSound("click");
-    playSound("zoom-in");
+    // playSound("click");
+    // playSound("zoom-in");
 
     setIsZoomed(true);
     document.body.classList.add("zoom-mode");
@@ -641,8 +531,8 @@ const Gallery: React.FC = () => {
   const handleZoom = (newZoom: number) => {
     if (activeZoom === newZoom) return;
 
-    const isZoomingIn = newZoom > activeZoom;
-    playSound(isZoomingIn ? "zoom-in" : "zoom-out");
+    // const isZoomingIn = newZoom > activeZoom;
+    // playSound(isZoomingIn ? "zoom-in" : "zoom-out"); removed
 
     if (!canvasWrapperRef.current) return;
 
@@ -781,18 +671,6 @@ const Gallery: React.FC = () => {
             <span className="indicator-dot"></span>FIT
           </button>
         </div>
-        <button
-          className={`sound-toggle ${isSoundActive ? "active" : ""}`}
-          onClick={toggleSound}
-          aria-label={isSoundActive ? "Mute sound" : "Unmute sound"}
-        >
-          <canvas
-            ref={soundCanvasRef}
-            className="sound-wave-canvas"
-            width="32"
-            height="16"
-          ></canvas>
-        </button>
       </div>
 
       {/* Close Button */}

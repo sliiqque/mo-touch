@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useLayoutEffect, useState } from "react";
+import React, { useLayoutEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
@@ -6,48 +6,8 @@ gsap.registerPlugin(ScrollTrigger);
 
 const Contact: React.FC = () => {
   const containerRef = useRef<HTMLDivElement>(null);
-  const cursorRef = useRef<HTMLDivElement>(null);
   const marqueeRef = useRef<HTMLDivElement>(null);
   const [activeItem, setActiveItem] = useState<number | null>(null);
-
-  // Sound System
-  const audioRefs = useRef<{ [key: string]: HTMLAudioElement }>({});
-
-  useEffect(() => {
-    const audioUrls = {
-      click: "https://assets.codepen.io/7558/glitch-fx-001.mp3",
-    };
-
-    Object.entries(audioUrls).forEach(([key, url]) => {
-      const audio = new Audio(url);
-      audio.volume = 0.2;
-      audioRefs.current[key] = audio;
-    });
-  }, []);
-
-  const playSound = (name: string) => {
-    if (audioRefs.current[name]) {
-      const audio = audioRefs.current[name];
-      audio.currentTime = 0;
-      audio.play().catch(() => {});
-    }
-  };
-
-  // Custom Cursor Logic
-  useEffect(() => {
-    const onMouseMove = (e: MouseEvent) => {
-      if (cursorRef.current) {
-        gsap.to(cursorRef.current, {
-          x: e.clientX,
-          y: e.clientY,
-          duration: 0.1,
-          ease: "power2.out",
-        });
-      }
-    };
-    window.addEventListener("mousemove", onMouseMove);
-    return () => window.removeEventListener("mousemove", onMouseMove);
-  }, []);
 
   // Animations
   useLayoutEffect(() => {
@@ -130,7 +90,7 @@ const Contact: React.FC = () => {
           position: relative;
           overflow-y: auto;
           overflow-x: hidden;
-          cursor: none;
+          /* Cursor managed by Layout/CustomCursor */
           display: flex;
           flex-direction: column;
           justify-content: space-between;
@@ -144,32 +104,6 @@ const Contact: React.FC = () => {
         .contact-page {
             -ms-overflow-style: none;
             scrollbar-width: none;
-        }
-
-        .custom-cursor {
-          position: fixed;
-          top: 0;
-          left: 0;
-          width: 20px;
-          height: 20px;
-          background: #fff;
-          border-radius: 50%;
-          pointer-events: none;
-          mix-blend-mode: difference;
-          z-index: 9999;
-          transform: translate(-50%, -50%);
-        }
-
-        .noise-overlay {
-          position: fixed;
-          top: 0;
-          left: 0;
-          width: 100%;
-          height: 100%;
-          pointer-events: none;
-          z-index: 0;
-          opacity: 0.05;
-          background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
         }
 
         .header-section, .contact-list, .marquee-container {
@@ -221,7 +155,7 @@ const Contact: React.FC = () => {
         .contact-item {
             position: relative;
             padding: 4rem 0;
-            cursor: none;
+            cursor: pointer; /* Restored pointer cursor for interactive items */
             transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
@@ -341,9 +275,6 @@ const Contact: React.FC = () => {
         }
       `}</style>
 
-      <div className="noise-overlay"></div>
-      <div className="custom-cursor" ref={cursorRef}></div>
-
       <div className="header-section">
         <div className="page-subtitle reveal-text">// UPLINK_TERMINAL</div>
         <h1 className="page-title">
@@ -364,10 +295,10 @@ const Contact: React.FC = () => {
             className={`contact-item ${activeItem !== null && activeItem !== index ? "dimmed" : ""}`}
             onMouseEnter={() => {
               setActiveItem(index);
-              playSound("hover");
+              // playSound("hover"); removed
             }}
             onMouseLeave={() => setActiveItem(null)}
-            onClick={() => playSound("click")}
+            // onClick={() => playSound("click")} removed
           >
             <div className="divider-line"></div>
             <a href={item.link} className="contact-link">

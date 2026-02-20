@@ -35,8 +35,7 @@ body {
   color: var(--color-text-primary);
   overflow: hidden;
   height: 100vh;
-  cursor: -webkit-grab;
-  cursor: grab;
+  cursor: none; /* Custom cursor used */
 }
 
 body.dragging {
@@ -688,40 +687,6 @@ h3 {
   border-radius: 0.25em;
   transition: padding 0.3s ease-in-out;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-}
-
-.sound-toggle {
-  background-color: #f0f0f0;
-  background-image: radial-gradient(rgba(0, 0, 0, 0.015) 1px, transparent 0);
-  background-size: 0.44em 0.44em;
-  background-position: -0.06em -0.06em;
-  padding: 0.5em 0.75em;
-  border-radius: 0.25em;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  min-width: 3.75em;
-  position: relative;
-  border-color: transparent;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-}
-
-.sound-wave-canvas {
-  width: 2em;
-  height: 1em;
-  border: none !important;
-  outline: none !important;
-  background: none !important;
-}
-
-.sound-toggle.active .sound-wave-canvas {
-  opacity: 1;
-}
-
-.sound-toggle:hover .sound-wave-canvas {
-  opacity: 0.8;
 }
 
 .switch-button {
