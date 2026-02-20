@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState, useLayoutEffect } from "react";
+import { createPortal } from "react-dom";
 import gsap from "gsap";
 import { Draggable, Flip } from "gsap/all";
 import { imageData, fashionImages } from "../data";
@@ -629,17 +630,20 @@ const Gallery: React.FC = () => {
       </div>
 
       {/* Image Title Overlay */}
-      <div className="image-title-overlay" ref={overlayRef}>
-        <div className="image-slide-number" id="imageSlideNumber">
-          <span>01</span>
-        </div>
-        <div className="image-slide-title" id="imageSlideTitle">
-          <h1>TITLE HERE</h1>
-        </div>
-        <div className="image-slide-description" id="imageSlideDescription">
-          {/* Description lines will be injected here */}
-        </div>
-      </div>
+      {createPortal(
+        <div className="image-title-overlay" ref={overlayRef}>
+          <div className="image-slide-number" id="imageSlideNumber">
+            <span>01</span>
+          </div>
+          <div className="image-slide-title" id="imageSlideTitle">
+            <h1>TITLE HERE</h1>
+          </div>
+          <div className="image-slide-description" id="imageSlideDescription">
+            {/* Description lines will be injected here */}
+          </div>
+        </div>,
+        document.body,
+      )}
 
       {/* Controls */}
       <div
