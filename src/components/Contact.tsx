@@ -293,10 +293,11 @@ const Contact: React.FC = () => {
         
         .marquee-container {
             width: 100%;
-            padding: 12rem 0;
             overflow: hidden;
-            background: #0a0a0a;
+            padding: 12rem 0;
             border-top: 2px solid rgba(255,255,255,0.4);
+            margin-top: 3rem;
+            background: #0a0a0a;
         }
         
         .marquee-content {
