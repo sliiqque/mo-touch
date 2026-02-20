@@ -199,15 +199,62 @@ const Gallery: React.FC = () => {
     return () => clearInterval(interval);
   }, []); // Run once on mount
 
+  // Calculate bounds for Draggable
+  const getBounds = () => {
+    const zoom = activeZoom;
+    const cols = 20;
+    const rows = 20;
+    const scaledWidth = BASE_WIDTH * zoom;
+    const scaledHeight = BASE_HEIGHT * zoom;
+    const scaledGap = BASE_GAP * zoom;
+
+    const centerX = Math.floor(cols / 2);
+    const centerY = Math.floor(rows / 2);
+
+    // Calculate grid dimensions relative to center (0,0)
+    // Leftmost edge of the first item (col 0)
+    const minGridX = (0 - centerX) * (scaledWidth + scaledGap);
+    // Rightmost edge of the last item (col 19)
+    const maxGridX =
+      (cols - 1 - centerX) * (scaledWidth + scaledGap) + scaledWidth;
+
+    // Topmost edge
+    const minGridY = (0 - centerY) * (scaledHeight + scaledGap);
+    // Bottommost edge
+    const maxGridY =
+      (rows - 1 - centerY) * (scaledHeight + scaledGap) + scaledHeight;
+
+    const viewportWidth = window.innerWidth;
+    const viewportHeight = window.innerHeight;
+
+    return {
+      minX: viewportWidth - maxGridX,
+      maxX: -minGridX,
+      minY: viewportHeight - maxGridY,
+      maxY: -minGridY,
+    };
+  };
+
   // Handle Zoom Change Effects (Draggable updates)
   useEffect(() => {
     if (isZoomed) return;
 
     // Update Draggable bounds if needed
     if (draggableInstance.current && draggableInstance.current[0]) {
-      // Logic to update bounds based on new size...
+      draggableInstance.current[0].applyBounds(getBounds());
     }
   }, [activeZoom, isZoomed]);
+
+  // Handle Resize
+  useEffect(() => {
+    const handleResize = () => {
+      if (draggableInstance.current && draggableInstance.current[0]) {
+        draggableInstance.current[0].applyBounds(getBounds());
+      }
+    };
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, [activeZoom]);
 
   // Initialize Draggable and Animations
   useEffect(() => {
@@ -220,7 +267,7 @@ const Gallery: React.FC = () => {
     draggableInstance.current = Draggable.create(canvasWrapperRef.current, {
       type: "x,y",
       edgeResistance: 0.65,
-      bounds: { minX: -2000, maxX: 2000, minY: -2000, maxY: 2000 }, // Simplified bounds
+      bounds: getBounds(),
       inertia: true,
       onDrag: function () {
         // Optional: parallax or other effects
