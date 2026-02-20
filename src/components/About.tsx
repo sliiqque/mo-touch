@@ -1,7 +1,7 @@
-import React, { useEffect, useRef, useLayoutEffect } from "react";
-import gsap from "gsap";
 import { Draggable } from "gsap/all";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import gsap from "gsap";
+import React, { useEffect, useRef, useLayoutEffect } from "react";
 
 gsap.registerPlugin(Draggable, ScrollTrigger);
 

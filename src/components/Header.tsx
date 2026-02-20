@@ -58,9 +58,16 @@ const Header: React.FC = () => {
             </Link>
           </li>
           <li>
-            <a href="#" style={{ opacity: 0.5 }}>
+            <Link
+              to="/contact"
+              style={{
+                opacity: isActive("/contact") ? 1 : 0.5,
+                textDecoration: isActive("/contact") ? "underline" : "none",
+                textUnderlineOffset: "4px",
+              }}
+            >
               Contact
-            </a>
+            </Link>
           </li>
         </ul>
       </div>
