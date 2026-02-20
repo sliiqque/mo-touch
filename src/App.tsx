@@ -4,6 +4,7 @@ import Preloader from "./components/Preloader";
 import Header from "./components/Header";
 import Gallery from "./components/Gallery";
 import About from "./components/About";
+import Services from "./components/Services";
 import Footer from "./components/Footer";
 
 const App: React.FC = () => {
@@ -23,6 +24,7 @@ const App: React.FC = () => {
         <Routes>
           <Route path="/" element={<Gallery />} />
           <Route path="/about" element={<About />} />
+          <Route path="/services" element={<Services />} />
         </Routes>
         <Footer />
       </div>

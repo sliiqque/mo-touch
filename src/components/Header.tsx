@@ -46,9 +46,16 @@ const Header: React.FC = () => {
             </Link>
           </li>
           <li>
-            <a href="#" style={{ opacity: 0.5 }}>
+            <Link
+              to="/services"
+              style={{
+                opacity: isActive("/services") ? 1 : 0.5,
+                textDecoration: isActive("/services") ? "underline" : "none",
+                textUnderlineOffset: "4px",
+              }}
+            >
               Services
-            </a>
+            </Link>
           </li>
           <li>
             <a href="#" style={{ opacity: 0.5 }}>
