@@ -1,11 +1,15 @@
 import React, { useEffect, useRef, useState, useLayoutEffect } from "react";
 import { createPortal } from "react-dom";
 import gsap from "gsap";
-import { Draggable, Flip } from "gsap/all";
+import { Draggable, Flip, CustomEase } from "gsap/all";
 import { imageData, fashionImages } from "../data";
 
 // Register GSAP plugins
-gsap.registerPlugin(Draggable, Flip);
+gsap.registerPlugin(Draggable, Flip, CustomEase);
+
+// Custom Eases
+const customEase = CustomEase.create("smooth", ".87,0,.13,1");
+const centerEase = CustomEase.create("center", ".25,.46,.45,.94");
 
 interface GridItem {
   id: number;
@@ -148,7 +152,8 @@ const Gallery: React.FC = () => {
 
   // Generate Grid Data
   const items = React.useMemo(() => {
-    const zoom = activeZoom;
+    // Fixed layout, not dependent on activeZoom
+    const zoom = 1;
     const cols = 20;
     const rows = 20;
     const gridItems: GridItem[] = [];
@@ -181,7 +186,7 @@ const Gallery: React.FC = () => {
       }
     }
     return gridItems;
-  }, [activeZoom]);
+  }, []);
 
   // Initial Setup (Loading only)
   useLayoutEffect(() => {
@@ -200,8 +205,8 @@ const Gallery: React.FC = () => {
   }, []); // Run once on mount
 
   // Calculate bounds for Draggable
-  const getBounds = () => {
-    const zoom = activeZoom;
+  const getBounds = (zoomLevel = activeZoom) => {
+    const zoom = zoomLevel;
     const cols = 20;
     const rows = 20;
     const scaledWidth = BASE_WIDTH * zoom;
@@ -260,8 +265,12 @@ const Gallery: React.FC = () => {
   useEffect(() => {
     if (!canvasWrapperRef.current || isZoomed) return;
 
-    // Center the grid initially
-    gsap.set(canvasWrapperRef.current, { x: 0, y: 0 });
+    // Center the grid initially (vw/2, vh/2 because items are centered around 0,0)
+    gsap.set(canvasWrapperRef.current, {
+      x: window.innerWidth / 2,
+      y: window.innerHeight / 2,
+      scale: activeZoom,
+    });
 
     // Initialize Draggable
     draggableInstance.current = Draggable.create(canvasWrapperRef.current, {
@@ -629,6 +638,49 @@ const Gallery: React.FC = () => {
     currentFlipAnimationRef.current = flipAnim as gsap.core.Tween;
   };
 
+  const handleZoom = (newZoom: number) => {
+    if (activeZoom === newZoom) return;
+
+    const isZoomingIn = newZoom > activeZoom;
+    playSound(isZoomingIn ? "zoom-in" : "zoom-out");
+
+    if (!canvasWrapperRef.current) return;
+
+    if (draggableInstance.current && draggableInstance.current[0]) {
+      draggableInstance.current[0].disable();
+    }
+
+    const vw = window.innerWidth;
+    const vh = window.innerHeight;
+
+    const tl = gsap.timeline({
+      onComplete: () => {
+        setActiveZoom(newZoom);
+        if (draggableInstance.current && draggableInstance.current[0]) {
+          draggableInstance.current[0].enable();
+          draggableInstance.current[0].applyBounds(getBounds(newZoom));
+        }
+      },
+    });
+
+    tl.to(canvasWrapperRef.current, {
+      duration: 0.6,
+      x: vw / 2,
+      y: vh / 2,
+      ease: centerEase,
+    });
+
+    tl.to(
+      canvasWrapperRef.current,
+      {
+        duration: 1.2,
+        scale: newZoom,
+        ease: customEase,
+      },
+      "-=0.2",
+    );
+  };
+
   return (
     <>
       {/* Viewport & Grid */}
@@ -638,8 +690,8 @@ const Gallery: React.FC = () => {
             className="grid-container"
             ref={gridContainerRef}
             style={{
-              width: `${20 * (BASE_WIDTH * activeZoom + BASE_GAP * activeZoom)}px`,
-              height: `${20 * (BASE_HEIGHT * activeZoom + BASE_GAP * activeZoom)}px`,
+              width: `${20 * (BASE_WIDTH + BASE_GAP)}px`,
+              height: `${20 * (BASE_HEIGHT + BASE_GAP)}px`,
             }}
           >
             {items.map((item) => (
@@ -649,8 +701,8 @@ const Gallery: React.FC = () => {
                 onClick={(e) => handleItemClick(item, e)}
                 style={{
                   transform: `translate3d(${item.x}px, ${item.y}px, 0)`,
-                  width: `${BASE_WIDTH * activeZoom}px`,
-                  height: `${BASE_HEIGHT * activeZoom}px`,
+                  width: `${BASE_WIDTH}px`,
+                  height: `${BASE_HEIGHT}px`,
                 }}
               >
                 <img src={item.img} alt={item.title} loading="lazy" />
@@ -704,19 +756,19 @@ const Gallery: React.FC = () => {
         <div className="switch" id="controls">
           <button
             className={`switch-button ${activeZoom === 0.3 ? "switch-button-current" : ""}`}
-            onClick={() => setActiveZoom(0.3)}
+            onClick={() => handleZoom(0.3)}
           >
             <span className="indicator-dot"></span>ZOOM OUT
           </button>
           <button
             className={`switch-button ${activeZoom === 0.6 ? "switch-button-current" : ""}`}
-            onClick={() => setActiveZoom(0.6)}
+            onClick={() => handleZoom(0.6)}
           >
             <span className="indicator-dot"></span>NORMAL
           </button>
           <button
             className={`switch-button ${activeZoom === 1.0 ? "switch-button-current" : ""}`}
-            onClick={() => setActiveZoom(1.0)}
+            onClick={() => handleZoom(1.0)}
           >
             <span className="indicator-dot"></span>ZOOM IN
           </button>
