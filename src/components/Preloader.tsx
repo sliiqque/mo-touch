@@ -24,9 +24,6 @@ const Preloader: React.FC<{ onComplete: () => void }> = ({ onComplete }) => {
     let startTime: number | null = null;
     const duration = 2500; // Slightly longer than 2s for smooth exit
 
-    const centerX = canvas.width / 2;
-    const centerY = canvas.height / 2;
-
     const dotRings = [
       { radius: 20, count: 8 },
       { radius: 35, count: 12 },
