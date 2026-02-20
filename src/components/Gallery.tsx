@@ -369,9 +369,9 @@ const Gallery: React.FC = () => {
       const height = canvas.height;
       const muteFactor = 1 - currentAmplitudeRef.current;
 
-      const primaryColor = "#2C1B14";
+      const primaryColor = "#18181B"; // Zinc 900
       const accentColor = "#A64B23";
-      const muteColor = "#D9C4AA";
+      const muteColor = "#52525b"; // Zinc 600
 
       // First wave
       ctx.fillStyle = interpolateColor(primaryColor, muteColor, muteFactor);
@@ -784,6 +784,7 @@ const Gallery: React.FC = () => {
         <button
           className={`sound-toggle ${isSoundActive ? "active" : ""}`}
           onClick={toggleSound}
+          aria-label={isSoundActive ? "Mute sound" : "Unmute sound"}
         >
           <canvas
             ref={soundCanvasRef}

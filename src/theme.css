@@ -1,0 +1,65 @@
+:root {
+  /* Design System: Creative Portfolio Dark */
+
+  /* Colors */
+  --color-bg: #09090b; /* Zinc 950 */
+  --color-surface: #18181b; /* Zinc 900 */
+  --color-surface-hover: #27272a; /* Zinc 800 */
+
+  --color-text-primary: #fafafa; /* Zinc 50 */
+  --color-text-secondary: #a1a1aa; /* Zinc 400 */
+  --color-text-muted: #52525b; /* Zinc 600 */
+
+  --color-accent: #a64b23; /* Rust/Orange from Preloader */
+  --color-accent-hover: #c25e34;
+
+  /* Typography */
+  --font-family-display: "PPNeueMontreal", "Archivo", sans-serif;
+  --font-family-body: "PPNeueMontreal", "Space Grotesk", sans-serif;
+
+  /* Spacing */
+  --spacing-xs: 0.25rem;
+  --spacing-sm: 0.5rem;
+  --spacing-md: 1rem;
+  --spacing-lg: 2rem;
+  --spacing-xl: 4rem;
+
+  /* Layout */
+  --container-width: 1440px;
+  --header-height: 80px;
+
+  /* Animation */
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --duration-normal: 0.6s;
+
+  /* Z-Index */
+  --z-header: 100;
+  --z-overlay: 200;
+  --z-cursor: 9999;
+}
+
+/* Utility Classes */
+.text-primary {
+  color: var(--color-text-primary);
+}
+.text-secondary {
+  color: var(--color-text-secondary);
+}
+.bg-surface {
+  background-color: var(--color-surface);
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-bg);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-surface-hover);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-text-muted);
+}

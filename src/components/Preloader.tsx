@@ -33,7 +33,7 @@ const Preloader: React.FC<{ onComplete: () => void }> = ({ onComplete }) => {
     ];
 
     const colors = {
-      primary: "#2C1B14",
+      primary: "#52525b", // Zinc 600 (muted)
       accent: "#A64B23", // Orange/Rust
     };
 
@@ -132,6 +132,8 @@ const Preloader: React.FC<{ onComplete: () => void }> = ({ onComplete }) => {
     <div
       ref={overlayRef}
       className="preloader-overlay"
+      role="progressbar"
+      aria-label="Loading application"
       style={{
         position: "fixed",
         top: 0,
@@ -139,7 +141,6 @@ const Preloader: React.FC<{ onComplete: () => void }> = ({ onComplete }) => {
         width: "100%",
         height: "100%",
         zIndex: 9999,
-        background: "#0a0a0a",
         transition: "opacity 0.5s ease",
       }}
     >
