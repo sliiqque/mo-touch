@@ -239,7 +239,6 @@ const Contact: React.FC = () => {
         .item-id {
             font-family: 'TheGoodMonolith', monospace;
             font-size: 1.8rem;
-            color: #fff;
             font-weight: bold;
         }
 
@@ -262,23 +261,16 @@ const Contact: React.FC = () => {
             font-weight: 900;
             line-height: 1;
             text-transform: uppercase;
-            color: #ffffff !important; /* Force white */
             transition: color 0.3s ease, transform 0.3s ease;
             text-shadow: none; /* Remove shadow to ensure sharpness */
         }
 
-        .contact-item:hover .item-value {
-            color: #A64B23;
-            transform: translateX(20px);
-        }
-        
         .item-subvalue {
             font-size: 2rem;
             font-weight: 500;
             opacity: 1;
             margin-top: 1rem;
             font-family: 'TheGoodMonolith', monospace;
-            color: #ffffff !important; /* Force white */
         }
         
         .contact-link {
@@ -301,11 +293,10 @@ const Contact: React.FC = () => {
         
         .marquee-container {
             width: 100%;
+            padding: 12rem 0;
             overflow: hidden;
-            padding: 6rem 0;
-            border-top: 2px solid rgba(255,255,255,0.4);
-            margin-top: 6rem;
             background: #0a0a0a;
+            border-top: 2px solid rgba(255,255,255,0.4);
         }
         
         .marquee-content {
@@ -393,10 +384,6 @@ const Contact: React.FC = () => {
             </a>
           </div>
         ))}
-        <div
-          className="divider-line"
-          style={{ position: "relative", marginTop: 0 }}
-        ></div>
       </div>
 
       <div className="marquee-container">
