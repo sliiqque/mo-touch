@@ -2,10 +2,12 @@ import React, { useEffect, useRef, useState, useLayoutEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useUI } from "../context/UIContext";
 
 gsap.registerPlugin(ScrollTrigger);
 
 const Header: React.FC = () => {
+  const { isZoomed } = useUI();
   const location = useLocation();
   const headerRef = useRef<HTMLDivElement>(null);
   const logoRef = useRef<HTMLDivElement>(null);
@@ -108,7 +110,15 @@ const Header: React.FC = () => {
     <div className="header" ref={headerRef}>
       {/* Left: Logo */}
       <div className="nav-section logo-area">
-        <div className="logo-container" ref={logoRef}>
+        <div
+          className="logo-container"
+          ref={logoRef}
+          style={{
+            pointerEvents: isZoomed ? "none" : "auto",
+            opacity: isZoomed ? 0.3 : 1,
+            transition: "opacity 0.3s",
+          }}
+        >
           <Link to="/">
             <div className="logo-circles">
               <div className="circle circle-1"></div>
@@ -143,7 +153,14 @@ const Header: React.FC = () => {
       {/* Right: Navigation & Time */}
       <div className="values-section nav-area">
         <div className="time-display">{time}</div>
-        <ul ref={menuRef}>
+        <ul
+          ref={menuRef}
+          style={{
+            pointerEvents: isZoomed ? "none" : "auto",
+            opacity: isZoomed ? 0.3 : 1,
+            transition: "opacity 0.3s",
+          }}
+        >
           {["Work", "About", "Services", "Contact"].map((item) => {
             const path = item === "Work" ? "/" : `/${item.toLowerCase()}`;
             return (

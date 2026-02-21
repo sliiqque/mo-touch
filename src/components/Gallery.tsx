@@ -9,6 +9,7 @@ import { createPortal } from "react-dom";
 import gsap from "gsap";
 import { Draggable, Flip, CustomEase } from "gsap/all";
 import { imageData, fashionImages } from "../data";
+import { useUI } from "../context/UIContext";
 
 // Register GSAP plugins
 gsap.registerPlugin(Draggable, Flip, CustomEase);
@@ -57,13 +58,50 @@ const Gallery: React.FC = () => {
   } | null>(null);
   const currentFlipAnimationRef = useRef<gsap.core.Tween | null>(null);
 
-  const [isZoomed, setIsZoomed] = useState(false);
+  const { isZoomed, setIsZoomed } = useUI();
   const [activeZoom, setActiveZoom] = useState(0.6); // Default zoom level
   const activeZoomRef = useRef(activeZoom);
 
   useLayoutEffect(() => {
     activeZoomRef.current = activeZoom;
   }, [activeZoom]);
+
+  // Cleanup on unmount to ensure no leftover overlays or states
+  useEffect(() => {
+    return () => {
+      // Clean up overlay if it exists
+      const overlay = currentScalingOverlayRef.current;
+      if (overlay && overlay.parentNode) {
+        overlay.parentNode.removeChild(overlay);
+      }
+
+      // Reset body class
+      document.body.classList.remove("zoom-mode");
+
+      // Reset global zoom state
+      setIsZoomed(false);
+
+      // Kill any active flip animation
+      if (currentFlipAnimationRef.current) {
+        currentFlipAnimationRef.current.kill();
+      }
+
+      // Reset UI elements
+      if (splitScreenRef.current) {
+        splitScreenRef.current.classList.remove("active");
+        gsap.set(splitScreenRef.current, { opacity: 0 });
+      }
+
+      if (closeButtonRef.current) {
+        closeButtonRef.current.classList.remove("active");
+        gsap.set(closeButtonRef.current, { opacity: 0 });
+      }
+
+      if (controlsRef.current) {
+        controlsRef.current.classList.remove("split-mode");
+      }
+    };
+  }, [setIsZoomed]);
 
   const [loadingProgress, setLoadingProgress] = useState(0); // For percentage indicator
 
