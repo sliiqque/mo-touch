@@ -1,4 +1,4 @@
-import React, { useLayoutEffect, useRef, useState } from "react";
+import React, { useLayoutEffect, useRef, useState, useEffect } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
@@ -53,6 +53,41 @@ const Contact: React.FC = () => {
     return () => ctx.revert();
   }, []);
 
+  // Fallback animation for page reload
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      // Ensure elements are visible even if GSAP fails
+      const revealElements = document.querySelectorAll(".reveal-text");
+      const contactElements = document.querySelectorAll(".contact-item");
+      const lineElements = document.querySelectorAll(".divider-line");
+
+      revealElements.forEach((el) => {
+        const element = el as HTMLElement;
+        element.style.opacity = "1";
+        element.style.transform = "translateY(0)";
+      });
+
+      contactElements.forEach((el) => {
+        const element = el as HTMLElement;
+        element.style.opacity = "1";
+        element.style.transform = "translateY(0)";
+      });
+
+      lineElements.forEach((el) => {
+        const element = el as HTMLElement;
+        element.style.transform = "scaleX(1)";
+      });
+
+      // Ensure marquee is animating
+      if (marqueeRef.current) {
+        marqueeRef.current.style.transform = "translateX(-50%)";
+        marqueeRef.current.style.transition = "transform 20s linear infinite";
+      }
+    }, 500);
+
+    return () => clearTimeout(timer);
+  }, []);
+
   const contactItems = [
     {
       id: "01",
@@ -79,202 +114,6 @@ const Contact: React.FC = () => {
 
   return (
     <div className="contact-page" ref={containerRef}>
-      <style>{`
-        .contact-page {
-          height: 100vh;
-          width: 100vw;
-          background-color: #0a0a0a;
-          color: #e0e0e0;
-          font-family: 'PPNeueMontreal', sans-serif;
-          padding: 120px 5vw 40px 5vw;
-          position: relative;
-          overflow-y: auto;
-          overflow-x: hidden;
-          /* Cursor managed by Layout/CustomCursor */
-          display: flex;
-          flex-direction: column;
-          justify-content: space-between;
-          -webkit-overflow-scrolling: touch;
-        }
-
-        .contact-page::-webkit-scrollbar {
-            display: none;
-        }
-        
-        .contact-page {
-            -ms-overflow-style: none;
-            scrollbar-width: none;
-        }
-
-        .header-section, .contact-list, .marquee-container {
-            position: relative;
-            z-index: 2;
-        }
-
-        .header-section {
-          margin-bottom: 4rem;
-        }
-
-        .page-title {
-          font-size: 12vw;
-          line-height: 0.85;
-          font-weight: 800;
-          text-transform: uppercase;
-          margin: 0;
-          color: transparent;
-          -webkit-text-stroke: 2px #fff;
-          position: relative;
-          z-index: 1;
-        }
-        
-        .page-subtitle {
-          font-family: 'TheGoodMonolith', monospace;
-          font-size: 1.5rem;
-          margin-top: 2rem;
-          color: #FF5722; /* Brighter orange for visibility */
-          letter-spacing: 0.1em;
-          display: block;
-          font-weight: bold;
-        }
-
-        .divider-line {
-          height: 2px;
-          background: rgba(255, 255, 255, 0.4);
-          width: 100%;
-          position: absolute;
-          top: 0;
-          left: 0;
-        }
-
-        .contact-list {
-            display: flex;
-            flex-direction: column;
-            width: 100%;
-        }
-
-        .contact-item {
-            position: relative;
-            padding: 4rem 0;
-            cursor: pointer; /* Restored pointer cursor for interactive items */
-            transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-
-        .contact-item.dimmed {
-            opacity: 1;
-        }
-
-        .contact-content {
-            display: grid;
-            grid-template-columns: 1fr 3fr auto;
-            align-items: flex-start;
-            gap: 2rem;
-        }
-
-        .item-id {
-            font-family: 'TheGoodMonolith', monospace;
-            font-size: 1.8rem;
-            font-weight: bold;
-        }
-
-        .item-main {
-            display: flex;
-            flex-direction: column;
-            gap: 0.5rem;
-        }
-
-        .item-label {
-            font-family: 'TheGoodMonolith', monospace;
-            font-size: 1.2rem;
-            color: #FF5722; /* Brighter orange for visibility */
-            margin-bottom: 1rem;
-            font-weight: 700;
-        }
-
-        .item-value {
-            font-size: 6vw;
-            font-weight: 900;
-            line-height: 1;
-            text-transform: uppercase;
-            transition: color 0.3s ease, transform 0.3s ease;
-            text-shadow: none; /* Remove shadow to ensure sharpness */
-        }
-
-        .item-subvalue {
-            font-size: 2rem;
-            font-weight: 500;
-            opacity: 1;
-            margin-top: 1rem;
-            font-family: 'TheGoodMonolith', monospace;
-        }
-        
-        .contact-link {
-            text-decoration: none;
-            color: inherit;
-            display: block;
-        }
-        
-        .arrow-icon {
-            font-size: 5vw;
-            color: #FF5722; /* Brighter orange */
-            opacity: 1;
-            transform: translateX(0);
-            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-        
-        .contact-item:hover .arrow-icon {
-            transform: translateX(10px) scale(1.1);
-        }
-        
-        .marquee-container {
-            width: 100%;
-            overflow: hidden;
-            padding: 12rem 0;
-            border-top: 2px solid rgba(255,255,255,0.4);
-            margin-top: 3rem;
-            background: #0a0a0a;
-        }
-        
-        .marquee-content {
-            display: flex;
-            white-space: nowrap;
-            width: fit-content;
-            align-items: center;
-        }
-        
-        .marquee-item {
-            font-size: 10vw;
-            font-weight: 900;
-            color: #fff;
-            margin-right: 6rem;
-            text-transform: uppercase;
-            transition: color 0.3s;
-            -webkit-text-stroke: 0;
-            line-height: 1.4;
-            padding-bottom: 0.2em;
-        }
-        
-        .marquee-item:hover {
-            color: transparent;
-            -webkit-text-stroke: 1px #A64B23;
-        }
-
-        @media (max-width: 768px) {
-          .contact-content {
-            grid-template-columns: 1fr;
-            gap: 1rem;
-          }
-          .item-value {
-            font-size: 10vw;
-          }
-          .page-title {
-            font-size: 15vw;
-          }
-          .arrow-icon {
-            display: none;
-          }
-        }
-      `}</style>
-
       <div className="header-section">
         <div className="page-subtitle reveal-text">// UPLINK_TERMINAL</div>
         <h1 className="page-title">

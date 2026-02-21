@@ -1,5 +1,6 @@
 @import url("https://fonts.cdnfonts.com/css/thegoodmonolith");
 @import url("https://fonts.googleapis.com/css2?family=Archivo:wght@300;400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap");
+@import "./styles/pages.css";
 
 @font-face {
   font-family: "PPNeueMontreal";
@@ -777,6 +778,37 @@ h3 {
   -o-object-fit: cover;
   object-fit: cover;
   display: block;
+}
+
+/* Page loading states */
+.page-loading .reveal-text,
+.page-loading .service-item,
+.page-loading .contact-item,
+.page-loading .divider-line {
+  opacity: 0 !important;
+  transform: translateY(50px) !important;
+  transition: all 0.6s ease !important;
+}
+
+.page-loaded .reveal-text,
+.page-loaded .service-item,
+.page-loaded .contact-item,
+.page-loaded .divider-line {
+  opacity: 1 !important;
+  transform: translateY(0) !important;
+}
+
+/* Ensure immediate visibility on page load */
+.about-page .reveal-text,
+.services-page .service-header-text,
+.services-page .service-item,
+.services-page .divider-line,
+.contact-page .reveal-text,
+.contact-page .contact-item,
+.contact-page .divider-line {
+  opacity: 1;
+  transform: translateY(0);
+  transition: all 0.6s ease;
 }
 
 /* Page vignette effect */

@@ -1,4 +1,4 @@
-import React, { useLayoutEffect, useRef } from "react";
+import React, { useLayoutEffect, useRef, useEffect } from "react";
 import gsap from "gsap";
 import { Draggable } from "gsap/all";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -108,21 +108,27 @@ const About: React.FC = () => {
     };
     gsap.ticker.add(tickHandler);
 
-    // Initial Animation
-    gsap.fromTo(
-      ".reveal-text",
-      { y: 100, opacity: 0, rotate: 5 },
-      {
-        y: 0,
-        opacity: 1,
-        rotate: 0,
-        duration: 1,
-        stagger: 0.05,
-        ease: "power3.out",
-      },
-    );
+    // Initial Animation - with better timing and fallback
+    const initAnimations = () => {
+      gsap.fromTo(
+        ".reveal-text",
+        { y: 100, opacity: 0, rotate: 5 },
+        {
+          y: 0,
+          opacity: 1,
+          rotate: 0,
+          duration: 1,
+          stagger: 0.05,
+          ease: "power3.out",
+        },
+      );
+    };
+
+    // Ensure animations run after component is mounted
+    const timer = setTimeout(initAnimations, 100);
 
     return () => {
+      clearTimeout(timer);
       gsap.ticker.remove(tickHandler);
       window.removeEventListener("resize", updateWidth);
       window.removeEventListener("wheel", onWheel);
@@ -131,159 +137,23 @@ const About: React.FC = () => {
     };
   }, []);
 
+  // Fallback animation for page reload
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      // Ensure elements are visible even if GSAP fails
+      const revealElements = document.querySelectorAll(".reveal-text");
+      revealElements.forEach((el) => {
+        const element = el as HTMLElement;
+        element.style.opacity = "1";
+        element.style.transform = "translateY(0) rotate(0)";
+      });
+    }, 500);
+
+    return () => clearTimeout(timer);
+  }, []);
+
   return (
     <div className="about-page" ref={containerRef}>
-      {/* Styles */}
-      <style>{`
-        .about-page {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            background-color: #0a0a0a;
-            color: #e0e0e0;
-            overflow: hidden;
-            font-family: 'PPNeueMontreal', sans-serif;
-            /* Cursor managed by Layout/CustomCursor */
-        }
-        .scroll-content {
-            display: flex;
-            height: 100%;
-            align-items: center;
-            padding-left: 10vw;
-            padding-right: 10vw;
-            will-change: transform;
-        }
-        .section {
-            flex-shrink: 0;
-            padding: 0 5vw;
-            position: relative;
-        }
-        .hero-text {
-            font-size: 18vw;
-            font-weight: 800;
-            line-height: 0.8;
-            text-transform: uppercase;
-            white-space: nowrap;
-            color: transparent;
-            -webkit-text-stroke: 2px #fff;
-            transition: color 0.3s;
-        }
-        .hero-text:hover {
-            color: #fff;
-        }
-        .manifesto-text {
-            font-size: 4vw;
-            max-width: 60vw;
-            line-height: 1.1;
-            font-weight: 400;
-        }
-        .team-container {
-            display: flex;
-            gap: 2px;
-            height: 60vh;
-        }
-        .team-card {
-            position: relative;
-            width: 15vw;
-            height: 100%;
-            border-right: 1px solid rgba(255,255,255,0.2);
-            border-top: 1px solid rgba(255,255,255,0.2);
-            border-bottom: 1px solid rgba(255,255,255,0.2);
-            overflow: hidden;
-            transition: width 0.5s cubic-bezier(0.25, 1, 0.5, 1);
-            /* Cursor managed by global CSS/CustomCursor */
-        }
-        .team-card:first-child {
-            border-left: 1px solid rgba(255,255,255,0.2);
-        }
-        .team-card:hover {
-            width: 30vw;
-        }
-        .team-card img {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            opacity: 0.4;
-            transition: opacity 0.5s, transform 0.5s;
-            filter: grayscale(100%);
-        }
-        .team-card:hover img {
-            opacity: 0.8;
-            filter: grayscale(0%);
-            transform: scale(1.1);
-        }
-        .team-info {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            padding: 2rem;
-            background: linear-gradient(to top, #000, transparent);
-            transform: translateY(100%);
-            transition: transform 0.5s;
-        }
-        .team-card:hover .team-info {
-            transform: translateY(0);
-        }
-        .team-name {
-            font-size: 2vw;
-            font-weight: 700;
-            margin-bottom: 0.5rem;
-        }
-        .team-role {
-            font-family: 'TheGoodMonolith', monospace;
-            font-size: 1vw;
-            color: #A64B23;
-        }
-        .about-marquee-section {
-            font-size: 10vw;
-            font-weight: 900;
-            white-space: nowrap;
-            display: flex;
-            align-items: center;
-        }
-        .marquee-item {
-            margin-right: 4vw;
-            color: #333;
-            transition: color 0.3s;
-        }
-        .marquee-item:hover {
-            color: #A64B23;
-        }
-        .outline-text {
-            -webkit-text-stroke: 1px rgba(255,255,255,0.3);
-            color: transparent;
-        }
-        .footer-link {
-            font-size: 8vw;
-            text-decoration: none;
-            color: #fff;
-            position: relative;
-            display: inline-block;
-        }
-        .footer-link::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            height: 5px;
-            background: #fff;
-            transform: scaleX(0);
-            transform-origin: right;
-            transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1);
-        }
-        .footer-link:hover::after {
-            transform: scaleX(1);
-            transform-origin: left;
-        }
-      `}</style>
-
       <div className="scroll-content" ref={contentRef}>
         {/* Section 1: Hero */}
         <div className="section">

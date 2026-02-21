@@ -1,0 +1,529 @@
+/* About Page Styles */
+.about-page {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: #0a0a0a;
+  color: #e0e0e0;
+  overflow: hidden;
+  font-family: 'PPNeueMontreal', sans-serif;
+}
+
+.about-page .scroll-content {
+  display: flex;
+  height: 100%;
+  align-items: center;
+  padding-left: 10vw;
+  padding-right: 10vw;
+  will-change: transform;
+}
+
+.about-page .section {
+  flex-shrink: 0;
+  padding: 0 5vw;
+  position: relative;
+}
+
+.about-page .hero-text {
+  font-size: 18vw;
+  font-weight: 800;
+  line-height: 0.8;
+  text-transform: uppercase;
+  white-space: nowrap;
+  color: transparent;
+  -webkit-text-stroke: 2px #fff;
+  transition: color 0.3s;
+}
+
+.about-page .hero-text:hover {
+  color: #fff;
+}
+
+.about-page .manifesto-text {
+  font-size: 4vw;
+  max-width: 60vw;
+  line-height: 1.1;
+  font-weight: 400;
+}
+
+.about-page .team-container {
+  display: flex;
+  gap: 2px;
+  height: 60vh;
+}
+
+.about-page .team-card {
+  position: relative;
+  width: 15vw;
+  height: 100%;
+  border-right: 1px solid rgba(255,255,255,0.2);
+  border-top: 1px solid rgba(255,255,255,0.2);
+  border-bottom: 1px solid rgba(255,255,255,0.2);
+  overflow: hidden;
+  transition: width 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.about-page .team-card:first-child {
+  border-left: 1px solid rgba(255,255,255,0.2);
+}
+
+.about-page .team-card:hover {
+  width: 30vw;
+}
+
+.about-page .team-card img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.4;
+  transition: opacity 0.5s, transform 0.5s;
+  filter: grayscale(100%);
+}
+
+.about-page .team-card:hover img {
+  opacity: 0.8;
+  filter: grayscale(0%);
+  transform: scale(1.1);
+}
+
+.about-page .team-info {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding: 2rem;
+  background: linear-gradient(to top, #000, transparent);
+  transform: translateY(100%);
+  transition: transform 0.5s;
+}
+
+.about-page .team-card:hover .team-info {
+  transform: translateY(0);
+}
+
+.about-page .team-name {
+  font-size: 2vw;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+.about-page .team-role {
+  font-family: 'TheGoodMonolith', monospace;
+  font-size: 1vw;
+  color: #A64B23;
+}
+
+.about-page .about-marquee-section {
+  font-size: 10vw;
+  font-weight: 900;
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
+}
+
+.about-page .marquee-item {
+  margin-right: 4vw;
+  color: #333;
+  transition: color 0.3s;
+}
+
+.about-page .marquee-item:hover {
+  color: #A64B23;
+}
+
+.about-page .outline-text {
+  -webkit-text-stroke: 1px rgba(255,255,255,0.3);
+  color: transparent;
+}
+
+.about-page .footer-link {
+  font-size: 8vw;
+  text-decoration: none;
+  color: #fff;
+  position: relative;
+  display: inline-block;
+}
+
+.about-page .footer-link::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 5px;
+  background: #fff;
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.about-page .footer-link:hover::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+/* Services Page Styles */
+.services-page {
+  height: 100vh;
+  width: 100vw;
+  background-color: #0a0a0a;
+  color: #e0e0e0;
+  font-family: 'PPNeueMontreal', sans-serif;
+  padding: 120px 5vw 5vw 5vw;
+  position: relative;
+  overflow-y: auto;
+  overflow-x: hidden;
+  cursor: none;
+  -webkit-overflow-scrolling: touch;
+}
+
+.services-page::-webkit-scrollbar {
+  display: none;
+}
+
+.services-page {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.services-page .header-section {
+  margin-bottom: 8rem;
+  position: relative;
+}
+
+.services-page .page-title {
+  font-size: 12vw;
+  line-height: 0.85;
+  font-weight: 800;
+  text-transform: uppercase;
+  margin: 0;
+  color: transparent;
+  -webkit-text-stroke: 1px #fff;
+  position: relative;
+  z-index: 1;
+}
+
+.services-page .page-title span {
+  display: block;
+}
+
+.services-page .page-subtitle {
+  font-family: 'TheGoodMonolith', monospace;
+  font-size: 1.2rem;
+  margin-top: 2rem;
+  color: #A64B23;
+  letter-spacing: 0.1em;
+}
+
+.services-page .services-list {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.services-page .service-item {
+  position: relative;
+  padding: 4rem 0;
+  cursor: none;
+  transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.services-page .service-item:hover {
+  padding-left: 2rem;
+}
+
+.services-page .service-item.dimmed {
+  opacity: 0.2;
+  filter: blur(2px);
+}
+
+.services-page .divider-line {
+  height: 1px;
+  background: rgba(255, 255, 255, 0.2);
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.services-page .service-content {
+  display: grid;
+  grid-template-columns: 1fr 3fr 1fr;
+  align-items: flex-start;
+  gap: 2rem;
+}
+
+.services-page .service-id {
+  font-family: 'TheGoodMonolith', monospace;
+  font-size: 1.5rem;
+  color: #666;
+}
+
+.services-page .service-main {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.services-page .service-title {
+  font-size: 5vw;
+  font-weight: 700;
+  line-height: 1;
+  text-transform: uppercase;
+  transition: color 0.3s ease;
+}
+
+.services-page .service-item:hover .service-title {
+  color: #A64B23;
+}
+
+.services-page .service-desc {
+  font-size: 1.5rem;
+  font-weight: 300;
+  max-width: 600px;
+  opacity: 0.7;
+  margin-top: 1rem;
+}
+
+.services-page .service-tags {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  font-family: 'TheGoodMonolith', monospace;
+  font-size: 0.9rem;
+  color: #888;
+  text-align: right;
+}
+
+.services-page .service-tag-item {
+  opacity: 0;
+  transform: translateX(20px);
+  transition: all 0.4s ease;
+}
+
+.services-page .service-item:hover .service-tag-item {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* Contact Page Styles */
+.contact-page {
+  height: 100vh;
+  width: 100vw;
+  background-color: #0a0a0a;
+  color: #e0e0e0;
+  font-family: 'PPNeueMontreal', sans-serif;
+  padding: 120px 5vw 40px 5vw;
+  position: relative;
+  overflow-y: auto;
+  overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  -webkit-overflow-scrolling: touch;
+}
+
+.contact-page::-webkit-scrollbar {
+  display: none;
+}
+
+.contact-page {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.contact-page .header-section,
+.contact-page .contact-list,
+.contact-page .marquee-container {
+  position: relative;
+  z-index: 2;
+}
+
+.contact-page .header-section {
+  margin-bottom: 4rem;
+}
+
+.contact-page .page-title {
+  font-size: 12vw;
+  line-height: 0.85;
+  font-weight: 800;
+  text-transform: uppercase;
+  margin: 0;
+  color: transparent;
+  -webkit-text-stroke: 2px #fff;
+  position: relative;
+  z-index: 1;
+}
+
+.contact-page .page-subtitle {
+  font-family: 'TheGoodMonolith', monospace;
+  font-size: 1.5rem;
+  margin-top: 2rem;
+  color: #FF5722;
+  letter-spacing: 0.1em;
+  display: block;
+  font-weight: bold;
+}
+
+.contact-page .divider-line {
+  height: 2px;
+  background: rgba(255, 255, 255, 0.4);
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.contact-page .contact-list {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.contact-page .contact-item {
+  position: relative;
+  padding: 4rem 0;
+  cursor: pointer;
+  transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.contact-page .contact-item.dimmed {
+  opacity: 1;
+}
+
+.contact-page .contact-content {
+  display: grid;
+  grid-template-columns: 1fr 3fr auto;
+  align-items: flex-start;
+  gap: 2rem;
+}
+
+.contact-page .item-id {
+  font-family: 'TheGoodMonolith', monospace;
+  font-size: 1.8rem;
+  font-weight: bold;
+}
+
+.contact-page .item-main {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.contact-page .item-label {
+  font-family: 'TheGoodMonolith', monospace;
+  font-size: 1.2rem;
+  color: #FF5722;
+  margin-bottom: 1rem;
+  font-weight: 700;
+}
+
+.contact-page .item-value {
+  font-size: 6vw;
+  font-weight: 900;
+  line-height: 1;
+  text-transform: uppercase;
+  transition: color 0.3s ease, transform 0.3s ease;
+  text-shadow: none;
+}
+
+.contact-page .item-subvalue {
+  font-size: 2rem;
+  font-weight: 500;
+  opacity: 1;
+  margin-top: 1rem;
+  font-family: 'TheGoodMonolith', monospace;
+}
+
+.contact-page .contact-link {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+}
+
+.contact-page .arrow-icon {
+  font-size: 5vw;
+  color: #FF5722;
+  opacity: 1;
+  transform: translateX(0);
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.contact-page .contact-item:hover .arrow-icon {
+  transform: translateX(10px) scale(1.1);
+}
+
+.contact-page .marquee-container {
+  width: 100%;
+  overflow: hidden;
+  padding: 12rem 0;
+  border-top: 2px solid rgba(255,255,255,0.4);
+  margin-top: 3rem;
+  background: #0a0a0a;
+}
+
+.contact-page .marquee-content {
+  display: flex;
+  white-space: nowrap;
+  width: fit-content;
+  align-items: center;
+}
+
+.contact-page .marquee-item {
+  font-size: 10vw;
+  font-weight: 900;
+  color: #fff;
+  margin-right: 6rem;
+  text-transform: uppercase;
+  transition: color 0.3s;
+  -webkit-text-stroke: 0;
+  line-height: 1.4;
+  padding-bottom: 0.2em;
+}
+
+.contact-page .marquee-item:hover {
+  color: transparent;
+  -webkit-text-stroke: 1px #A64B23;
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+  .services-page .service-content {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  
+  .services-page .service-tags {
+    flex-direction: row;
+    flex-wrap: wrap;
+    text-align: left;
+    margin-top: 1rem;
+  }
+  
+  .services-page .service-tag-item {
+    opacity: 1;
+    transform: none;
+  }
+  
+  .contact-page .contact-content {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  
+  .contact-page .item-value {
+    font-size: 10vw;
+  }
+  
+  .contact-page .page-title {
+    font-size: 15vw;
+  }
+  
+  .contact-page .arrow-icon {
+    display: none;
+  }
+}
