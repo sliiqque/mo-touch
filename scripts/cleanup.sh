@@ -19,7 +19,7 @@ echo "🗑️ Removing development-only files..."
 rm -f check_images.cjs
 rm -f BEAUTY_BRAND_COPYWRITING.md
 
-# Clean up console.log statements
+# Remove console.log statements
 echo "🧹 Removing console.log statements..."
 find src -name "*.tsx" -o -name "*.ts" -exec grep -l "console.log" {} + \; | cut -d: -f1
 if [ -n "$LOG_FILES" ]; then
