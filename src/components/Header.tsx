@@ -31,11 +31,11 @@ const Header: React.FC = () => {
       const date = new Date();
       setTime(
         date.toLocaleTimeString("en-US", {
-          timeZone: "America/Los_Angeles",
+          timeZone: "Africa/Lagos",
           hour: "2-digit",
           minute: "2-digit",
           hour12: false,
-        }) + " LA",
+        }) + " NG",
       );
     };
     updateTime();
@@ -133,18 +133,21 @@ const Header: React.FC = () => {
         <div className="marquee-section">
           <div className="marquee-wrapper">
             <div className="marquee-content" ref={marqueeRef}>
-              <span>AVAILABLE FOR NEW PROJECTS • </span>
-              <span>CREATIVE DEVELOPMENT • </span>
-              <span>UI/UX DESIGN • </span>
-              <span>MOTION GRAPHICS • </span>
-              <span>AVAILABLE FOR NEW PROJECTS • </span>
-              <span>CREATIVE DEVELOPMENT • </span>
-              <span>UI/UX DESIGN • </span>
-              <span>MOTION GRAPHICS • </span>
-              <span>AVAILABLE FOR NEW PROJECTS • </span>
-              <span>CREATIVE DEVELOPMENT • </span>
-              <span>UI/UX DESIGN • </span>
-              <span>MOTION GRAPHICS • </span>
+              <span>BRIDAL MAKEUP • </span>
+              <span>EDITORIAL • </span>
+              <span>INSTRUCTION • </span>
+              <span>SPECIAL FX • </span>
+              <span>TRANSFORMING FACES • </span>
+              <span>BRIDAL MAKEUP • </span>
+              <span>EDITORIAL • </span>
+              <span>INSTRUCTION • </span>
+              <span>SPECIAL FX • </span>
+              <span>TRANSFORMING FACES • </span>
+              <span>BRIDAL MAKEUP • </span>
+              <span>EDITORIAL • </span>
+              <span>INSTRUCTION • </span>
+              <span>SPECIAL FX • </span>
+              <span>TRANSFORMING FACES • </span>
             </div>
           </div>
         </div>

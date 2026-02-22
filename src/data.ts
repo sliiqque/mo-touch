@@ -1,139 +1,191 @@
-export const fashionImages = Array.from({ length: 14 }, (_, i) => {
-  const paddedNumber = String(i + 1).padStart(2, "0");
-  return `https://assets.codepen.io/7558/orange-portrait_${paddedNumber}.jpg`;
-});
+export const fashionImages = [
+  // Beauty & Makeup Professional Images
+  "https://images.unsplash.com/photo-1596462502278-27d4435e6452?w=800&q=80&auto=format&fit=crop",
+  "https://images.unsplash.com/photo-1522337660859-02fbefca4702?w=800&q=80&auto=format&fit=crop",
+  "https://images.unsplash.com/photo-1516975080664-ed2fc6a32937?w=800&q=80&auto=format&fit=crop",
+  "https://images.unsplash.com/photo-1500917293891-ef795e70e1f6?w=800&q=80&auto=format&fit=crop",
+  "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=800&q=80&auto=format&fit=crop",
+  "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=800&q=80&auto=format&fit=crop",
+  "https://images.unsplash.com/photo-1531123897727-8f129e1688ce?w=800&q=80&auto=format&fit=crop",
+  "https://images.unsplash.com/photo-1512257715808-54355b9b63e1?w=800&q=80&auto=format&fit=crop",
+  "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=800&q=80&auto=format&fit=crop",
+  "https://images.unsplash.com/photo-1524250502761-1ac6f2e30d43?w=800&q=80&auto=format&fit=crop",
+  "https://images.unsplash.com/photo-1526413232648-66508e1b3827?w=800&q=80&auto=format&fit=crop",
+  "https://images.unsplash.com/photo-1515688594390-b649af70d282?w=800&q=80&auto=format&fit=crop",
+  "https://images.unsplash.com/photo-1523264939339-c89f9dadde2e?w=800&q=80&auto=format&fit=crop",
+
+  // Additional Beauty & Fashion Images
+  "https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?w=800&q=80&auto=format&fit=crop",
+  "https://images.unsplash.com/photo-1540555700478-4be289fbecef?w=800&q=80&auto=format&fit=crop",
+  "https://images.unsplash.com/photo-1483985988355-763728e1935b?w=800&q=80&auto=format&fit=crop",
+  "https://images.unsplash.com/photo-1502823403499-6ccfcf4fb453?w=800&q=80&auto=format&fit=crop",
+  "https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=800&q=80&auto=format&fit=crop",
+  "https://images.unsplash.com/photo-1415204667335-09631a6a0f5b?w=800&q=80&auto=format&fit=crop",
+  "https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=800&q=80&auto=format&fit=crop",
+  "https://images.unsplash.com/photo-1470225620780-dba8ba36b745?w=800&q=80&auto=format&fit=crop",
+  "https://images.unsplash.com/photo-1434389677669-e08b4cac3105?w=800&q=80&auto=format&fit=crop",
+  "https://images.unsplash.com/photo-1483985988355-763728e1935b?w=800&q=80&auto=format&fit=crop",
+  "https://images.unsplash.com/photo-1515372039744-b8f02a3ae446?w=800&q=80&auto=format&fit=crop",
+  "https://images.unsplash.com/photo-1544968159-87ec3c13c5f7?w=800&q=80&auto=format&fit=crop",
+  "https://images.unsplash.com/photo-1496747611176-843222e1e57c?w=800&q=80&auto=format&fit=crop",
+  "https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?w=800&q=80&auto=format&fit=crop",
+  "https://images.unsplash.com/photo-1578632292335-df3abbb0d586?w=800&q=80&auto=format&fit=crop",
+  "https://images.unsplash.com/photo-1521310194094-4b5c3d8c9a70?w=800&q=80&auto=format&fit=crop",
+  "https://images.unsplash.com/photo-1512496015851-a90fb38ba796?w=800&q=80&auto=format&fit=crop",
+  "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=800&q=80&auto=format&fit=crop",
+  "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800&q=80&auto=format&fit=crop",
+  "https://images.unsplash.com/photo-1558769132-cb1aea458c5e?w=800&q=80&auto=format&fit=crop",
+];
 
 export const imageData = [
   {
     number: "01",
-    title: "Begin Before You’re Ready",
+    title: "Bridal Perfection",
     description:
-      "The work starts when you notice the quiet pull. Breathe once, clear the room inside you, and move one pixel forward."
+      "Timeless beauty for your special day. Flawless, long-lasting application that withstands tears of joy and celebration.",
   },
   {
     number: "02",
-    title: "Negative Space, Positive Signal",
+    title: "Editorial Glamour",
     description:
-      "Leave room around the idea. In the silence, the design answers back and shows you what to remove."
+      "Bold, artistic looks designed for the camera. High-impact makeup that tells a story and captures imagination.",
   },
   {
     number: "03",
-    title: "Friction Is a Teacher",
+    title: "Natural Radiance",
     description:
-      "When the line resists, listen. Constraints are coordinates—plot them, then chart a cleaner route."
+      "Enhancing your features with subtle techniques. The 'no-makeup' makeup look perfected for everyday elegance.",
   },
   {
     number: "04",
-    title: "Golden Minute",
+    title: "Runway Ready",
     description:
-      "Catch the light while it’s honest. One honest frame beats a hundred almosts."
+      "Avant-garde concepts and precise execution for fashion shows and creative projects that push boundaries.",
   },
   {
     number: "05",
-    title: "Shadow Carries Form",
+    title: "Masterclass Session",
     description:
-      "The dark reveals the edge. Let contrast articulate what you mean but can’t yet say."
+      "Sharing the art of makeup through hands-on training for aspiring artists and personal grooming mastery.",
   },
   {
     number: "06",
-    title: "City Breath",
+    title: "Special Effects",
     description:
-      "Steel, glass, heartbeat. Edit until the street’s rhythm fits inside a single grid."
+      "Transformative character makeup for film, theater, and costume events that bring fantasies to life.",
   },
   {
     number: "07",
-    title: "Soft Focus, Sharp Intent",
+    title: "Red Carpet Glow",
     description:
-      "Blur the noise, not the purpose. What matters remains in crisp relief."
+      "Sophisticated, polished looks for galas and award ceremonies. Be the star of the night with confidence.",
   },
   {
     number: "08",
-    title: "Time-Tested, Future-Ready",
+    title: "Cultural Heritage",
     description:
-      "Classics survive because they serve. Keep the spine, tune the surface, respect the lineage."
+      "Traditional bridal makeup honoring cultural roots with modern elegance and contemporary sophistication.",
   },
   {
     number: "09",
-    title: "Grace Under Revision",
+    title: "Studio Portrait",
     description:
-      "Drafts don’t apologize. They evolve. Let elegance emerge through cuts, not flourishes."
+      "Makeup specifically calibrated for studio lighting and high-definition photography that captures perfection.",
   },
   {
     number: "10",
-    title: "Style That Outlasts Seasons",
+    title: "Creative Vision",
     description:
-      "Trends talk. Principles walk. Build on principles and let trends accessorize."
+      "Pushing boundaries with color and texture. Where makeup meets fine art in extraordinary expressions.",
   },
   {
     number: "11",
-    title: "Edges and Experiments",
+    title: "Everyday Confidence",
     description:
-      "Push just past comfort. Leave a fingerprint the algorithm can’t fake."
+      "Practical, beautiful techniques for your daily routine. Look your best, every day with minimal effort.",
   },
   {
     number: "12",
-    title: "Portrait of Attention",
+    title: "Destination Wedding",
     description:
-      "Form is what you see. Presence is what you feel. Aim for presence."
+      "Climate-resistant makeup for beach, garden, and tropical wedding locations that lasts through any weather.",
   },
   {
     number: "13",
-    title: "Light Speaks First",
+    title: "Fashion Editorial",
     description:
-      "Expose for truth. Shadows are sentences, highlights the punctuation."
+      "Collaborative artistry with stylists and photographers to create iconic images that define trends.",
   },
   {
     number: "14",
-    title: "Contemporary Is a Moving Target",
+    title: "Beauty Evolution",
     description:
-      "Design for now by listening deeper than now. The signal is older than the feed."
+      "Staying ahead of trends while maintaining classic principles of beauty that stand the test of time.",
   },
   {
     number: "15",
-    title: "Vision, Then Precision",
+    title: "Corporate Elegance",
     description:
-      "Dream wide, ship tight. Let imagination roam and execution walk in single-point focus."
+      "Professional makeup for business settings that enhances features while maintaining workplace appropriateness.",
   },
   {
     number: "16",
-    title: "Geometry of Poise",
+    title: "Glamour Nights",
     description:
-      "Angles carry attitude. Align posture, light, and line until the frame breathes."
+      "Dramatic, evening looks for special occasions and nightlife that command attention and admiration.",
   },
   {
     number: "17",
-    title: "Natural Light, Natural Truth",
+    title: "Minimalist Chic",
     description:
-      "Open the window and remove the mask. Authenticity needs less wattage, more honesty."
+      "Less is more approach focusing on skin quality and subtle enhancements that reveal natural beauty.",
   },
   {
     number: "18",
-    title: "Studio: The Controlled Wild",
+    title: "Vintage Revival",
     description:
-      "Dial every knob, then listen for the unscripted moment. Keep the lens ready."
+      "Classic makeup styles from different eras reimagined with modern techniques and products.",
   },
   {
     number: "19",
-    title: "Invent the Angle",
+    title: "Artistic Expression",
     description:
-      "Rotate the problem ninety degrees. Fresh perspective isn’t luck—it’s a habit."
+      "Body painting and creative makeup projects that transform the human canvas into living art.",
   },
   {
     number: "20",
-    title: "Editorial Nerve",
+    title: "Seasonal Beauty",
     description:
-      "Carry yourself like you belong, then earn it with craft. The camera can tell."
+      "Makeup adaptations for different seasons and weather conditions that protect and enhance year-round.",
   },
   {
     number: "21",
-    title: "Profession Is Practice",
+    title: "Mature Beauty",
     description:
-      "Repeat the fundamentals until they disappear. Mastery is subtle on purpose."
+      "Specialized techniques for mature skin that enhances natural beauty while addressing age-related concerns.",
   },
   {
     number: "22",
-    title: "Final Frame, Open Door",
+    title: "Men's Grooming",
     description:
-      "Endings are launchpads. Archive the take, thank the light, and start again at one."
-  }
+      "Subtle enhancement techniques for men that refine features while maintaining masculine authenticity.",
+  },
+  {
+    number: "23",
+    title: "Fantasy Makeup",
+    description:
+      "Imaginative and otherworldly designs for themed events, cosplay, and creative photography.",
+  },
+  {
+    number: "24",
+    title: "Beauty Therapy",
+    description:
+      "Corrective makeup techniques that address skin concerns and boost self-confidence through artistry.",
+  },
+  {
+    number: "25",
+    title: "Luxury Experience",
+    description:
+      "Premium makeup services using high-end products and techniques for exclusive clientele and events.",
+  },
 ];

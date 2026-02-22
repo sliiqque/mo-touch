@@ -4,17 +4,71 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 gsap.registerPlugin(ScrollTrigger);
 
+interface ContactItem {
+  id: string;
+  label: string;
+  value: string;
+  subValue?: string;
+  link: string;
+}
+
 const Contact: React.FC = () => {
   const containerRef = useRef<HTMLDivElement>(null);
   const marqueeRef = useRef<HTMLDivElement>(null);
   const [activeItem, setActiveItem] = useState<number | null>(null);
 
+  const contactItems: ContactItem[] = [
+    {
+      id: "01",
+      label: "BOOK APPOINTMENT",
+      value: "08160601219",
+      subValue: "Response within 24 hours",
+      link: "tel:+2348160601219",
+    },
+    {
+      id: "02",
+      label: "EMAIL INQUIRIES",
+      value: "SAINT4AMOS@GMAIL.COM",
+      subValue: "Professional consultations available",
+      link: "mailto:saint4amos@gmail.com",
+    },
+    {
+      id: "03",
+      label: "INSTAGRAM",
+      value: "@MOTOUCH_BEAUTY_EMPIRE",
+      subValue: "Daily work updates & portfolio",
+      link: "https://www.instagram.com/motouch_beauty_empire",
+    },
+    {
+      id: "04",
+      label: "TIKTOK",
+      value: "@ANAMBRABIGGESTVENDOR",
+      subValue: "Video content & updates",
+      link: "https://www.tiktok.com/@anambrabiggestvendor",
+    },
+    {
+      id: "05",
+      label: "FACEBOOK",
+      value: "MOTOUCH BEAUTY EMPIRE",
+      subValue: "Community & announcements",
+      link: "https://web.facebook.com/motouchbeautyempire",
+    },
+    {
+      id: "06",
+      label: "LOCATION",
+      value: "AWKA, ANAMBRA STATE",
+      subValue: "Nigeria",
+      link: "https://maps.google.com/?q=Awka,Anambra+State,Nigeria",
+    },
+  ];
+
   // Animations
   useLayoutEffect(() => {
     const ctx = gsap.context(() => {
-      // Header Animation - remove opacity: 0 to ensure visibility
-      gsap.from(".reveal-text", {
+      // Header Animation - match Services page style
+      gsap.from(".contact-header-text", {
         y: 100,
+        opacity: 0,
         duration: 1,
         stagger: 0.1,
         ease: "power3.out",
@@ -30,13 +84,17 @@ const Contact: React.FC = () => {
         delay: 0.5,
       });
 
-      // Contact items - remove autoAlpha: 0 to ensure visibility
-      gsap.from(".contact-item", {
-        y: 50,
+      // Contact items - match Services page style
+      gsap.set(".contact-item", { autoAlpha: 0, y: 50 });
+
+      gsap.to(".contact-item", {
         duration: 0.8,
+        autoAlpha: 1,
+        y: 0,
         stagger: 0.1,
         ease: "power2.out",
         delay: 0.2,
+        clearProps: "transform",
       });
 
       // Marquee Animation
@@ -57,11 +115,11 @@ const Contact: React.FC = () => {
   useEffect(() => {
     const timer = setTimeout(() => {
       // Ensure elements are visible even if GSAP fails
-      const revealElements = document.querySelectorAll(".reveal-text");
+      const headerElements = document.querySelectorAll(".contact-header-text");
       const contactElements = document.querySelectorAll(".contact-item");
       const lineElements = document.querySelectorAll(".divider-line");
 
-      revealElements.forEach((el) => {
+      headerElements.forEach((el) => {
         const element = el as HTMLElement;
         element.style.opacity = "1";
         element.style.transform = "translateY(0)";
@@ -88,41 +146,24 @@ const Contact: React.FC = () => {
     return () => clearTimeout(timer);
   }, []);
 
-  const contactItems = [
-    {
-      id: "01",
-      label: "DIRECT_LINE",
-      value: "HELLO@MO-TOUCH.COM",
-      subValue: "+1 (555) 000-0000",
-      link: "mailto:hello@mo-touch.com",
-    },
-    {
-      id: "02",
-      label: "HQ_COORDINATES",
-      value: "1200 INDUSTRIAL AVE",
-      subValue: "SECTOR 7G, NY 10001",
-      link: "https://maps.google.com",
-    },
-    {
-      id: "03",
-      label: "SOCIAL_FEED",
-      value: "INSTAGRAM",
-      subValue: "TWITTER / LINKEDIN / BEHANCE",
-      link: "https://instagram.com",
-    },
-  ];
-
   return (
     <div className="contact-page" ref={containerRef}>
       <div className="header-section">
-        <div className="page-subtitle reveal-text">// UPLINK_TERMINAL</div>
-        <h1 className="page-title">
-          <span className="reveal-text">INITIATE</span>
+        <div className="page-subtitle contact-header-text">// CONTACT_MO</div>
+        <h1 className="page-title" style={{ marginTop: "1rem", opacity: 0.4 }}>
+          <span className="contact-header-text">START YOUR</span>
           <span
-            className="reveal-text"
-            style={{ color: "#fff", WebkitTextStroke: "0" }}
+            className="contact-header-text"
+            style={{
+              color: "#fff",
+              display: "flex",
+              WebkitTextStroke: "0",
+              marginTop: "2rem",
+              justifyContent: "end",
+            }}
+            // style={{ color: "#fff", WebkitTextStroke: "0", marginTop: "2rem" }}
           >
-            CONTACT
+            BEAUTY JOURNEY
           </span>
         </h1>
       </div>
@@ -140,7 +181,12 @@ const Contact: React.FC = () => {
             // onClick={() => playSound("click")} removed
           >
             <div className="divider-line"></div>
-            <a href={item.link} className="contact-link">
+            <a
+              href={item.link}
+              className="contact-link"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               <div className="contact-content">
                 <div className="item-id">{item.id}</div>
                 <div className="item-main">
@@ -162,10 +208,10 @@ const Contact: React.FC = () => {
           {/* Duplicated content for seamless loop */}
           {[1, 2, 3, 4].map((i) => (
             <React.Fragment key={i}>
-              <span className="marquee-item">START A PROJECT</span>
-              <span className="marquee-item">SAY HELLO</span>
-              <span className="marquee-item">JOIN THE TEAM</span>
-              <span className="marquee-item">DIGITAL ALCHEMY</span>
+              <span className="marquee-item">BOOK BRIDAL CONSULTATION</span>
+              <span className="marquee-item">SCHEDULE MAKEUP SESSION</span>
+              <span className="marquee-item">RESERVE CLASS SPOT</span>
+              <span className="marquee-item">TRANSFORM YOUR LOOK</span>
             </React.Fragment>
           ))}
         </div>

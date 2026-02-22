@@ -8,7 +8,7 @@
   background-color: #0a0a0a;
   color: #e0e0e0;
   overflow: hidden;
-  font-family: 'PPNeueMontreal', sans-serif;
+  font-family: "PPNeueMontreal", sans-serif;
 }
 
 .about-page .scroll-content {
@@ -22,149 +22,7 @@
 
 .about-page .section {
   flex-shrink: 0;
-  padding: 0 5vw;
   position: relative;
-}
-
-.about-page .hero-text {
-  font-size: 18vw;
-  font-weight: 800;
-  line-height: 0.8;
-  text-transform: uppercase;
-  white-space: nowrap;
-  color: transparent;
-  -webkit-text-stroke: 2px #fff;
-  transition: color 0.3s;
-}
-
-.about-page .hero-text:hover {
-  color: #fff;
-}
-
-.about-page .manifesto-text {
-  font-size: 4vw;
-  max-width: 60vw;
-  line-height: 1.1;
-  font-weight: 400;
-}
-
-.about-page .team-container {
-  display: flex;
-  gap: 2px;
-  height: 60vh;
-}
-
-.about-page .team-card {
-  position: relative;
-  width: 15vw;
-  height: 100%;
-  border-right: 1px solid rgba(255,255,255,0.2);
-  border-top: 1px solid rgba(255,255,255,0.2);
-  border-bottom: 1px solid rgba(255,255,255,0.2);
-  overflow: hidden;
-  transition: width 0.5s cubic-bezier(0.25, 1, 0.5, 1);
-}
-
-.about-page .team-card:first-child {
-  border-left: 1px solid rgba(255,255,255,0.2);
-}
-
-.about-page .team-card:hover {
-  width: 30vw;
-}
-
-.about-page .team-card img {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  opacity: 0.4;
-  transition: opacity 0.5s, transform 0.5s;
-  filter: grayscale(100%);
-}
-
-.about-page .team-card:hover img {
-  opacity: 0.8;
-  filter: grayscale(0%);
-  transform: scale(1.1);
-}
-
-.about-page .team-info {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  padding: 2rem;
-  background: linear-gradient(to top, #000, transparent);
-  transform: translateY(100%);
-  transition: transform 0.5s;
-}
-
-.about-page .team-card:hover .team-info {
-  transform: translateY(0);
-}
-
-.about-page .team-name {
-  font-size: 2vw;
-  font-weight: 700;
-  margin-bottom: 0.5rem;
-}
-
-.about-page .team-role {
-  font-family: 'TheGoodMonolith', monospace;
-  font-size: 1vw;
-  color: #A64B23;
-}
-
-.about-page .about-marquee-section {
-  font-size: 10vw;
-  font-weight: 900;
-  white-space: nowrap;
-  display: flex;
-  align-items: center;
-}
-
-.about-page .marquee-item {
-  margin-right: 4vw;
-  color: #333;
-  transition: color 0.3s;
-}
-
-.about-page .marquee-item:hover {
-  color: #A64B23;
-}
-
-.about-page .outline-text {
-  -webkit-text-stroke: 1px rgba(255,255,255,0.3);
-  color: transparent;
-}
-
-.about-page .footer-link {
-  font-size: 8vw;
-  text-decoration: none;
-  color: #fff;
-  position: relative;
-  display: inline-block;
-}
-
-.about-page .footer-link::after {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  height: 5px;
-  background: #fff;
-  transform: scaleX(0);
-  transform-origin: right;
-  transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1);
-}
-
-.about-page .footer-link:hover::after {
-  transform: scaleX(1);
-  transform-origin: left;
 }
 
 /* Services Page Styles */
@@ -173,7 +31,7 @@
   width: 100vw;
   background-color: #0a0a0a;
   color: #e0e0e0;
-  font-family: 'PPNeueMontreal', sans-serif;
+  font-family: "PPNeueMontreal", sans-serif;
   padding: 120px 5vw 5vw 5vw;
   position: relative;
   overflow-y: auto;
@@ -197,7 +55,7 @@
 }
 
 .services-page .page-title {
-  font-size: 12vw;
+  font-size: 9vw;
   line-height: 0.85;
   font-weight: 800;
   text-transform: uppercase;
@@ -213,11 +71,11 @@
 }
 
 .services-page .page-subtitle {
-  font-family: 'TheGoodMonolith', monospace;
+  font-family: "TheGoodMonolith", monospace;
   font-size: 1.2rem;
   margin-top: 2rem;
-  color: #A64B23;
   letter-spacing: 0.1em;
+  color: var(--color-gold);
 }
 
 .services-page .services-list {
@@ -259,7 +117,7 @@
 }
 
 .services-page .service-id {
-  font-family: 'TheGoodMonolith', monospace;
+  font-family: "TheGoodMonolith", monospace;
   font-size: 1.5rem;
   color: #666;
 }
@@ -271,7 +129,7 @@
 }
 
 .services-page .service-title {
-  font-size: 5vw;
+  font-size: 3.5vw;
   font-weight: 700;
   line-height: 1;
   text-transform: uppercase;
@@ -279,7 +137,7 @@
 }
 
 .services-page .service-item:hover .service-title {
-  color: #A64B23;
+  color: #a64b23;
 }
 
 .services-page .service-desc {
@@ -294,7 +152,7 @@
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
-  font-family: 'TheGoodMonolith', monospace;
+  font-family: "TheGoodMonolith", monospace;
   font-size: 0.9rem;
   color: #888;
   text-align: right;
@@ -317,14 +175,12 @@
   width: 100vw;
   background-color: #0a0a0a;
   color: #e0e0e0;
-  font-family: 'PPNeueMontreal', sans-serif;
-  padding: 120px 5vw 40px 5vw;
+  font-family: "PPNeueMontreal", sans-serif;
+  padding: 120px 5vw 0 5vw;
   position: relative;
   overflow-y: auto;
   overflow-x: hidden;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
+  cursor: none;
   -webkit-overflow-scrolling: touch;
 }
 
@@ -345,34 +201,36 @@
 }
 
 .contact-page .header-section {
-  margin-bottom: 4rem;
+  margin-bottom: 8rem;
 }
 
 .contact-page .page-title {
-  font-size: 12vw;
+  font-size: 9vw;
   line-height: 0.85;
   font-weight: 800;
   text-transform: uppercase;
   margin: 0;
   color: transparent;
-  -webkit-text-stroke: 2px #fff;
+  -webkit-text-stroke: 1px #fff;
   position: relative;
   z-index: 1;
 }
 
-.contact-page .page-subtitle {
-  font-family: 'TheGoodMonolith', monospace;
-  font-size: 1.5rem;
-  margin-top: 2rem;
-  color: #FF5722;
-  letter-spacing: 0.1em;
+.contact-page .page-title span {
   display: block;
-  font-weight: bold;
+}
+
+.contact-page .page-subtitle {
+  font-family: "TheGoodMonolith", monospace;
+  font-size: 1.2rem;
+  margin-top: 2rem;
+  color: var(--color-gold);
+  letter-spacing: 0.1em;
 }
 
 .contact-page .divider-line {
-  height: 2px;
-  background: rgba(255, 255, 255, 0.4);
+  height: 1px;
+  background: rgba(255, 255, 255, 0.2);
   width: 100%;
   position: absolute;
   top: 0;
@@ -388,56 +246,66 @@
 .contact-page .contact-item {
   position: relative;
   padding: 4rem 0;
-  cursor: pointer;
+  cursor: none;
   transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
+.contact-page .contact-item:hover {
+  padding-left: 2rem;
+}
+
 .contact-page .contact-item.dimmed {
-  opacity: 1;
+  opacity: 0.2;
+  filter: blur(2px);
 }
 
 .contact-page .contact-content {
   display: grid;
-  grid-template-columns: 1fr 3fr auto;
+  grid-template-columns: 1fr 3fr 1fr;
   align-items: flex-start;
   gap: 2rem;
 }
 
 .contact-page .item-id {
-  font-family: 'TheGoodMonolith', monospace;
-  font-size: 1.8rem;
-  font-weight: bold;
+  font-family: "TheGoodMonolith", monospace;
+  font-size: 1.5rem;
+  color: #666;
 }
 
 .contact-page .item-main {
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
+  gap: 1rem;
 }
 
 .contact-page .item-label {
-  font-family: 'TheGoodMonolith', monospace;
+  font-family: "TheGoodMonolith", monospace;
   font-size: 1.2rem;
-  color: #FF5722;
-  margin-bottom: 1rem;
-  font-weight: 700;
+  color: #a64b23;
+  margin-bottom: 0;
 }
 
 .contact-page .item-value {
-  font-size: 6vw;
-  font-weight: 900;
+  font-size: 3.5vw;
+  font-weight: 700;
   line-height: 1;
   text-transform: uppercase;
-  transition: color 0.3s ease, transform 0.3s ease;
+  transition:
+    color 0.3s ease,
+    transform 0.3s ease;
   text-shadow: none;
 }
 
+.contact-page .contact-item:hover .item-value {
+  color: #a64b23;
+}
+
 .contact-page .item-subvalue {
-  font-size: 2rem;
-  font-weight: 500;
-  opacity: 1;
+  font-size: 1.5rem;
+  font-weight: 300;
+  opacity: 0.7;
   margin-top: 1rem;
-  font-family: 'TheGoodMonolith', monospace;
+  font-family: "PPNeueMontreal", sans-serif;
 }
 
 .contact-page .contact-link {
@@ -446,25 +314,36 @@
   display: block;
 }
 
+.contact-page .contact-link::after {
+  display: none;
+}
+
+.contact-page .contact-link:hover {
+  color: inherit;
+  mix-blend-mode: normal;
+}
+
 .contact-page .arrow-icon {
-  font-size: 5vw;
-  color: #FF5722;
-  opacity: 1;
-  transform: translateX(0);
-  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  font-size: 2rem;
+  color: #888;
+  opacity: 0;
+  transform: translateX(20px);
+  transition: all 0.4s ease;
+  text-align: right;
+  font-family: "TheGoodMonolith", monospace;
 }
 
 .contact-page .contact-item:hover .arrow-icon {
-  transform: translateX(10px) scale(1.1);
+  opacity: 0;
+  transform: translateX(20px);
 }
 
 .contact-page .marquee-container {
   width: 100%;
   overflow: hidden;
-  padding: 12rem 0;
-  border-top: 2px solid rgba(255,255,255,0.4);
   margin-top: 3rem;
   background: #0a0a0a;
+  border-top: 2px solid rgba(255, 255, 255, 0.4);
 }
 
 .contact-page .marquee-content {
@@ -488,41 +367,244 @@
 
 .contact-page .marquee-item:hover {
   color: transparent;
-  -webkit-text-stroke: 1px #A64B23;
+  -webkit-text-stroke: 1px #a64b23;
 }
 
-/* Responsive styles */
+/* About Page Responsive Styles */
+@media (max-width: 1024px) {
+  .about-page .scroll-content {
+    padding-left: 5vw;
+    padding-right: 5vw;
+  }
+
+  .about-page .section {
+    min-width: 90vw !important;
+  }
+
+  /* Hero section adjustments */
+  .about-page .hero-row h1 {
+    font-size: 8vw !important;
+  }
+
+  /* Artist card */
+  .about-page .artist-card {
+    width: 70vw !important;
+    height: 60vh !important;
+  }
+
+  .about-page .philosophy-content p {
+    font-size: 3vw !important;
+  }
+
+  /* Partners section */
+  .about-page .team-card {
+    width: 40vw !important;
+  }
+
+  /* Testimonials */
+  .about-page .reveal-text[style*="maxWidth: 35vw"] {
+    max-width: 60vw !important;
+    margin-left: 0 !important;
+  }
+}
+
+@media (max-width: 768px) {
+  .about-page {
+    overflow-x: auto;
+    overflow-y: hidden;
+  }
+
+  .about-page .scroll-content {
+    padding-left: 3vw;
+    padding-right: 3vw;
+  }
+
+  .about-page .section {
+    min-width: 100vw !important;
+    height: 100vh;
+    padding: 0 3vw !important;
+  }
+
+  /* Hero typography - mobile friendly */
+  .about-page .hero-row h1 {
+    font-size: 10vw !important;
+  }
+
+  .about-page .hero-row {
+    margin-bottom: 1vh !important;
+    padding-bottom: 1vh !important;
+  }
+
+  /* Top label */
+  .about-page .reveal-text[style*="top: 12vh"] {
+    top: 8vh !important;
+    left: 3vw !important;
+    font-size: 0.7rem !important;
+  }
+
+  /* Vertical decoration */
+  .about-page .reveal-text[style*="right: 5vw"] {
+    right: 3vw !important;
+    width: 1px !important;
+    height: 40vh !important;
+    top: 15vh !important;
+  }
+
+  /* Artist card - mobile */
+  .about-page .artist-card {
+    width: 90vw !important;
+    height: 70vh !important;
+  }
+
+  .about-page .philosophy-content {
+    padding: 2rem !important;
+  }
+
+  .about-page .philosophy-content p {
+    font-size: 4vw !important;
+    line-height: 1.2 !important;
+  }
+
+  .about-page .philosophy-content div[style*="display: flex"] {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 0.5rem !important;
+  }
+
+  /* Partners - mobile stack */
+  .about-page .section[style*="gap: 2rem"] {
+    flex-direction: column !important;
+    gap: 3rem !important;
+    align-items: center !important;
+  }
+
+  .about-page .team-card {
+    width: 80vw !important;
+  }
+
+  /* Testimonials - mobile */
+  .about-page .section[style*="height: 70vh"] {
+    height: 80vh !important;
+    min-width: 100vw !important;
+  }
+
+  .about-page .reveal-text[style*="maxWidth: 35vw"] {
+    max-width: 85vw !important;
+    margin-left: 0 !important;
+    padding-left: 1rem !important;
+  }
+
+  .about-page .reveal-text[style*="fontSize: 1.5rem"] {
+    font-size: 1.2rem !important;
+  }
+
+  /* LOVE and NOTES typography */
+  .about-page h2[style*="fontSize: 18vw"] {
+    font-size: 14vw !important;
+  }
+
+  /* Marquee section */
+  .about-page .marquee-item {
+    font-size: 8vw !important;
+  }
+
+  /* Footer section */
+  .about-page .section[style*="paddingRight: 10vw"] {
+    padding-right: 3vw !important;
+    padding-left: 3vw !important;
+    min-width: 100vw !important;
+  }
+
+  .about-page .footer-link {
+    font-size: 7vw !important;
+  }
+
+  .about-page div[style*="gap: 3rem"] {
+    gap: 1.5rem !important;
+    flex-direction: column !important;
+  }
+}
+
+@media (max-width: 480px) {
+  /* Extra small mobile adjustments */
+  .about-page .hero-row h1 {
+    font-size: 12vw !important;
+  }
+
+  .about-page .artist-card {
+    width: 95vw !important;
+    height: 75vh !important;
+  }
+
+  .about-page .philosophy-content p {
+    font-size: 5vw !important;
+  }
+
+  .about-page .team-card {
+    width: 90vw !important;
+  }
+
+  .about-page .footer-link {
+    font-size: 8vw !important;
+  }
+
+  .about-page .marquee-item {
+    font-size: 10vw !important;
+  }
+}
+
+/* Touch device optimizations */
+@media (hover: none) and (pointer: coarse) {
+  .about-page .artist-card:hover img,
+  .about-page .artist-card:hover .gradient-overlay,
+  .about-page .artist-card:hover .philosophy-content {
+    filter: grayscale(0%) contrast(1.1) !important;
+    transform: scale(1.05) !important;
+    opacity: 1 !important;
+  }
+
+  .about-page .marquee-item:hover {
+    color: #fff !important;
+    -webkit-text-stroke: 1px rgba(255, 255, 255, 0.3) !important;
+  }
+
+  .about-page .footer-link:hover {
+    color: #fff !important;
+  }
+}
+
+/* Contact Page Responsive Styles */
 @media (max-width: 768px) {
   .services-page .service-content {
     grid-template-columns: 1fr;
     gap: 1rem;
   }
-  
+
   .services-page .service-tags {
     flex-direction: row;
     flex-wrap: wrap;
     text-align: left;
     margin-top: 1rem;
   }
-  
+
   .services-page .service-tag-item {
     opacity: 1;
     transform: none;
   }
-  
+
   .contact-page .contact-content {
     grid-template-columns: 1fr;
     gap: 1rem;
   }
-  
+
   .contact-page .item-value {
     font-size: 10vw;
   }
-  
+
   .contact-page .page-title {
-    font-size: 15vw;
+    font-size: 9vw;
   }
-  
+
   .contact-page .arrow-icon {
     display: none;
   }

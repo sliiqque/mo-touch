@@ -10,46 +10,54 @@ const Services: React.FC = () => {
   const services = [
     {
       id: "01",
-      title: "DIGITAL_STRATEGY",
-      desc: "Blueprint for digital dominance. We architect the unseen foundations of your brand's future.",
+      title: "BRIDAL MAKEUP",
+      desc: "Bridal Perfection, Unforgettable Moments. Flawless, camera-ready looks that enhance your natural beauty and withstand tears of joy, dancing, and countless photos.",
       tags: [
-        "Brand Architecture",
-        "User Journey",
-        "Market Analysis",
-        "Growth Systems",
+        "Pre-wedding Consultation",
+        "Makeup Trial",
+        "Waterproof Formula",
+        "Photography-ready Finish",
+        "Touch-up Kit",
+        "False Lashes",
       ],
     },
     {
       id: "02",
-      title: "UI/UX_DESIGN",
-      desc: "Crafting the interface of tomorrow. Brutalist aesthetics meets human-centric functionality.",
+      title: "PROFESSIONAL MAKEUP",
+      desc: "Everyday Elegance, Special Occasion Glamour. Professional makeup services that enhance your natural features with precision and artistry for any event.",
       tags: [
-        "Interface Design",
-        "Experience Systems",
-        "Design Systems",
-        "Prototyping",
+        "Special Events",
+        "Photoshoot Makeup",
+        "Red Carpet Looks",
+        "Natural Enhancement",
+        "Custom Color Matching",
+        "Skin Preparation",
       ],
     },
     {
       id: "03",
-      title: "WEB_DEVELOPMENT",
-      desc: "Code as art. Performance-obsessed engineering for the modern web.",
+      title: "MAKEUP TRAINING",
+      desc: "Master the Art: Professional Makeup Instruction. Personalized training from beginner techniques to professional certification with hands-on experience.",
       tags: [
-        "React/Next.js",
-        "WebGL/Three.js",
-        "Headless CMS",
-        "Performance Opt.",
+        "One-on-one Lessons",
+        "Group Workshops",
+        "Professional Certification",
+        "Bridal Specialization",
+        "Advanced Techniques",
+        "Industry Insights",
       ],
     },
     {
       id: "04",
-      title: "MOTION_GRAPHICS",
-      desc: "Breathing life into pixels. Kinetic typography and fluid transitions.",
+      title: "COLLABORATIVE PACKAGES",
+      desc: "Complete beauty experiences through strategic partnerships. From costume to makeup, and makeup to photography - comprehensive solutions for your special moments.",
       tags: [
-        "2D/3D Animation",
-        "Interaction Design",
-        "Micro-interactions",
-        "Video Production",
+        "Costume by Mo Partnership",
+        "Uncle Mo Studio Photography",
+        "Complete Look Packages",
+        "Themed Events",
+        "Creative Projects",
+        "Professional Coordination",
       ],
     },
   ];
@@ -136,15 +144,20 @@ const Services: React.FC = () => {
     <div className="services-page" ref={containerRef}>
       <div className="header-section">
         <div className="page-subtitle service-header-text">
-          // SYSTEM_CAPABILITIES
+          // MO_SERVICES
         </div>
         <h1 className="page-title">
-          <span className="service-header-text">PROTOCOL</span>
+          <span className="service-header-text">LOOK RADIANT,</span>
           <span
             className="service-header-text"
-            style={{ color: "#fff", WebkitTextStroke: "0" }}
+            style={{
+              color: "#fff",
+              display: "flex",
+              WebkitTextStroke: "0",
+              justifyContent: "end",
+            }}
           >
-            SERVICES
+            FEEL CONFIDENT
           </span>
         </h1>
       </div>
@@ -189,7 +202,7 @@ const Services: React.FC = () => {
           opacity: 0.5,
         }}
       >
-        // END_OF_PROTOCOL
+        // END_OF_ARTISTRY_SERVICES
       </div>
     </div>
   );

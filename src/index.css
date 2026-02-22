@@ -16,6 +16,9 @@
   --spacing-lg: 2rem;
   --color-text: var(--color-text-primary);
   --color-text-dim: 0.6;
+  --color-gold: #d4af37;
+  --font-display: "PPNeueMontreal", sans-serif;
+  --font-mono: "Space Grotesk", sans-serif;
   --transition-medium: 0.3s ease;
   --font-size-base: 14px;
 }

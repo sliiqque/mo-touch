@@ -104,6 +104,21 @@ const Gallery: React.FC = () => {
   }, [setIsZoomed]);
 
   const [loadingProgress, setLoadingProgress] = useState(0); // For percentage indicator
+  const [imageErrors, setImageErrors] = useState<Set<number>>(new Set());
+
+  // Handle image loading errors
+  const handleImageError = (itemId: number) => {
+    setImageErrors((prev) => new Set(prev).add(itemId));
+  };
+
+  // Fallback placeholder image
+  const getFallbackImage = (index: number) => {
+    const placeholders = [
+      "/src/assets/placeholder-1.svg",
+      "/src/assets/placeholder-2.svg",
+    ];
+    return placeholders[index % placeholders.length];
+  };
 
   // Helper to split text into lines matching reference logic
   const splitTextIntoLines = (element: HTMLElement, text: string) => {
@@ -370,8 +385,15 @@ const Gallery: React.FC = () => {
     const overlay = document.createElement("div");
     overlay.className = "scaling-image-overlay";
     const overlayImg = document.createElement("img");
-    overlayImg.src = img.src;
+    const imageSrc = imageErrors.has(item.id)
+      ? getFallbackImage(item.id)
+      : img.src;
+    overlayImg.src = imageSrc;
     overlayImg.alt = img.alt;
+    overlayImg.onerror = () => {
+      // Fallback for overlay image if it fails
+      overlayImg.src = getFallbackImage(item.id);
+    };
     overlay.appendChild(overlayImg);
     document.body.appendChild(overlay);
 
@@ -633,7 +655,16 @@ const Gallery: React.FC = () => {
                   height: `${BASE_HEIGHT}px`,
                 }}
               >
-                <img src={item.img} alt={item.title} loading="lazy" />
+                <img
+                  src={
+                    imageErrors.has(item.id)
+                      ? getFallbackImage(item.id)
+                      : item.img
+                  }
+                  alt={item.title}
+                  loading="lazy"
+                  onError={() => handleImageError(item.id)}
+                />
               </div>
             ))}
           </div>
