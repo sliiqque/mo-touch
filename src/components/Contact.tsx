@@ -101,7 +101,7 @@ const Contact: React.FC = () => {
       if (marqueeRef.current) {
         gsap.to(marqueeRef.current, {
           x: "-50%",
-          duration: 20,
+          duration: 40,
           ease: "none",
           repeat: -1,
         });
@@ -150,7 +150,7 @@ const Contact: React.FC = () => {
     <div className="contact-page" ref={containerRef}>
       <div className="header-section">
         <div className="page-subtitle contact-header-text">// CONTACT_MO</div>
-        <h1 className="page-title" style={{ marginTop: "1rem", opacity: 0.4 }}>
+        <h1 className="page-title" style={{ marginTop: "1rem" }}>
           <span className="contact-header-text">START YOUR</span>
           <span
             className="contact-header-text"
@@ -216,6 +216,7 @@ const Contact: React.FC = () => {
           ))}
         </div>
       </div>
+      <div className="footer-end-text">// END_OF_CONTACT</div>
     </div>
   );
 };

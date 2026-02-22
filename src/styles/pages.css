@@ -1,28 +1,324 @@
 /* About Page Styles */
 .about-page {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
   height: 100vh;
+  width: 100vw;
   background-color: #0a0a0a;
   color: #e0e0e0;
-  overflow: hidden;
+  font-family: "PPNeueMontreal", sans-serif;
+  padding: 120px 5vw 0 5vw;
+  position: relative;
+  overflow-y: auto;
+  overflow-x: hidden;
+  cursor: none;
+  -webkit-overflow-scrolling: touch;
+}
+
+.about-page::-webkit-scrollbar {
+  display: none;
+}
+
+.about-page {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.about-page .header-section,
+.about-page .about-list,
+.about-page .about-intro,
+.about-page .marquee-container,
+.about-page .about-content-block,
+.about-page .about-list-section {
+  position: relative;
+  z-index: 2;
+}
+
+.about-page .header-section {
+  margin-bottom: 8rem;
+}
+
+.about-page .page-title {
+  font-size: 9vw;
+  line-height: 0.85;
+  font-weight: 800;
+  text-transform: uppercase;
+  margin: 0;
+  color: transparent;
+  -webkit-text-stroke: 1px #fff;
+  position: relative;
+  z-index: 1;
+}
+
+.about-page .page-title span {
+  display: block;
+}
+
+.about-page .page-subtitle {
+  font-family: "TheGoodMonolith", monospace;
+  font-size: 1.2rem;
+  margin-top: 2rem;
+  color: var(--color-gold);
+  letter-spacing: 0.1em;
+}
+
+.about-page .divider-line {
+  height: 1px;
+  background: rgba(255, 255, 255, 0.2);
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.about-page .about-list {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin-bottom: 0;
+}
+
+.about-page .about-item {
+  position: relative;
+  padding: 4rem 0;
+  cursor: none;
+  transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.about-page .about-item:hover {
+  padding-left: 2rem;
+}
+
+.about-page .about-item.dimmed {
+  opacity: 0.2;
+  filter: blur(2px);
+}
+
+.about-page .about-content {
+  display: grid;
+  grid-template-columns: 1fr 3fr 1fr;
+  align-items: flex-start;
+  gap: 2rem;
+}
+
+.about-page .item-id {
+  font-family: "TheGoodMonolith", monospace;
+  font-size: 1.5rem;
+  color: #666;
+}
+
+.about-page .item-main {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.about-page .item-label {
+  font-family: "TheGoodMonolith", monospace;
+  font-size: 1.2rem;
+  color: #a64b23;
+  margin-bottom: 0;
+}
+
+.about-page .item-value {
+  font-size: 3.5vw;
+  font-weight: 700;
+  line-height: 1;
+  text-transform: uppercase;
+  transition: color 0.3s ease;
+  text-shadow: none;
+}
+
+.about-page .about-item:hover .item-value {
+  color: #a64b23;
+}
+
+.about-page .item-subvalue {
+  font-size: 1.5rem;
+  font-weight: 300;
+  opacity: 0.7;
+  max-width: 600px;
+  margin-top: 1rem;
   font-family: "PPNeueMontreal", sans-serif;
 }
 
-.about-page .scroll-content {
+.about-page .about-tags {
   display: flex;
-  height: 100%;
-  align-items: center;
-  padding-left: 10vw;
-  padding-right: 10vw;
-  will-change: transform;
+  flex-direction: column;
+  gap: 0.5rem;
+  font-family: "TheGoodMonolith", monospace;
+  font-size: 0.9rem;
+  color: #888;
+  text-align: right;
 }
 
-.about-page .section {
-  flex-shrink: 0;
+.about-page .about-tag-item {
+  opacity: 0;
+  transform: translateX(20px);
+  transition: all 0.4s ease;
+}
+
+.about-page .about-item:hover .about-tag-item {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* Artist Profile Styles */
+.about-page .artist-profile {
+  margin-top: 2rem;
+  transition: transform 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.about-page .artist-img-container {
   position: relative;
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  transition:
+    transform 0.3s ease,
+    border-color 0.3s ease;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+}
+
+.about-page .artist-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: grayscale(100%);
+  transition: filter 0.3s ease;
+}
+
+.about-page .artist-profile:hover .artist-img-container {
+  transform: scale(1.05);
+  border-color: var(--color-gold) !important;
+}
+
+.about-page .artist-profile:hover .artist-img {
+  filter: grayscale(0%);
+}
+
+.about-page .artist-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.about-page .artist-name {
+  font-family: "PPNeueMontreal", sans-serif;
+  font-size: 1.75rem;
+  font-weight: 500;
+  line-height: 1;
+  margin-bottom: 0.25rem;
+  color: #fff;
+}
+
+.about-page .artist-role {
+  font-family: "TheGoodMonolith", monospace;
+  font-size: 0.85rem;
+  opacity: 0.6;
+  letter-spacing: 0.05em;
+  color: #e0e0e0;
+}
+
+/* Philosophy Section */
+.about-page .philosophy-section {
+  position: relative;
+  margin-bottom: 4rem;
+}
+
+.about-page .philosophy-content {
+  padding: 4rem 0;
+}
+
+.about-page .philosophy-text {
+  font-family: "PPNeueMontreal", sans-serif;
+  font-size: clamp(2rem, 4vw, 3.5rem);
+  line-height: 1.1;
+  color: #fff;
+  margin: 0 0 3rem 0;
+  max-width: 90%;
+}
+
+.about-page .philosophy-highlight {
+  color: var(--color-gold);
+}
+
+.about-page .philosophy-underline {
+  border-bottom: 1px solid var(--color-gold);
+  padding-bottom: 2px;
+}
+
+/* Partners & Testimonials */
+.about-page .partners-section {
+  /* Default styles */
+}
+
+.about-page .testimonials-section {
+  margin-top: 6rem;
+}
+
+.about-page .section-subtitle {
+  margin-bottom: 2rem;
+  padding-left: 0;
+}
+
+/* Footer Text */
+.footer-end-text {
+  margin-top: 3vh;
+  margin-bottom: 5vh;
+  font-family: "TheGoodMonolith", monospace;
+  text-align: center;
+  opacity: 0.5;
+  font-size: 0.85rem;
+  letter-spacing: 0.1em;
+  color: #e0e0e0;
+}
+
+/* Testimonials */
+.about-page .list-quote {
+  color: #fff;
+  font-size: clamp(1.5rem, 2.5vw, 2rem);
+  font-family: "PPNeueMontreal", sans-serif;
+  line-height: 1.2;
+  margin-bottom: 1rem;
+}
+
+.about-page .list-author {
+  opacity: 0.6;
+  font-size: 0.85rem;
+}
+
+.about-page .marquee-container {
+  width: 100vw;
+  overflow: hidden;
+  margin-left: -5vw;
+  background: #0a0a0a;
+  border-top: 2px solid rgba(255, 255, 255, 0.4);
+}
+
+.about-page .marquee-content {
+  display: flex;
+  white-space: nowrap;
+  width: fit-content;
+  align-items: center;
+}
+
+.about-page .marquee-item {
+  font-size: 10vw;
+  font-weight: 900;
+  color: #fff;
+  margin-right: 6rem;
+  text-transform: uppercase;
+  transition: color 0.3s;
+  -webkit-text-stroke: 0;
+  line-height: 1.4;
+}
+
+.about-page .marquee-item:hover {
+  color: transparent;
+  -webkit-text-stroke: 1px #a64b23;
 }
 
 /* Services Page Styles */
@@ -338,10 +634,18 @@
   transform: translateX(20px);
 }
 
-.contact-page .marquee-container {
+/* .contact-page .marquee-container {
   width: 100%;
   overflow: hidden;
   margin-top: 3rem;
+  background: #0a0a0a;
+  border-top: 2px solid rgba(255, 255, 255, 0.4);
+} */
+
+.contact-page .marquee-container {
+  width: 100vw;
+  overflow: hidden;
+  margin-left: -5vw;
   background: #0a0a0a;
   border-top: 2px solid rgba(255, 255, 255, 0.4);
 }
@@ -372,204 +676,53 @@
 
 /* About Page Responsive Styles */
 @media (max-width: 1024px) {
-  .about-page .scroll-content {
-    padding-left: 5vw;
-    padding-right: 5vw;
+  .about-page .about-content {
+    grid-template-columns: 1fr;
+    gap: 1rem;
   }
-
-  .about-page .section {
-    min-width: 90vw !important;
+  .about-page .about-tags {
+    flex-direction: row;
+    flex-wrap: wrap;
+    text-align: left;
+    margin-top: 1rem;
   }
-
-  /* Hero section adjustments */
-  .about-page .hero-row h1 {
-    font-size: 8vw !important;
+  .about-page .about-tag-item {
+    opacity: 1;
+    transform: none;
   }
-
-  /* Artist card */
-  .about-page .artist-card {
-    width: 70vw !important;
-    height: 60vh !important;
-  }
-
-  .about-page .philosophy-content p {
-    font-size: 3vw !important;
-  }
-
-  /* Partners section */
-  .about-page .team-card {
-    width: 40vw !important;
-  }
-
-  /* Testimonials */
-  .about-page .reveal-text[style*="maxWidth: 35vw"] {
-    max-width: 60vw !important;
-    margin-left: 0 !important;
+  .about-page .item-value {
+    font-size: 6vw;
   }
 }
 
 @media (max-width: 768px) {
   .about-page {
-    overflow-x: auto;
-    overflow-y: hidden;
+    padding: 100px 5vw 0 5vw;
   }
 
-  .about-page .scroll-content {
-    padding-left: 3vw;
-    padding-right: 3vw;
+  .about-page .item-value {
+    font-size: 8vw;
   }
 
-  .about-page .section {
-    min-width: 100vw !important;
-    height: 100vh;
-    padding: 0 3vw !important;
-  }
-
-  /* Hero typography - mobile friendly */
-  .about-page .hero-row h1 {
-    font-size: 10vw !important;
-  }
-
-  .about-page .hero-row {
-    margin-bottom: 1vh !important;
-    padding-bottom: 1vh !important;
-  }
-
-  /* Top label */
-  .about-page .reveal-text[style*="top: 12vh"] {
-    top: 8vh !important;
-    left: 3vw !important;
-    font-size: 0.7rem !important;
-  }
-
-  /* Vertical decoration */
-  .about-page .reveal-text[style*="right: 5vw"] {
-    right: 3vw !important;
-    width: 1px !important;
-    height: 40vh !important;
-    top: 15vh !important;
-  }
-
-  /* Artist card - mobile */
-  .about-page .artist-card {
-    width: 90vw !important;
-    height: 70vh !important;
-  }
-
-  .about-page .philosophy-content {
-    padding: 2rem !important;
-  }
-
-  .about-page .philosophy-content p {
-    font-size: 4vw !important;
-    line-height: 1.2 !important;
-  }
-
-  .about-page .philosophy-content div[style*="display: flex"] {
-    flex-direction: column !important;
-    align-items: flex-start !important;
-    gap: 0.5rem !important;
-  }
-
-  /* Partners - mobile stack */
-  .about-page .section[style*="gap: 2rem"] {
-    flex-direction: column !important;
-    gap: 3rem !important;
-    align-items: center !important;
-  }
-
-  .about-page .team-card {
-    width: 80vw !important;
-  }
-
-  /* Testimonials - mobile */
-  .about-page .section[style*="height: 70vh"] {
-    height: 80vh !important;
-    min-width: 100vw !important;
-  }
-
-  .about-page .reveal-text[style*="maxWidth: 35vw"] {
-    max-width: 85vw !important;
-    margin-left: 0 !important;
-    padding-left: 1rem !important;
-  }
-
-  .about-page .reveal-text[style*="fontSize: 1.5rem"] {
-    font-size: 1.2rem !important;
-  }
-
-  /* LOVE and NOTES typography */
-  .about-page h2[style*="fontSize: 18vw"] {
-    font-size: 14vw !important;
-  }
-
-  /* Marquee section */
-  .about-page .marquee-item {
-    font-size: 8vw !important;
-  }
-
-  /* Footer section */
-  .about-page .section[style*="paddingRight: 10vw"] {
-    padding-right: 3vw !important;
-    padding-left: 3vw !important;
-    min-width: 100vw !important;
-  }
-
-  .about-page .footer-link {
-    font-size: 7vw !important;
-  }
-
-  .about-page div[style*="gap: 3rem"] {
-    gap: 1.5rem !important;
-    flex-direction: column !important;
+  .about-page .item-subvalue {
+    font-size: 1.2rem;
   }
 }
 
 @media (max-width: 480px) {
-  /* Extra small mobile adjustments */
-  .about-page .hero-row h1 {
-    font-size: 12vw !important;
+  .about-page .item-value {
+    font-size: 10vw;
   }
-
-  .about-page .artist-card {
-    width: 95vw !important;
-    height: 75vh !important;
-  }
-
-  .about-page .philosophy-content p {
-    font-size: 5vw !important;
-  }
-
-  .about-page .team-card {
-    width: 90vw !important;
-  }
-
-  .about-page .footer-link {
-    font-size: 8vw !important;
-  }
-
   .about-page .marquee-item {
-    font-size: 10vw !important;
+    font-size: 12vw !important;
   }
 }
 
 /* Touch device optimizations */
 @media (hover: none) and (pointer: coarse) {
-  .about-page .artist-card:hover img,
-  .about-page .artist-card:hover .gradient-overlay,
-  .about-page .artist-card:hover .philosophy-content {
-    filter: grayscale(0%) contrast(1.1) !important;
-    transform: scale(1.05) !important;
-    opacity: 1 !important;
-  }
-
   .about-page .marquee-item:hover {
     color: #fff !important;
     -webkit-text-stroke: 1px rgba(255, 255, 255, 0.3) !important;
-  }
-
-  .about-page .footer-link:hover {
-    color: #fff !important;
   }
 }
 

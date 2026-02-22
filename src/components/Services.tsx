@@ -202,7 +202,7 @@ const Services: React.FC = () => {
           opacity: 0.5,
         }}
       >
-        // END_OF_ARTISTRY_SERVICES
+        // END_OF_MO_SERVICES
       </div>
     </div>
   );
