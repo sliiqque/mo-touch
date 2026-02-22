@@ -12,15 +12,15 @@ const About: React.FC = () => {
     null,
   );
   const [imageError, setImageError] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
   // Debug: Check if image loads
   const handleImageError = () => {
-    console.log("Artist image failed to load, using fallback");
     setImageError(true);
   };
 
   const handleImageLoad = () => {
-    console.log("Artist image loaded successfully");
+    // Image loaded successfully
   };
 
   const artist = {

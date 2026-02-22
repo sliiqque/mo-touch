@@ -1,0 +1,11 @@
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://sliiqque.github.io/mo-touch/sitemap.xml
+
+# Block common non-content paths
+Disallow: /node_modules/
+Disallow: /dist/
+Disallow: /.git/
+Disallow: /*.json$

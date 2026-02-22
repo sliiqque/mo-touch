@@ -1,0 +1,37 @@
+{
+  "name": "Mo Touch™",
+  "short_name": "Mo Touch",
+  "description": "Experience the art of touch with Mo Touch™ - premium interactive gallery",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0a0a0a",
+  "theme_color": "#a64b23",
+  "orientation": "portrait-primary",
+  "scope": "/",
+  "lang": "en",
+  "icons": [
+    {
+      "src": "/vite.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["multimedia", "design"],
+  "shortcuts": [
+    {
+      "name": "Gallery",
+      "short_name": "Gallery",
+      "description": "Experience interactive Mo Touch gallery",
+      "url": "/",
+      "icons": [{ "src": "/vite.svg", "sizes": "any" }]
+    },
+    {
+      "name": "About",
+      "short_name": "About",
+      "description": "Learn about Mo Touch™ experience",
+      "url": "/about",
+      "icons": [{ "src": "/vite.svg", "sizes": "any" }]
+    }
+  ]
+}

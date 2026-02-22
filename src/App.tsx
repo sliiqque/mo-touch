@@ -6,6 +6,7 @@ import About from "./components/About";
 import Services from "./components/Services";
 import Contact from "./components/Contact";
 import Layout from "./components/Layout";
+import ErrorBoundary from "./components/ErrorBoundary";
 import { UIProvider } from "./context/UIContext";
 
 const App: React.FC = () => {
@@ -23,12 +24,14 @@ const App: React.FC = () => {
           }}
         >
           <Layout>
-            <Routes>
-              <Route path="/" element={<Gallery />} />
-              <Route path="/about" element={<About />} />
-              <Route path="/services" element={<Services />} />
-              <Route path="/contact" element={<Contact />} />
-            </Routes>
+            <ErrorBoundary>
+              <Routes>
+                <Route path="/" element={<Gallery />} />
+                <Route path="/about" element={<About />} />
+                <Route path="/services" element={<Services />} />
+                <Route path="/contact" element={<Contact />} />
+              </Routes>
+            </ErrorBoundary>
           </Layout>
         </div>
       </Router>
