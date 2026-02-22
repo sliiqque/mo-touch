@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Preloader from "./components/Preloader";
+import Preloader from "./components/layout/Preloader";
 import Gallery from "./components/Gallery";
 import About from "./components/About";
 import Services from "./components/Services";
 import Contact from "./components/Contact";
-import Layout from "./components/Layout";
+import Layout from "./components/layout/Layout";
 import ErrorBoundary from "./components/ErrorBoundary";
 import { UIProvider } from "./context/UIContext";
 

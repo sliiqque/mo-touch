@@ -1,18 +1,21 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useRef, useLayoutEffect, useState, useEffect } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import SectionFooter from "./layout/SectionFooter";
+import Marquee from "./layout/Marquee.js";
+import ContentCard from "./layout/ContentCard.js";
+import Header from "./layout/Header.js";
 
 gsap.registerPlugin(ScrollTrigger);
 
 const About: React.FC = () => {
   const containerRef = useRef<HTMLDivElement>(null);
-  const marqueeRef = useRef<HTMLDivElement>(null);
   const [activePartner, setActivePartner] = useState<number | null>(null);
   const [activeTestimonial, setActiveTestimonial] = useState<number | null>(
     null,
   );
   const [imageError, setImageError] = useState(false);
-  const [isLoading, setIsLoading] = useState(true);
 
   // Debug: Check if image loads
   const handleImageError = () => {
@@ -103,16 +106,6 @@ const About: React.FC = () => {
         delay: 0.2,
         clearProps: "transform",
       });
-
-      // Marquee Animation
-      if (marqueeRef.current) {
-        gsap.to(marqueeRef.current, {
-          x: "-50%",
-          duration: 40,
-          ease: "none",
-          repeat: -1,
-        });
-      }
     }, containerRef);
 
     return () => ctx.revert();
@@ -143,11 +136,6 @@ const About: React.FC = () => {
         const element = el as HTMLElement;
         element.style.transform = "scaleX(1)";
       });
-
-      if (marqueeRef.current) {
-        marqueeRef.current.style.transform = "translateX(-50%)";
-        marqueeRef.current.style.transition = "transform 20s linear infinite";
-      }
     }, 500);
 
     return () => clearTimeout(timer);
@@ -155,23 +143,11 @@ const About: React.FC = () => {
 
   return (
     <div className="about-page" ref={containerRef}>
-      <div className="header-section">
-        <div className="page-subtitle about-header-text">// ABOUT_MO</div>
-        <h1 className="page-title">
-          <span className="about-header-text">REIMAGINE</span>
-          <span
-            className="about-header-text"
-            style={{
-              color: "#fff",
-              display: "flex",
-              WebkitTextStroke: "0",
-              justifyContent: "end",
-            }}
-          >
-            BEAUTY
-          </span>
-        </h1>
-      </div>
+      <Header
+        subtitle="// ABOUT_MO"
+        titleLine1="REIMAGINE"
+        titleLine2="BEAUTY"
+      />
 
       {/* Philosophy Section - Creative Layout */}
       <div
@@ -317,42 +293,8 @@ const About: React.FC = () => {
             style={{
               display: "flex",
               alignItems: "center",
-              gap: "2rem",
               padding: "1.5rem 3.5rem",
-              border: "1px solid rgba(255,255,255,0.1)",
-              borderRadius: "100px",
-              background: "rgba(10,10,10,0.6)",
-              backdropFilter: "blur(15px)",
               transition: "all 0.5s cubic-bezier(0.4, 0, 0.2, 1)",
-              cursor: "pointer",
-            }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.borderColor = "var(--color-gold)";
-              e.currentTarget.style.transform = "translateY(-5px)";
-              e.currentTarget.style.boxShadow = "0 20px 40px rgba(0,0,0,0.4)";
-              e.currentTarget.style.background = "rgba(10,10,10,0.8)";
-              const imgContainer = e.currentTarget.querySelector(
-                ".artist-img-container",
-              );
-              if (imgContainer)
-                (imgContainer as HTMLElement).style.borderColor =
-                  "var(--color-gold)";
-              const img = e.currentTarget.querySelector("img");
-              if (img) img.style.filter = "grayscale(0%)";
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.borderColor = "rgba(255,255,255,0.1)";
-              e.currentTarget.style.transform = "translateY(0)";
-              e.currentTarget.style.boxShadow = "none";
-              e.currentTarget.style.background = "rgba(10,10,10,0.6)";
-              const imgContainer = e.currentTarget.querySelector(
-                ".artist-img-container",
-              );
-              if (imgContainer)
-                (imgContainer as HTMLElement).style.borderColor =
-                  "rgba(255,255,255,0.2)";
-              const img = e.currentTarget.querySelector("img");
-              if (img) img.style.filter = "grayscale(100%)";
             }}
           >
             <div style={{ position: "relative" }}>
@@ -437,38 +379,21 @@ const About: React.FC = () => {
         </div>
         <div className="about-list">
           {partners.map((partner, index) => (
-            <div
+            <ContentCard
               key={partner.id}
-              className={`about-item list-item ${
-                activePartner !== null && activePartner !== index
-                  ? "dimmed"
-                  : ""
-              }`}
-              onMouseEnter={() => setActivePartner(index)}
+              index={index}
+              content={{
+                id: partner.id,
+                tags: partner.tags,
+                title: partner.name,
+                desc: `${partner.title} — ${partner.desc}`,
+              }}
+              onMouseEnter={setActivePartner}
+              className="about-item list-item"
+              isActive={activePartner === index}
               onMouseLeave={() => setActivePartner(null)}
-            >
-              <div className="divider-line"></div>
-              <div className="about-content list-content">
-                <div className="item-id">{partner.id}</div>
-                <div className="item-main">
-                  <div className="item-value list-title">{partner.name}</div>
-                  <div className="item-subvalue list-desc">
-                    {partner.title} — {partner.desc}
-                  </div>
-                </div>
-                <div className="about-tags list-tags">
-                  {partner.tags.map((tag, i) => (
-                    <span
-                      key={i}
-                      className="about-tag-item tag-item"
-                      style={{ transitionDelay: `${i * 0.05}s` }}
-                    >
-                      [{tag}]
-                    </span>
-                  ))}
-                </div>
-              </div>
-            </div>
+              isDimmed={activePartner !== null && activePartner !== index}
+            />
           ))}
           <div
             className="divider-line"
@@ -478,61 +403,43 @@ const About: React.FC = () => {
       </div>
 
       {/* Testimonials List */}
-      <div className="about-list-section testimonials-section">
+      <div
+        className="about-list-section testimonials-section"
+        style={{ marginTop: "20vh" }}
+      >
         <div className="page-subtitle about-header-text section-subtitle">
           // CLIENT_TESTIMONIALS
         </div>
         <div className="about-list">
           {testimonials.map((test, index) => (
-            <div
+            <ContentCard
               key={test.id}
-              className={`about-item list-item ${
-                activeTestimonial !== null && activeTestimonial !== index
-                  ? "dimmed"
-                  : ""
-              }`}
-              onMouseEnter={() => setActiveTestimonial(index)}
+              index={index}
+              content={test}
+              variant="testimonial"
+              className="about-item list-item"
+              onMouseEnter={setActiveTestimonial}
+              isActive={activeTestimonial === index}
               onMouseLeave={() => setActiveTestimonial(null)}
-            >
-              <div className="divider-line"></div>
-              <div className="about-content list-content">
-                <div className="item-id">{test.id}</div>
-                <div className="item-main">
-                  <div className="item-subvalue list-quote">"{test.text}"</div>
-                  <div className="item-label list-author">// {test.author}</div>
-                </div>
-                <div className="about-tags list-tags">
-                  {test.tags.map((tag, i) => (
-                    <span
-                      key={i}
-                      className="about-tag-item tag-item"
-                      style={{ transitionDelay: `${i * 0.05}s` }}
-                    >
-                      [{tag}]
-                    </span>
-                  ))}
-                </div>
-              </div>
-            </div>
+              isDimmed={
+                activeTestimonial !== null && activeTestimonial !== index
+              }
+            />
           ))}
         </div>
       </div>
 
       {/* Marquee Section */}
-      <div className="marquee-container">
-        <div className="marquee-content" ref={marqueeRef}>
-          {[1, 2, 3, 4].map((i) => (
-            <React.Fragment key={i}>
-              <span className="marquee-item">BEAUTY REIMAGINED</span>
-              <span className="marquee-item">TRANSFORMING FACES</span>
-              <span className="marquee-item">REVEALING CONFIDENCE</span>
-              <span className="marquee-item">POLISHED LOOKS</span>
-            </React.Fragment>
-          ))}
-        </div>
-      </div>
-
-      <div className="footer-end-text">// END_OF_ABOUT</div>
+      <Marquee
+        items={[
+          "BEAUTY REIMAGINED",
+          "TRANSFORMING FACES",
+          "REVEALING CONFIDENCE",
+          "POLISHED LOOKS",
+        ]}
+        repetitions={4}
+      />
+      <SectionFooter style={{ marginTop: "4vh" }} text="// END_OF_ABOUT" />
     </div>
   );
 };

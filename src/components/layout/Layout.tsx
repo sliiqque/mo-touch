@@ -1,8 +1,8 @@
-import React from "react";
 import { useLocation } from "react-router-dom";
-import Header from "./Header";
-import CustomCursor from "./CustomCursor";
-import Footer from "./Footer";
+import React from "react";
+import Navbar from "./Navbar";
+import Footer from "../Footer";
+import CustomCursor from "../CustomCursor";
 
 interface LayoutProps {
   children: React.ReactNode;
@@ -14,7 +14,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
   return (
     <div className="app-layout">
       <CustomCursor />
-      <Header />
+      <Navbar />
       <main
         key={location.pathname}
         className="page-content"

@@ -2,11 +2,11 @@ import React, { useEffect, useRef, useState, useLayoutEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { useUI } from "../context/UIContext";
+import { useUI } from "../../context/UIContext";
 
 gsap.registerPlugin(ScrollTrigger);
 
-const Header: React.FC = () => {
+const Navbar: React.FC = () => {
   const { isZoomed } = useUI();
   const location = useLocation();
   const headerRef = useRef<HTMLDivElement>(null);
@@ -187,4 +187,4 @@ const Header: React.FC = () => {
   );
 };
 
-export default Header;
+export default Navbar;

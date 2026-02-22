@@ -1,6 +1,9 @@
-import React, { useLayoutEffect, useRef, useState, useEffect } from "react";
-import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import gsap from "gsap";
+import Header from "./layout/Header";
+import Marquee from "./layout/Marquee";
+import SectionFooter from "./layout/SectionFooter";
+import React, { useLayoutEffect, useRef, useState, useEffect } from "react";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -20,17 +23,17 @@ const Contact: React.FC = () => {
   const contactItems: ContactItem[] = [
     {
       id: "01",
-      label: "BOOK APPOINTMENT",
       value: "08160601219",
-      subValue: "Response within 24 hours",
-      link: "tel:+2348160601219",
+      label: "BOOK APPOINTMENT",
+      subValue: "WhatsApp booking available",
+      link: "https://wa.me/2348160601219?text=Hi%2C%20I%27d%20like%20to%20book%20a%20makeup%20appointment",
     },
     {
       id: "02",
       label: "EMAIL INQUIRIES",
       value: "SAINT4AMOS@GMAIL.COM",
-      subValue: "Professional consultations available",
       link: "mailto:saint4amos@gmail.com",
+      subValue: "Professional consultations available",
     },
     {
       id: "03",
@@ -148,25 +151,11 @@ const Contact: React.FC = () => {
 
   return (
     <div className="contact-page" ref={containerRef}>
-      <div className="header-section">
-        <div className="page-subtitle contact-header-text">// CONTACT_MO</div>
-        <h1 className="page-title" style={{ marginTop: "1rem" }}>
-          <span className="contact-header-text">START YOUR</span>
-          <span
-            className="contact-header-text"
-            style={{
-              color: "#fff",
-              display: "flex",
-              WebkitTextStroke: "0",
-              marginTop: "2rem",
-              justifyContent: "end",
-            }}
-            // style={{ color: "#fff", WebkitTextStroke: "0", marginTop: "2rem" }}
-          >
-            BEAUTY JOURNEY
-          </span>
-        </h1>
-      </div>
+      <Header
+        subtitle="// CONTACT_MO"
+        titleLine1="GET YOUR"
+        titleLine2="GLOW UP"
+      />
 
       <div className="contact-list">
         {contactItems.map((item, index) => (
@@ -175,10 +164,8 @@ const Contact: React.FC = () => {
             className={`contact-item ${activeItem !== null && activeItem !== index ? "dimmed" : ""}`}
             onMouseEnter={() => {
               setActiveItem(index);
-              // playSound("hover"); removed
             }}
             onMouseLeave={() => setActiveItem(null)}
-            // onClick={() => playSound("click")} removed
           >
             <div className="divider-line"></div>
             <a
@@ -203,20 +190,16 @@ const Contact: React.FC = () => {
         ))}
       </div>
 
-      <div className="marquee-container">
-        <div className="marquee-content" ref={marqueeRef}>
-          {/* Duplicated content for seamless loop */}
-          {[1, 2, 3, 4].map((i) => (
-            <React.Fragment key={i}>
-              <span className="marquee-item">BOOK BRIDAL CONSULTATION</span>
-              <span className="marquee-item">SCHEDULE MAKEUP SESSION</span>
-              <span className="marquee-item">RESERVE CLASS SPOT</span>
-              <span className="marquee-item">TRANSFORM YOUR LOOK</span>
-            </React.Fragment>
-          ))}
-        </div>
-      </div>
-      <div className="footer-end-text">// END_OF_CONTACT</div>
+      <Marquee
+        items={[
+          "BOOK BRIDAL CONSULTATION",
+          "SCHEDULE MAKEUP SESSION",
+          "RESERVE CLASS SPOT",
+          "TRANSFORM YOUR LOOK",
+        ]}
+        repetitions={4}
+      />
+      <SectionFooter text="// END_OF_CONTACT" />
     </div>
   );
 };

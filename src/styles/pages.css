@@ -5,7 +5,7 @@
   background-color: #0a0a0a;
   color: #e0e0e0;
   font-family: "PPNeueMontreal", sans-serif;
-  padding: 120px 5vw 0 5vw;
+  padding: 120px 5vw 5vw 5vw;
   position: relative;
   overflow-y: auto;
   overflow-x: hidden;
@@ -163,11 +163,10 @@
 
 /* Artist Profile Styles */
 .about-page .artist-profile {
-  margin-top: 2rem;
-  transition: transform 0.3s ease;
+  gap: 1.5rem;
   display: flex;
   align-items: center;
-  gap: 1.5rem;
+  transition: transform 0.3s ease;
 }
 
 .about-page .artist-img-container {
@@ -321,6 +320,83 @@
   -webkit-text-stroke: 1px #a64b23;
 }
 
+/* Generic ContentCard Styles */
+.content-item {
+  position: relative;
+  padding: 4rem 0;
+  cursor: none;
+  transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.content-item:hover {
+  padding-left: 2rem;
+}
+
+.content-item.dimmed {
+  opacity: 0.2;
+  filter: blur(2px);
+}
+
+.content-body {
+  display: grid;
+  grid-template-columns: 1fr 3fr 1fr;
+  align-items: flex-start;
+  gap: 2rem;
+}
+
+.content-id {
+  font-family: "TheGoodMonolith", monospace;
+  font-size: 1.5rem;
+  color: #666;
+}
+
+.content-main {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.content-title {
+  font-size: 3.5vw;
+  font-weight: 700;
+  line-height: 1;
+  text-transform: uppercase;
+  transition: color 0.3s ease;
+}
+
+.content-item:hover .content-title {
+  color: #a64b23;
+}
+
+.content-desc {
+  font-size: 1.5rem;
+  font-weight: 300;
+  max-width: 600px;
+  opacity: 0.7;
+  margin-top: 1rem;
+}
+
+.content-tags {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  font-family: "TheGoodMonolith", monospace;
+  font-size: 0.9rem;
+  color: #888;
+  text-align: right;
+}
+
+.content-tag-item {
+  opacity: 0;
+  transform: translateX(20px);
+  transition: all 0.4s ease;
+}
+
+.content-item:hover .content-tag-item {
+  opacity: 1;
+  transform: translateX(0);
+}
+
 /* Services Page Styles */
 .services-page {
   height: 100vh;
@@ -472,7 +548,7 @@
   background-color: #0a0a0a;
   color: #e0e0e0;
   font-family: "PPNeueMontreal", sans-serif;
-  padding: 120px 5vw 0 5vw;
+  padding: 120px 5vw 5vw 5vw;
   position: relative;
   overflow-y: auto;
   overflow-x: hidden;
