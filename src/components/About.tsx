@@ -6,8 +6,225 @@ import Header from "./layout/Header.js";
 import Marquee from "./layout/Marquee.js";
 import ContentCard from "./layout/ContentCard.js";
 import SectionFooter from "./layout/SectionFooter";
+import styled, { css } from "styled-components";
 
 gsap.registerPlugin(ScrollTrigger);
+
+// Styled Components for About Page
+const AboutPageContainer = styled.div`
+  height: 100vh;
+  width: 100vw;
+  background-color: #0a0a0a;
+  color: #e0e0e0;
+  font-family: "PPNeueMontreal", sans-serif;
+  padding: 120px 5vw 5vw 5vw;
+  position: relative;
+  overflow-y: auto;
+  overflow-x: hidden;
+  cursor: none;
+  -webkit-overflow-scrolling: touch;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+`;
+
+const DividerLine = styled.div`
+  height: 1px;
+  background: rgba(255, 255, 255, 0.2);
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+`;
+
+const AboutListSection = styled.div`
+  position: relative;
+  z-index: 2;
+  margin-bottom: 4rem;
+
+  &.testimonials-section {
+    margin-top: 6rem;
+    margin-bottom: 0;
+  }
+`;
+
+const AboutList = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  position: relative;
+  z-index: 2;
+  margin-bottom: 0;
+`;
+
+const SectionSubtitle = styled.div`
+  margin-bottom: 2rem;
+  padding-left: 0;
+`;
+
+const ArtistProfile = styled.div`
+  gap: 1.5rem;
+  display: flex;
+  align-items: center;
+  transition: transform 0.3s ease;
+  padding: 1.5rem 3.5rem;
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+
+  &:hover .artist-img-container {
+    transform: scale(1.05);
+    border-color: var(--color-gold) !important;
+  }
+
+  &:hover .artist-img {
+    filter: grayscale(0%);
+  }
+`;
+
+const ArtistImgContainer = styled.div`
+  position: relative;
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  transition:
+    transform 0.3s ease,
+    border-color 0.3s ease;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+  background-color: rgba(255, 255, 255, 0.05);
+`;
+
+const ArtistImg = styled.img`
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: grayscale(100%);
+  transition: filter 0.3s ease;
+  display: block;
+`;
+
+const ArtistInfo = styled.div`
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+`;
+
+const ArtistName = styled.div`
+  font-family: "PPNeueMontreal", sans-serif;
+  font-size: 1.8rem;
+  color: #fff;
+  line-height: 1.1;
+`;
+
+const ArtistRole = styled.div`
+  font-family: "TheGoodMonolith", monospace;
+  font-size: 0.8rem;
+  color: var(--color-gold);
+  opacity: 0.8;
+  margin-top: 0.25rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+`;
+
+const PhilosophySection = styled.div`
+  position: relative;
+  padding: 15vh 0;
+  overflow: hidden;
+  margin-bottom: 4rem;
+
+  @media (max-width: 768px) {
+    padding: 5vh 0;
+    margin-bottom: 2rem;
+  }
+`;
+
+const PhilosophyContent = styled.div`
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 0 5vw;
+`;
+
+const PhilosophyTitle = styled.div`
+  font-family: "TheGoodMonolith", monospace;
+  color: var(--color-gold);
+  letter-spacing: 0.2em;
+  margin-bottom: 3rem;
+  font-size: 0.85rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+
+  span {
+    width: 30px;
+    height: 1px;
+    background: var(--color-gold);
+  }
+`;
+
+const PhilosophyText = styled.h2`
+  color: #fff;
+  max-width: 85%;
+  line-height: 1.15;
+  margin: 0 auto 4rem;
+  text-wrap: balance;
+  font-size: clamp(2rem, 4.5vw, 4.5rem);
+  font-family: "PPNeueMontreal", sans-serif;
+
+  @media (max-width: 768px) {
+    margin: 0 auto 1rem;
+    font-size: clamp(1.8rem, 3vw, 3rem);
+    max-width: 100%;
+  }
+
+  .confidence-text {
+    color: transparent;
+    -webkit-text-stroke: 1px var(--color-gold);
+    font-weight: 300;
+  }
+
+  .flawless-looks {
+    position: relative;
+    display: inline-block;
+  }
+`;
+
+const OnlineIndicator = styled.div`
+  position: absolute;
+  bottom: 2;
+  right: 8;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: var(--color-gold);
+  border: 3px solid #0a0a0a;
+  z-index: 2;
+`;
+
+// Responsive styles
+const mobileStyles = css`
+  @media (max-width: 768px) {
+    padding: 100px 5vw 0 5vw;
+  }
+
+  @media (max-width: 1024px) {
+    .about-content {
+      grid-template-columns: 1fr;
+      gap: 1rem;
+    }
+
+    .item-value {
+      font-size: 6vw;
+    }
+  }
+`;
 
 const About: React.FC = () => {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -142,7 +359,7 @@ const About: React.FC = () => {
   }, []);
 
   return (
-    <div className="about-page" ref={containerRef}>
+    <AboutPageContainer ref={containerRef}>
       <Header
         subtitle="// ABOUT_MO"
         titleLine1="REIMAGINE"
@@ -150,11 +367,8 @@ const About: React.FC = () => {
       />
 
       {/* Philosophy Section - Creative Layout */}
-      <div
-        className="about-content-block philosophy-section"
-        style={{ position: "relative", padding: "15vh 0", overflow: "hidden" }}
-      >
-        <div className="divider-line"></div>
+      <PhilosophySection className="about-content-block philosophy-section">
+        <DividerLine />
         {/* Abstract Background Elements */}
         <div
           style={{
@@ -205,69 +419,18 @@ const About: React.FC = () => {
           PHILOSOPHY
         </div>
 
-        <div
-          style={{
-            position: "relative",
-            zIndex: 2,
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-            textAlign: "center",
-            padding: "0 5vw",
-          }}
-        >
-          <div
-            style={{
-              fontFamily: '"TheGoodMonolith", monospace',
-              color: "var(--color-gold)",
-              letterSpacing: "0.2em",
-              marginBottom: "3rem",
-              fontSize: "0.85rem",
-              display: "flex",
-              alignItems: "center",
-              gap: "1rem",
-            }}
-          >
-            <span
-              style={{
-                width: "30px",
-                height: "1px",
-                background: "var(--color-gold)",
-              }}
-            />
+        <PhilosophyContent>
+          <PhilosophyTitle>
+            <span />
             THE ART OF BEAUTY
-            <span
-              style={{
-                width: "30px",
-                height: "1px",
-                background: "var(--color-gold)",
-              }}
-            />
-          </div>
+            <span />
+          </PhilosophyTitle>
 
-          <h2
-            style={{
-              fontFamily: '"PPNeueMontreal", sans-serif',
-              fontSize: "clamp(2rem, 4.5vw, 4.5rem)",
-              lineHeight: 1.15,
-              color: "#fff",
-              maxWidth: "85%",
-              margin: "0 auto 4rem",
-              textWrap: "balance" as any,
-            }}
-          >
+          <PhilosophyText>
             "My artistry goes beyond makeup; it's about inspiring{" "}
-            <span
-              style={{
-                color: "transparent",
-                WebkitTextStroke: "1px var(--color-gold)",
-                fontWeight: 300,
-              }}
-            >
-              CONFIDENCE
-            </span>
-            . By merging technical mastery with an editorial eye, I craft{" "}
-            <span style={{ position: "relative", display: "inline-block" }}>
+            <span className="confidence-text">CONFIDENCE</span>. By merging
+            technical mastery with an editorial eye, I craft{" "}
+            <span className="flawless-looks">
               flawless, sophisticated looks
               <svg
                 width="100%"
@@ -285,98 +448,36 @@ const About: React.FC = () => {
               </svg>
             </span>{" "}
             designed for your most unforgettable moments."
-          </h2>
+          </PhilosophyText>
 
-          <div
-            className="artist-profile"
-            style={{
-              display: "flex",
-              alignItems: "center",
-              padding: "1.5rem 3.5rem",
-              transition: "all 0.5s cubic-bezier(0.4, 0, 0.2, 1)",
-            }}
-          >
+          <ArtistProfile className="artist-profile">
             <div style={{ position: "relative" }}>
-              <div
-                className="artist-img-container"
-                style={{
-                  position: "relative",
-                  width: "80px",
-                  height: "80px",
-                  borderRadius: "50%",
-                  overflow: "hidden",
-                  border: "1px solid rgba(255, 255, 255, 0.2)",
-                  transition: "transform 0.3s ease, border-color 0.3s ease",
-                  boxShadow: "0 0 20px rgba(0, 0, 0, 0.3)",
-                  backgroundColor: "rgba(255, 255, 255, 0.05)", // Debug background
-                }}
-              >
-                <img
+              <ArtistImgContainer className="artist-img-container">
+                <ArtistImg
                   src={imageError ? artist.fallbackImg : artist.img}
                   alt={artist.name}
                   loading="lazy"
                   className="artist-img"
                   onError={handleImageError}
                   onLoad={handleImageLoad}
-                  style={{
-                    display: "block",
-                    width: "100%",
-                    height: "100%",
-                    objectFit: "cover",
-                    filter: "grayscale(100%)",
-                    transition: "filter 0.3s ease",
-                  }}
                 />
-              </div>
-              <div
-                style={{
-                  position: "absolute",
-                  bottom: 2,
-                  right: 8,
-                  width: "16px",
-                  height: "16px",
-                  borderRadius: "50%",
-                  background: "var(--color-gold)",
-                  border: "3px solid #0a0a0a",
-                  zIndex: 2,
-                }}
-              />
+              </ArtistImgContainer>
+              <OnlineIndicator />
             </div>
-            <div style={{ textAlign: "left" }}>
-              <div
-                style={{
-                  fontFamily: '"PPNeueMontreal", sans-serif',
-                  fontSize: "1.8rem",
-                  color: "#fff",
-                  lineHeight: 1.1,
-                }}
-              >
-                {artist.name}
-              </div>
-              <div
-                style={{
-                  fontFamily: '"TheGoodMonolith", monospace',
-                  fontSize: "0.8rem",
-                  color: "var(--color-gold)",
-                  opacity: 0.8,
-                  marginTop: "0.25rem",
-                  letterSpacing: "0.15em",
-                  textTransform: "uppercase",
-                }}
-              >
-                {artist.role}
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+            <ArtistInfo>
+              <ArtistName>{artist.name}</ArtistName>
+              <ArtistRole>{artist.role}</ArtistRole>
+            </ArtistInfo>
+          </ArtistProfile>
+        </PhilosophyContent>
+      </PhilosophySection>
 
       {/* Partners List */}
-      <div className="about-list-section partners-section">
-        <div className="page-subtitle about-header-text section-subtitle">
+      <AboutListSection>
+        <SectionSubtitle className="about-header-text">
           // OUR_PARTNERS
-        </div>
-        <div className="about-list">
+        </SectionSubtitle>
+        <AboutList className="about-list">
           {partners.map((partner, index) => (
             <ContentCard
               key={partner.id}
@@ -394,22 +495,19 @@ const About: React.FC = () => {
               isDimmed={activePartner !== null && activePartner !== index}
             />
           ))}
-          <div
-            className="divider-line"
-            style={{ top: "auto", bottom: 0 }}
-          ></div>
-        </div>
-      </div>
+          <DividerLine style={{ top: "auto", bottom: 0 }} />
+        </AboutList>
+      </AboutListSection>
 
       {/* Testimonials List */}
-      <div
+      <AboutListSection
         className="about-list-section testimonials-section"
         style={{ marginTop: "20vh" }}
       >
-        <div className="page-subtitle about-header-text section-subtitle">
+        <SectionSubtitle className="page-subtitle about-header-text section-subtitle">
           // CLIENT_TESTIMONIALS
-        </div>
-        <div className="about-list">
+        </SectionSubtitle>
+        <AboutList className="about-list">
           {testimonials.map((test, index) => (
             <ContentCard
               key={test.id}
@@ -425,8 +523,8 @@ const About: React.FC = () => {
               }
             />
           ))}
-        </div>
-      </div>
+        </AboutList>
+      </AboutListSection>
 
       {/* Marquee Section */}
       <Marquee
@@ -439,7 +537,7 @@ const About: React.FC = () => {
         repetitions={4}
       />
       <SectionFooter text="// END_OF_ABOUT" />
-    </div>
+    </AboutPageContainer>
   );
 };
 
