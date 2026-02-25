@@ -113,8 +113,8 @@ const Gallery: React.FC = () => {
   // Fallback placeholder image
   const getFallbackImage = (index: number) => {
     const placeholders = [
-      "/src/assets/placeholder-1.svg",
-      "/src/assets/placeholder-2.svg",
+      "/assets/placeholder-1.svg",
+      "/assets/placeholder-2.svg",
     ];
     return placeholders[index % placeholders.length];
   };
