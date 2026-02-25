@@ -3,22 +3,23 @@ import gsap from "gsap";
 import Header from "./layout/Header";
 import Marquee from "./layout/Marquee";
 import SectionFooter from "./layout/SectionFooter";
-import React, { useLayoutEffect, useRef, useState, useEffect } from "react";
+import ContentCard from "./layout/ContentCard";
+import React, { useLayoutEffect, useRef, useEffect, useState } from "react";
+import type { ContactItem } from "../types/layout.js";
 
 gsap.registerPlugin(ScrollTrigger);
-
-interface ContactItem {
-  id: string;
-  label: string;
-  value: string;
-  subValue?: string;
-  link: string;
-}
 
 const Contact: React.FC = () => {
   const containerRef = useRef<HTMLDivElement>(null);
   const marqueeRef = useRef<HTMLDivElement>(null);
+  const contactListRef = useRef<HTMLDivElement>(null);
   const [activeItem, setActiveItem] = useState<number | null>(null);
+
+  const handleMouseEnter = (index: number) => setActiveItem(index);
+  const handleMouseLeave = () => setActiveItem(null);
+  const isActive = (index: number) => activeItem === index;
+  const isDimmed = (index: number) =>
+    activeItem !== null && activeItem !== index;
 
   const contactItems: ContactItem[] = [
     {
@@ -65,11 +66,54 @@ const Contact: React.FC = () => {
     },
   ];
 
+  // Styles
+  const styles = {
+    contactPage: {
+      cursor: "none",
+      width: "100vw",
+      height: "100vh",
+      color: "#e0e0e0",
+      backgroundColor: "#0a0a0a",
+      overflowY: "auto" as const,
+      overflowX: "hidden" as const,
+      padding: "120px 5vw 5vw 5vw",
+      position: "relative" as const,
+      scrollbarWidth: "none" as const,
+      msOverflowStyle: "none" as const,
+      WebkitOverflowScrolling: "touch" as const,
+      fontFamily: '"PPNeueMontreal", sans-serif',
+    },
+    contactList: {
+      zIndex: 2,
+      width: "100%",
+      display: "flex",
+      marginBottom: 0,
+      position: "relative" as const,
+      flexDirection: "column" as const,
+    },
+  };
+
+  // Hide scrollbar for webkit browsers
+  useEffect(() => {
+    const style = document.createElement("style");
+    style.textContent = `
+      .contact-page::-webkit-scrollbar {
+        display: none;
+      }
+    `;
+    document.head.appendChild(style);
+    return () => {
+      document.head.removeChild(style);
+    };
+  }, []);
+
   // Animations
   useLayoutEffect(() => {
     const ctx = gsap.context(() => {
       // Header Animation - match Services page style
-      gsap.from(".contact-header-text", {
+      const headerElements =
+        containerRef.current?.querySelectorAll(".contact-header-text") || [];
+      gsap.from(headerElements, {
         y: 100,
         opacity: 0,
         duration: 1,
@@ -78,7 +122,9 @@ const Contact: React.FC = () => {
       });
 
       // Line animations
-      gsap.from(".divider-line", {
+      const dividerLines =
+        containerRef.current?.querySelectorAll(".divider-line") || [];
+      gsap.from(dividerLines, {
         scaleX: 0,
         transformOrigin: "left",
         duration: 1.5,
@@ -88,9 +134,11 @@ const Contact: React.FC = () => {
       });
 
       // Contact items - match Services page style
-      gsap.set(".contact-item", { autoAlpha: 0, y: 50 });
+      const contactElements =
+        containerRef.current?.querySelectorAll(".content-item") || [];
+      gsap.set(contactElements, { autoAlpha: 0, y: 50 });
 
-      gsap.to(".contact-item", {
+      gsap.to(contactElements, {
         duration: 0.8,
         autoAlpha: 1,
         y: 0,
@@ -118,9 +166,12 @@ const Contact: React.FC = () => {
   useEffect(() => {
     const timer = setTimeout(() => {
       // Ensure elements are visible even if GSAP fails
-      const headerElements = document.querySelectorAll(".contact-header-text");
-      const contactElements = document.querySelectorAll(".contact-item");
-      const lineElements = document.querySelectorAll(".divider-line");
+      const headerElements =
+        containerRef.current?.querySelectorAll(".contact-header-text") || [];
+      const contactElements =
+        containerRef.current?.querySelectorAll(".content-item") || [];
+      const lineElements =
+        containerRef.current?.querySelectorAll(".divider-line") || [];
 
       headerElements.forEach((el) => {
         const element = el as HTMLElement;
@@ -150,43 +201,26 @@ const Contact: React.FC = () => {
   }, []);
 
   return (
-    <div className="contact-page" ref={containerRef}>
+    <div style={styles.contactPage} ref={containerRef}>
       <Header
         subtitle="// CONTACT_MO"
         titleLine1="GET YOUR"
         titleLine2="GLOW UP"
       />
 
-      <div className="contact-list">
+      <div style={styles.contactList} ref={contactListRef}>
         {contactItems.map((item, index) => (
-          <div
+          <ContentCard
             key={item.id}
-            className={`contact-item ${activeItem !== null && activeItem !== index ? "dimmed" : ""}`}
-            onMouseEnter={() => {
-              setActiveItem(index);
-            }}
-            onMouseLeave={() => setActiveItem(null)}
-          >
-            <div className="divider-line"></div>
-            <a
-              href={item.link}
-              className="contact-link"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <div className="contact-content">
-                <div className="item-id">{item.id}</div>
-                <div className="item-main">
-                  <div className="item-label">// {item.label}</div>
-                  <div className="item-value">{item.value}</div>
-                  {item.subValue && (
-                    <div className="item-subvalue">{item.subValue}</div>
-                  )}
-                </div>
-                <div className="arrow-icon">→</div>
-              </div>
-            </a>
-          </div>
+            index={index}
+            content={item}
+            variant="contact"
+            // className="content-item"
+            isActive={isActive(index)}
+            isDimmed={isDimmed(index)}
+            onMouseEnter={handleMouseEnter}
+            onMouseLeave={handleMouseLeave}
+          />
         ))}
       </div>
 

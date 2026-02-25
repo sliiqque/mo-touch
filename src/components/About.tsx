@@ -438,7 +438,7 @@ const About: React.FC = () => {
         ]}
         repetitions={4}
       />
-      <SectionFooter style={{ marginTop: "4vh" }} text="// END_OF_ABOUT" />
+      <SectionFooter text="// END_OF_ABOUT" />
     </div>
   );
 };

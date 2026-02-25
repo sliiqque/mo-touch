@@ -1,4 +1,31 @@
-/* About Page Styles */
+/* ===================================
+   BASE PAGE LAYOUT STYLES
+   =================================== */
+.page-base {
+  height: 100vh;
+  width: 100vw;
+  background-color: #0a0a0a;
+  color: #e0e0e0;
+  font-family: "PPNeueMontreal", sans-serif;
+  padding: 120px 5vw 5vw 5vw;
+  position: relative;
+  overflow-y: auto;
+  overflow-x: hidden;
+  cursor: none;
+  -webkit-overflow-scrolling: touch;
+}
+
+.page-base::-webkit-scrollbar {
+  display: none;
+}
+
+.page-base {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Page-specific classes that extend base */
+.page-base,
 .about-page {
   height: 100vh;
   width: 100vw;
@@ -13,54 +40,22 @@
   -webkit-overflow-scrolling: touch;
 }
 
+.page-base::-webkit-scrollbar,
 .about-page::-webkit-scrollbar {
   display: none;
 }
 
+.page-base,
 .about-page {
   -ms-overflow-style: none;
   scrollbar-width: none;
 }
 
-.about-page .header-section,
-.about-page .about-list,
-.about-page .about-intro,
-.about-page .marquee-container,
-.about-page .about-content-block,
-.about-page .about-list-section {
-  position: relative;
-  z-index: 2;
-}
+/* ===================================
+   SHARED LAYOUT COMPONENTS
+   =================================== */
 
-.about-page .header-section {
-  margin-bottom: 8rem;
-}
-
-.about-page .page-title {
-  font-size: 9vw;
-  line-height: 0.85;
-  font-weight: 800;
-  text-transform: uppercase;
-  margin: 0;
-  color: transparent;
-  -webkit-text-stroke: 1px #fff;
-  position: relative;
-  z-index: 1;
-}
-
-.about-page .page-title span {
-  display: block;
-}
-
-.about-page .page-subtitle {
-  font-family: "TheGoodMonolith", monospace;
-  font-size: 1.2rem;
-  margin-top: 2rem;
-  color: var(--color-gold);
-  letter-spacing: 0.1em;
-}
-
-.about-page .divider-line {
+.divider-line {
   height: 1px;
   background: rgba(255, 255, 255, 0.2);
   width: 100%;
@@ -69,10 +64,110 @@
   left: 0;
 }
 
+/* ===================================
+   SHARED LIST ITEM COMPONENTS
+   =================================== */
+.list-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  position: relative;
+  z-index: 2;
+}
+
+.list-item {
+  position: relative;
+  padding: 4rem 0;
+  cursor: none;
+  transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.list-item:hover {
+  padding-left: 2rem;
+}
+
+.list-item.dimmed {
+  opacity: 0.2;
+  filter: blur(2px);
+}
+
+.list-content {
+  display: grid;
+  grid-template-columns: 1fr 3fr 1fr;
+  align-items: flex-start;
+  gap: 2rem;
+}
+
+.item-id {
+  font-family: "TheGoodMonolith", monospace;
+  font-size: 1.5rem;
+  color: #666;
+}
+
+.item-main {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.item-label {
+  font-family: "TheGoodMonolith", monospace;
+  font-size: 1.2rem;
+  color: #a64b23;
+  margin-bottom: 0;
+}
+
+.item-value {
+  font-size: 3.5vw;
+  font-weight: 700;
+  line-height: 1;
+  text-transform: uppercase;
+  transition: color 0.3s ease;
+  text-shadow: none;
+}
+
+.list-item:hover .item-value {
+  color: #a64b23;
+}
+
+.item-subvalue {
+  font-size: 1.5rem;
+  font-weight: 300;
+  opacity: 0.7;
+  max-width: 600px;
+  margin-top: 1rem;
+  font-family: "PPNeueMontreal", sans-serif;
+}
+
+.item-tags {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  font-family: "TheGoodMonolith", monospace;
+  font-size: 0.9rem;
+  color: #888;
+  text-align: right;
+}
+
+/* ===================================
+   PAGE-SPECIALIZED COMPONENTS
+   =================================== */
+
+/* About Page Components */
+.about-page .about-list,
+.about-page .about-intro,
+.about-page .about-content-block,
+.about-page .about-list-section {
+  position: relative;
+  z-index: 2;
+}
+
 .about-page .about-list {
   display: flex;
   flex-direction: column;
   width: 100%;
+  position: relative;
+  z-index: 2;
   margin-bottom: 0;
 }
 
@@ -83,61 +178,11 @@
   transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.about-page .about-item:hover {
-  padding-left: 2rem;
-}
-
-.about-page .about-item.dimmed {
-  opacity: 0.2;
-  filter: blur(2px);
-}
-
 .about-page .about-content {
   display: grid;
   grid-template-columns: 1fr 3fr 1fr;
   align-items: flex-start;
   gap: 2rem;
-}
-
-.about-page .item-id {
-  font-family: "TheGoodMonolith", monospace;
-  font-size: 1.5rem;
-  color: #666;
-}
-
-.about-page .item-main {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-}
-
-.about-page .item-label {
-  font-family: "TheGoodMonolith", monospace;
-  font-size: 1.2rem;
-  color: #a64b23;
-  margin-bottom: 0;
-}
-
-.about-page .item-value {
-  font-size: 3.5vw;
-  font-weight: 700;
-  line-height: 1;
-  text-transform: uppercase;
-  transition: color 0.3s ease;
-  text-shadow: none;
-}
-
-.about-page .about-item:hover .item-value {
-  color: #a64b23;
-}
-
-.about-page .item-subvalue {
-  font-size: 1.5rem;
-  font-weight: 300;
-  opacity: 0.7;
-  max-width: 600px;
-  margin-top: 1rem;
-  font-family: "PPNeueMontreal", sans-serif;
 }
 
 .about-page .about-tags {
@@ -150,26 +195,17 @@
   text-align: right;
 }
 
-.about-page .about-tag-item {
-  opacity: 0;
-  transform: translateX(20px);
-  transition: all 0.4s ease;
-}
-
-.about-page .about-item:hover .about-tag-item {
-  opacity: 1;
-  transform: translateX(0);
-}
-
-/* Artist Profile Styles */
-.about-page .artist-profile {
+/* ===================================
+   ARTIST PROFILE COMPONENTS
+   =================================== */
+.artist-profile {
   gap: 1.5rem;
   display: flex;
   align-items: center;
   transition: transform 0.3s ease;
 }
 
-.about-page .artist-img-container {
+.artist-img-container {
   position: relative;
   width: 80px;
   height: 80px;
@@ -182,7 +218,7 @@
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
 }
 
-.about-page .artist-img {
+.artist-img {
   width: 100%;
   height: 100%;
   object-fit: cover;
@@ -190,21 +226,21 @@
   transition: filter 0.3s ease;
 }
 
-.about-page .artist-profile:hover .artist-img-container {
+.artist-profile:hover .artist-img-container {
   transform: scale(1.05);
   border-color: var(--color-gold) !important;
 }
 
-.about-page .artist-profile:hover .artist-img {
+.artist-profile:hover .artist-img {
   filter: grayscale(0%);
 }
 
-.about-page .artist-info {
+.artist-info {
   display: flex;
   flex-direction: column;
 }
 
-.about-page .artist-name {
+.artist-name {
   font-family: "PPNeueMontreal", sans-serif;
   font-size: 1.75rem;
   font-weight: 500;
@@ -213,7 +249,7 @@
   color: #fff;
 }
 
-.about-page .artist-role {
+.artist-role {
   font-family: "TheGoodMonolith", monospace;
   font-size: 0.85rem;
   opacity: 0.6;
@@ -221,17 +257,19 @@
   color: #e0e0e0;
 }
 
-/* Philosophy Section */
-.about-page .philosophy-section {
+/* ===================================
+   PHILOSOPHY SECTION
+   =================================== */
+.philosophy-section {
   position: relative;
   margin-bottom: 4rem;
 }
 
-.about-page .philosophy-content {
+.philosophy-content {
   padding: 4rem 0;
 }
 
-.about-page .philosophy-text {
+.philosophy-text {
   font-family: "PPNeueMontreal", sans-serif;
   font-size: clamp(2rem, 4vw, 3.5rem);
   line-height: 1.1;
@@ -240,30 +278,34 @@
   max-width: 90%;
 }
 
-.about-page .philosophy-highlight {
+.philosophy-highlight {
   color: var(--color-gold);
 }
 
-.about-page .philosophy-underline {
+.philosophy-underline {
   border-bottom: 1px solid var(--color-gold);
   padding-bottom: 2px;
 }
 
-/* Partners & Testimonials */
-.about-page .partners-section {
-  /* Default styles */
+/* ===================================
+   PARTNERS & TESTIMONIALS
+   =================================== */
+.partners-section {
+  margin-bottom: 4rem;
 }
 
-.about-page .testimonials-section {
+.testimonials-section {
   margin-top: 6rem;
 }
 
-.about-page .section-subtitle {
+.section-subtitle {
   margin-bottom: 2rem;
   padding-left: 0;
 }
 
-/* Footer Text */
+/* ===================================
+   FOOTER COMPONENTS
+   =================================== */
 .footer-end-text {
   margin-top: 3vh;
   margin-bottom: 5vh;
@@ -275,8 +317,10 @@
   color: #e0e0e0;
 }
 
-/* Testimonials */
-.about-page .list-quote {
+/* ===================================
+   TESTIMONIALS
+   =================================== */
+.list-quote {
   color: #fff;
   font-size: clamp(1.5rem, 2.5vw, 2rem);
   font-family: "PPNeueMontreal", sans-serif;
@@ -284,256 +328,28 @@
   margin-bottom: 1rem;
 }
 
-.about-page .list-author {
+.list-author {
   opacity: 0.6;
   font-size: 0.85rem;
 }
 
-.about-page .marquee-container {
-  width: 100vw;
-  overflow: hidden;
-  margin-left: -5vw;
-  background: #0a0a0a;
-  border-top: 2px solid rgba(255, 255, 255, 0.4);
-}
-
-.about-page .marquee-content {
-  display: flex;
-  white-space: nowrap;
-  width: fit-content;
-  align-items: center;
-}
-
-.about-page .marquee-item {
-  font-size: 10vw;
-  font-weight: 900;
-  color: #fff;
-  margin-right: 6rem;
-  text-transform: uppercase;
-  transition: color 0.3s;
-  -webkit-text-stroke: 0;
-  line-height: 1.4;
-}
-
-.about-page .marquee-item:hover {
-  color: transparent;
-  -webkit-text-stroke: 1px #a64b23;
-}
-
-/* Generic ContentCard Styles */
-.content-item {
-  position: relative;
-  padding: 4rem 0;
-  cursor: none;
-  transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.content-item:hover {
+/* ===================================
+   HOVER STATES & INTERACTIONS
+   =================================== */
+.about-page .about-item:hover {
   padding-left: 2rem;
 }
 
-.content-item.dimmed {
-  opacity: 0.2;
-  filter: blur(2px);
-}
-
-.content-body {
-  display: grid;
-  grid-template-columns: 1fr 3fr 1fr;
-  align-items: flex-start;
-  gap: 2rem;
-}
-
-.content-id {
-  font-family: "TheGoodMonolith", monospace;
-  font-size: 1.5rem;
-  color: #666;
-}
-
-.content-main {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-}
-
-.content-title {
-  font-size: 3.5vw;
-  font-weight: 700;
-  line-height: 1;
-  text-transform: uppercase;
-  transition: color 0.3s ease;
-}
-
-.content-item:hover .content-title {
+.about-page .about-item:hover .item-value {
   color: #a64b23;
-}
-
-.content-desc {
-  font-size: 1.5rem;
-  font-weight: 300;
-  max-width: 600px;
-  opacity: 0.7;
-  margin-top: 1rem;
-}
-
-.content-tags {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-  font-family: "TheGoodMonolith", monospace;
-  font-size: 0.9rem;
-  color: #888;
-  text-align: right;
-}
-
-.content-tag-item {
-  opacity: 0;
-  transform: translateX(20px);
-  transition: all 0.4s ease;
-}
-
-.content-item:hover .content-tag-item {
-  opacity: 1;
-  transform: translateX(0);
-}
-
-/* Services Page Styles */
-.services-page {
-  height: 100vh;
-  width: 100vw;
-  background-color: #0a0a0a;
-  color: #e0e0e0;
-  font-family: "PPNeueMontreal", sans-serif;
-  padding: 120px 5vw 5vw 5vw;
-  position: relative;
-  overflow-y: auto;
-  overflow-x: hidden;
-  cursor: none;
-  -webkit-overflow-scrolling: touch;
-}
-
-.services-page::-webkit-scrollbar {
-  display: none;
-}
-
-.services-page {
-  -ms-overflow-style: none;
-  scrollbar-width: none;
-}
-
-.services-page .header-section {
-  margin-bottom: 8rem;
-  position: relative;
-}
-
-.services-page .page-title {
-  font-size: 9vw;
-  line-height: 0.85;
-  font-weight: 800;
-  text-transform: uppercase;
-  margin: 0;
-  color: transparent;
-  -webkit-text-stroke: 1px #fff;
-  position: relative;
-  z-index: 1;
-}
-
-.services-page .page-title span {
-  display: block;
-}
-
-.services-page .page-subtitle {
-  font-family: "TheGoodMonolith", monospace;
-  font-size: 1.2rem;
-  margin-top: 2rem;
-  letter-spacing: 0.1em;
-  color: var(--color-gold);
-}
-
-.services-page .services-list {
-  display: flex;
-  flex-direction: column;
-  position: relative;
-}
-
-.services-page .service-item {
-  position: relative;
-  padding: 4rem 0;
-  cursor: none;
-  transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .services-page .service-item:hover {
   padding-left: 2rem;
 }
 
-.services-page .service-item.dimmed {
-  opacity: 0.2;
-  filter: blur(2px);
-}
-
-.services-page .divider-line {
-  height: 1px;
-  background: rgba(255, 255, 255, 0.2);
-  width: 100%;
-  position: absolute;
-  top: 0;
-  left: 0;
-}
-
-.services-page .service-content {
-  display: grid;
-  grid-template-columns: 1fr 3fr 1fr;
-  align-items: flex-start;
-  gap: 2rem;
-}
-
-.services-page .service-id {
-  font-family: "TheGoodMonolith", monospace;
-  font-size: 1.5rem;
-  color: #666;
-}
-
-.services-page .service-main {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-}
-
-.services-page .service-title {
-  font-size: 3.5vw;
-  font-weight: 700;
-  line-height: 1;
-  text-transform: uppercase;
-  transition: color 0.3s ease;
-}
-
 .services-page .service-item:hover .service-title {
   color: #a64b23;
-}
-
-.services-page .service-desc {
-  font-size: 1.5rem;
-  font-weight: 300;
-  max-width: 600px;
-  opacity: 0.7;
-  margin-top: 1rem;
-}
-
-.services-page .service-tags {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-  font-family: "TheGoodMonolith", monospace;
-  font-size: 0.9rem;
-  color: #888;
-  text-align: right;
-}
-
-.services-page .service-tag-item {
-  opacity: 0;
-  transform: translateX(20px);
-  transition: all 0.4s ease;
 }
 
 .services-page .service-item:hover .service-tag-item {
@@ -541,230 +357,14 @@
   transform: translateX(0);
 }
 
-/* Contact Page Styles */
-.contact-page {
-  height: 100vh;
-  width: 100vw;
-  background-color: #0a0a0a;
-  color: #e0e0e0;
-  font-family: "PPNeueMontreal", sans-serif;
-  padding: 120px 5vw 5vw 5vw;
-  position: relative;
-  overflow-y: auto;
-  overflow-x: hidden;
-  cursor: none;
-  -webkit-overflow-scrolling: touch;
-}
-
-.contact-page::-webkit-scrollbar {
-  display: none;
-}
-
-.contact-page {
-  -ms-overflow-style: none;
-  scrollbar-width: none;
-}
-
-.contact-page .header-section,
-.contact-page .contact-list,
-.contact-page .marquee-container {
-  position: relative;
-  z-index: 2;
-}
-
-.contact-page .header-section {
-  margin-bottom: 8rem;
-}
-
-.contact-page .page-title {
-  font-size: 9vw;
-  line-height: 0.85;
-  font-weight: 800;
-  text-transform: uppercase;
-  margin: 0;
-  color: transparent;
-  -webkit-text-stroke: 1px #fff;
-  position: relative;
-  z-index: 1;
-}
-
-.contact-page .page-title span {
-  display: block;
-}
-
-.contact-page .page-subtitle {
-  font-family: "TheGoodMonolith", monospace;
-  font-size: 1.2rem;
-  margin-top: 2rem;
-  color: var(--color-gold);
-  letter-spacing: 0.1em;
-}
-
-.contact-page .divider-line {
-  height: 1px;
-  background: rgba(255, 255, 255, 0.2);
-  width: 100%;
-  position: absolute;
-  top: 0;
-  left: 0;
-}
-
-.contact-page .contact-list {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-}
-
-.contact-page .contact-item {
-  position: relative;
-  padding: 4rem 0;
-  cursor: none;
-  transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.contact-page .contact-item:hover {
-  padding-left: 2rem;
-}
-
-.contact-page .contact-item.dimmed {
-  opacity: 0.2;
-  filter: blur(2px);
-}
-
-.contact-page .contact-content {
-  display: grid;
-  grid-template-columns: 1fr 3fr 1fr;
-  align-items: flex-start;
-  gap: 2rem;
-}
-
-.contact-page .item-id {
-  font-family: "TheGoodMonolith", monospace;
-  font-size: 1.5rem;
-  color: #666;
-}
-
-.contact-page .item-main {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-}
-
-.contact-page .item-label {
-  font-family: "TheGoodMonolith", monospace;
-  font-size: 1.2rem;
-  color: #a64b23;
-  margin-bottom: 0;
-}
-
-.contact-page .item-value {
-  font-size: 3.5vw;
-  font-weight: 700;
-  line-height: 1;
-  text-transform: uppercase;
-  transition:
-    color 0.3s ease,
-    transform 0.3s ease;
-  text-shadow: none;
-}
-
-.contact-page .contact-item:hover .item-value {
-  color: #a64b23;
-}
-
-.contact-page .item-subvalue {
-  font-size: 1.5rem;
-  font-weight: 300;
-  opacity: 0.7;
-  margin-top: 1rem;
-  font-family: "PPNeueMontreal", sans-serif;
-}
-
-.contact-page .contact-link {
-  text-decoration: none;
-  color: inherit;
-  display: block;
-}
-
-.contact-page .contact-link::after {
-  display: none;
-}
-
-.contact-page .contact-link:hover {
-  color: inherit;
-  mix-blend-mode: normal;
-}
-
-.contact-page .arrow-icon {
-  font-size: 2rem;
-  color: #888;
-  opacity: 0;
-  transform: translateX(20px);
-  transition: all 0.4s ease;
-  text-align: right;
-  font-family: "TheGoodMonolith", monospace;
-}
-
-.contact-page .contact-item:hover .arrow-icon {
-  opacity: 0;
-  transform: translateX(20px);
-}
-
-/* .contact-page .marquee-container {
-  width: 100%;
-  overflow: hidden;
-  margin-top: 3rem;
-  background: #0a0a0a;
-  border-top: 2px solid rgba(255, 255, 255, 0.4);
-} */
-
-.contact-page .marquee-container {
-  width: 100vw;
-  overflow: hidden;
-  margin-left: -5vw;
-  background: #0a0a0a;
-  border-top: 2px solid rgba(255, 255, 255, 0.4);
-}
-
-.contact-page .marquee-content {
-  display: flex;
-  white-space: nowrap;
-  width: fit-content;
-  align-items: center;
-}
-
-.contact-page .marquee-item {
-  font-size: 10vw;
-  font-weight: 900;
-  color: #fff;
-  margin-right: 6rem;
-  text-transform: uppercase;
-  transition: color 0.3s;
-  -webkit-text-stroke: 0;
-  line-height: 1.4;
-  padding-bottom: 0.2em;
-}
-
-.contact-page .marquee-item:hover {
-  color: transparent;
-  -webkit-text-stroke: 1px #a64b23;
-}
-
-/* About Page Responsive Styles */
+/* ===================================
+   RESPONSIVE STYLES
+   =================================== */
 @media (max-width: 1024px) {
+  /* About Page */
   .about-page .about-content {
     grid-template-columns: 1fr;
     gap: 1rem;
-  }
-  .about-page .about-tags {
-    flex-direction: row;
-    flex-wrap: wrap;
-    text-align: left;
-    margin-top: 1rem;
-  }
-  .about-page .about-tag-item {
-    opacity: 1;
-    transform: none;
   }
   .about-page .item-value {
     font-size: 6vw;
@@ -772,69 +372,23 @@
 }
 
 @media (max-width: 768px) {
+  /* About Page */
   .about-page {
     padding: 100px 5vw 0 5vw;
   }
-
   .about-page .item-value {
     font-size: 8vw;
   }
-
   .about-page .item-subvalue {
     font-size: 1.2rem;
   }
-}
 
-@media (max-width: 480px) {
+  /* About Page */
   .about-page .item-value {
     font-size: 10vw;
-  }
-  .about-page .marquee-item {
-    font-size: 12vw !important;
   }
 }
 
 /* Touch device optimizations */
 @media (hover: none) and (pointer: coarse) {
-  .about-page .marquee-item:hover {
-    color: #fff !important;
-    -webkit-text-stroke: 1px rgba(255, 255, 255, 0.3) !important;
-  }
-}
-
-/* Contact Page Responsive Styles */
-@media (max-width: 768px) {
-  .services-page .service-content {
-    grid-template-columns: 1fr;
-    gap: 1rem;
-  }
-
-  .services-page .service-tags {
-    flex-direction: row;
-    flex-wrap: wrap;
-    text-align: left;
-    margin-top: 1rem;
-  }
-
-  .services-page .service-tag-item {
-    opacity: 1;
-    transform: none;
-  }
-
-  .contact-page .contact-content {
-    grid-template-columns: 1fr;
-    gap: 1rem;
-  }
-
-  .contact-page .item-value {
-    font-size: 10vw;
-  }
-
-  .contact-page .page-title {
-    font-size: 9vw;
-  }
-
-  .contact-page .arrow-icon {
-    display: none;
-  }
 }

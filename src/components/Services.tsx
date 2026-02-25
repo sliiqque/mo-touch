@@ -10,6 +10,9 @@ import SectionFooter from "./layout/SectionFooter";
 gsap.registerPlugin(ScrollTrigger);
 const Services: FC = () => {
   const containerRef = useRef<HTMLDivElement>(null);
+  const servicesListRef = useRef<HTMLDivElement>(null);
+  const dividerLineRef = useRef<HTMLDivElement>(null);
+
   const {
     services,
     handleMouseEnter,
@@ -18,31 +21,82 @@ const Services: FC = () => {
     isServiceDimmed,
   } = useServices();
 
+  // Styles
+  const styles = {
+    servicesPage: {
+      height: "100vh",
+      width: "100vw",
+      backgroundColor: "#0a0a0a",
+      color: "#e0e0e0",
+      fontFamily: '"PPNeueMontreal", sans-serif',
+      padding: "120px 5vw 5vw 5vw",
+      position: "relative" as const,
+      overflowY: "auto" as const,
+      overflowX: "hidden" as const,
+      cursor: "none",
+      WebkitOverflowScrolling: "touch" as const,
+      scrollbarWidth: "none" as const,
+      msOverflowStyle: "none" as const,
+    },
+    servicesList: {
+      display: "flex",
+      flexDirection: "column" as const,
+      width: "100%",
+      position: "relative" as const,
+      zIndex: 2,
+    },
+    dividerLine: {
+      height: "1px",
+      background: "rgba(255, 255, 255, 0.2)",
+      width: "100%",
+      position: "absolute" as const,
+      top: "auto",
+      bottom: 0,
+      left: 0,
+    },
+  };
+
+  // Hide scrollbar for webkit browsers
+  useEffect(() => {
+    const style = document.createElement("style");
+    style.textContent = `
+      .services-page::-webkit-scrollbar {
+        display: none;
+      }
+    `;
+    document.head.appendChild(style);
+    return () => {
+      document.head.removeChild(style);
+    };
+  }, []);
+
   // Animations
   useLayoutEffect(() => {
     const ctx = gsap.context(() => {
       // Line animations
-      gsap.from(".divider-line", {
-        scaleX: 0,
-        transformOrigin: "left",
-        duration: 1.5,
-        ease: "expo.inOut",
-        stagger: 0.1,
-        delay: 0.5,
-      });
+      if (dividerLineRef.current) {
+        gsap.from(dividerLineRef.current, {
+          scaleX: 0,
+          transformOrigin: "left",
+          duration: 1.5,
+          ease: "expo.inOut",
+          delay: 0.5,
+        });
+      }
 
       // Content Item Animations
-      // Set initial state to avoid FOUC but ensure visibility if JS fails
-      gsap.set(".content-item", { autoAlpha: 0, y: 50 });
+      const contentItems =
+        servicesListRef.current?.querySelectorAll(".content-item") || [];
+      gsap.set(contentItems, { autoAlpha: 0, y: 50 });
 
-      gsap.to(".content-item", {
+      gsap.to(contentItems, {
         duration: 0.8,
         autoAlpha: 1,
         y: 0,
         stagger: 0.1,
         ease: "power2.out",
-        delay: 0.2, // Reduced delay
-        clearProps: "transform", // Keep opacity/visibility, clear transform to avoid stacking context issues
+        delay: 0.2,
+        clearProps: "transform",
       });
     }, containerRef);
 
@@ -53,28 +107,28 @@ const Services: FC = () => {
   useEffect(() => {
     const timer = setTimeout(() => {
       // Ensure elements are visible even if GSAP fails
-      const contentElements = document.querySelectorAll(".content-item");
-      const lineElements = document.querySelectorAll(".divider-line");
+      const contentElements =
+        containerRef.current?.querySelectorAll(".content-item");
+      const lineElement = dividerLineRef.current;
 
-      contentElements.forEach((el) => {
+      contentElements?.forEach((el) => {
         const element = el as HTMLElement;
         element.style.opacity = "1";
         element.style.transform = "translateY(0)";
       });
 
-      lineElements.forEach((el) => {
-        const element = el as HTMLElement;
-        element.style.transform = "scaleX(1)";
-      });
+      if (lineElement) {
+        lineElement.style.transform = "scaleX(1)";
+      }
     }, 500);
 
     return () => clearTimeout(timer);
   }, []);
 
   return (
-    <div className="services-page" ref={containerRef}>
+    <div style={styles.servicesPage} ref={containerRef}>
       <Header />
-      <div className="services-list">
+      <div style={styles.servicesList} ref={servicesListRef}>
         {services.map((service, index) => (
           <ContentCard
             index={index}
@@ -86,7 +140,7 @@ const Services: FC = () => {
             isDimmed={isServiceDimmed(index)}
           />
         ))}
-        <div className="divider-line" style={{ top: "auto", bottom: 0 }}></div>
+        <div style={styles.dividerLine} ref={dividerLineRef}></div>
       </div>
       {/* Marquee Section */}
       <Marquee
@@ -100,7 +154,7 @@ const Services: FC = () => {
         ]}
         repetitions={4}
       />
-      <SectionFooter style={{ marginTop: "4vh" }} text="// END_OF_SERVICES" />
+      <SectionFooter text="// END_OF_SERVICES" />
     </div>
   );
 };

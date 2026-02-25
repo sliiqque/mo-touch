@@ -18,10 +18,19 @@ export interface TestimonialItem {
   tags: string[];
 }
 
-export type ContentCardVariant = "content" | "testimonial";
+export interface ContactItem {
+  id: string;
+  label: string;
+  value: string;
+  subValue?: string;
+  link: string;
+  tags?: string[];
+}
+
+export type ContentCardVariant = "content" | "testimonial" | "contact";
 
 export interface ContentCardProps {
-  content: ContentItem | TestimonialItem;
+  content: ContentItem | TestimonialItem | ContactItem;
   index: number;
   isActive: boolean;
   isDimmed: boolean;
