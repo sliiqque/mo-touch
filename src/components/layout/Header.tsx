@@ -51,7 +51,7 @@ const Header: React.FC<HeaderProps> = ({
 
   const styles = {
     headerSection: {
-      marginBottom: "8rem",
+      marginBottom: isMobile ? "2rem" : "8rem",
       position: "relative" as const,
       zIndex: 2,
     },

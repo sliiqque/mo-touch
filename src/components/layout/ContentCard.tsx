@@ -57,6 +57,7 @@ const ContentCard: React.FC<ContentCardProps> = ({
   className = "",
 }) => {
   const [isTablet, setIsTablet] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
 
   const isTestimonial = variant === "testimonial";
   const isContact = variant === "contact";
@@ -74,6 +75,7 @@ const ContentCard: React.FC<ContentCardProps> = ({
   useEffect(() => {
     const handleResize = () => {
       setIsTablet(window.innerWidth <= 1024);
+      setIsMobile(window.innerWidth <= 768);
     };
 
     handleResize();
@@ -85,7 +87,7 @@ const ContentCard: React.FC<ContentCardProps> = ({
   const styles = {
     contentItem: {
       position: "relative" as const,
-      padding: "4rem 0",
+      padding: isMobile ? "1rem 0" : "4rem 0",
       cursor: "none",
       transition: "all 0.5s cubic-bezier(0.16, 1, 0.3, 1)",
       ...(isActive && { paddingLeft: "2rem" }),
