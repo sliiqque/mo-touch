@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="320" height="320" viewBox="0 0 320 320">
+  <rect width="320" height="320" fill="#A64B23"/>
+  <text x="50%" y="50%" font-family="Arial, sans-serif" font-size="24" fill="white" text-anchor="middle" dy=".3em">BEAUTY 01</text>
+  <circle cx="80" cy="80" r="30" fill="none" stroke="#D4AF37" stroke-width="2"/>
+  <circle cx="240" cy="80" r="30" fill="none" stroke="#D4AF37" stroke-width="2"/>
+  <path d="M160 120 Q120 160 160 200 Q200 160 160 120" fill="none" stroke="#D4AF37" stroke-width="2"/>
+</svg>
