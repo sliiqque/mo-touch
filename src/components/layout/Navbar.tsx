@@ -1,8 +1,191 @@
-import React, { useEffect, useRef, useState, useLayoutEffect } from "react";
-import { Link, useLocation } from "react-router-dom";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useUI } from "../../context/UIContext";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { Link, useLocation } from "react-router-dom";
+import React, { useEffect, useRef, useState, useLayoutEffect } from "react";
+import gsap from "gsap";
+
+// Internal styles for Navbar component
+const navbarStyles = `
+  .header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    padding: 1.5rem 2rem;
+    z-index: 10000;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    pointer-events: none;
+    color: var(--color-text);
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+  }
+
+  .header > * {
+    pointer-events: auto;
+  }
+
+  .nav-section.logo-area {
+    flex: 0 0 auto;
+  }
+
+  .marquee-section {
+    flex: 1;
+    overflow: hidden;
+    margin: 0 4rem;
+    opacity: 0.8;
+    font-family: "Space Grotesk", sans-serif;
+    text-transform: uppercase;
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+    white-space: nowrap;
+    mask-image: linear-gradient(
+      to right,
+      transparent,
+      black 20%,
+      black 80%,
+      transparent
+    );
+    -webkit-mask-image: linear-gradient(
+      to right,
+      transparent,
+      black 20%,
+      black 80%,
+      transparent
+    );
+  }
+
+  .marquee-wrapper {
+    width: 100%;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+  }
+
+  .values-section.nav-area {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+  }
+
+  .time-display {
+    font-family: "Space Grotesk", sans-serif;
+    font-size: 0.75rem;
+    opacity: 0.6;
+    letter-spacing: 0.05em;
+  }
+
+  .nav-area ul {
+    display: flex;
+    gap: 2rem;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .nav-link {
+    font-family: "Space Grotesk", sans-serif;
+    font-size: 0.85rem;
+    text-decoration: none;
+    color: var(--color-text);
+    position: relative;
+    display: block;
+    letter-spacing: 0.05em;
+    transition: opacity 0.3s ease;
+  }
+
+  .logo-container {
+    margin-bottom: var(--spacing-md);
+    display: block;
+    width: 3rem;
+    height: 0.5rem;
+    position: relative;
+    cursor: pointer;
+    text-align: center;
+  }
+
+  .logo-circles {
+    position: relative;
+    width: 100%;
+    height: 100%;
+  }
+
+  .circle {
+    position: absolute;
+    border-radius: 50%;
+    transition: transform var(--transition-medium);
+    width: 1.4rem;
+    height: 1.4rem;
+    background-color: var(--color-text);
+    top: 50%;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+  }
+
+  .circle-1 {
+    left: 0;
+    transform: translate(0, -50%);
+  }
+
+  .circle-2 {
+    left: 0.8rem;
+    transform: translate(0, -50%);
+    mix-blend-mode: exclusion;
+  }
+
+  .logo-container:hover .circle-1 {
+    transform: translate(-0.5rem, -50%);
+  }
+
+  .logo-container:hover .circle-2 {
+    transform: translate(0.5rem, -50%);
+  }
+
+  @media (max-width: 768px) {
+    .header {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      padding: 1rem;
+      background: linear-gradient(to bottom, rgba(9, 9, 11, 0.8), transparent);
+    }
+
+    .marquee-section,
+    .time-display {
+      display: none;
+    }
+
+    .nav-section,
+    .values-section {
+      grid-column: auto !important;
+      text-align: left !important;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .nav-section.logo-area {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+    }
+
+    .values-section ul {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+    }
+
+    .logo-container {
+      // margin: 0 auto 0.5rem;
+    }
+  }
+`;
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -17,6 +200,26 @@ const Navbar: React.FC = () => {
     typeof window !== "undefined" ? window.innerWidth <= 768 : false,
   );
   const [time, setTime] = useState("");
+
+  // Inject styles into head
+  useEffect(() => {
+    const styleId = "navbar-styles";
+    let styleElement = document.getElementById(styleId) as HTMLStyleElement;
+
+    if (!styleElement) {
+      styleElement = document.createElement("style");
+      styleElement.id = styleId;
+      styleElement.textContent = navbarStyles;
+      document.head.appendChild(styleElement);
+    }
+
+    return () => {
+      // Clean up styles when component unmounts
+      if (styleElement && styleElement.parentNode) {
+        styleElement.parentNode.removeChild(styleElement);
+      }
+    };
+  }, []);
 
   useEffect(() => {
     const checkMobile = () => setIsMobile(window.innerWidth <= 768);
