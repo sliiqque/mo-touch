@@ -302,12 +302,24 @@ const Gallery: React.FC = () => {
       scale: activeZoomRef.current,
     });
 
-    // Initialize Draggable
+    // Initialize Draggable with enhanced touch support
     draggableInstance.current = Draggable.create(canvasWrapperRef.current, {
       type: "x,y",
       edgeResistance: 0.65,
       bounds: getBounds(),
       inertia: true,
+      // Enhanced touch configuration
+      dragClickables: false, // Don't treat grid items as draggables by default
+      allowContextMenu: true,
+      // Better touch handling
+      onDragStart: function () {
+        // Add dragging class for visual feedback
+        document.body.classList.add("dragging");
+      },
+      onDragEnd: function () {
+        // Remove dragging class
+        document.body.classList.remove("dragging");
+      },
     });
 
     // Intro Animation for Grid Items
@@ -363,11 +375,47 @@ const Gallery: React.FC = () => {
     // Sound system logic removed
   }, []);
 
-  // Zoom Logic
-  const handleItemClick = (item: GridItem, e: React.MouseEvent) => {
+  // Enhanced touch handling for mobile
+  const handleTouchStart = (e: React.TouchEvent) => {
+    // Store initial touch position to differentiate between tap and drag
+    const touch = e.touches[0];
+    (e.currentTarget as HTMLElement).dataset.touchStartX =
+      touch.clientX.toString();
+    (e.currentTarget as HTMLElement).dataset.touchStartY =
+      touch.clientY.toString();
+    (e.currentTarget as HTMLElement).dataset.touchStartTime =
+      Date.now().toString();
+  };
+
+  // Zoom Logic - Enhanced for mobile touch support
+  const handleItemClick = (
+    item: GridItem,
+    e: React.MouseEvent | React.TouchEvent,
+  ) => {
     if (isZoomed) return;
 
     const element = e.currentTarget as HTMLDivElement;
+
+    // For touch events, verify it's a tap (not a drag)
+    if ("touches" in e) {
+      const touchStartX = parseFloat(element.dataset.touchStartX || "0");
+      const touchStartY = parseFloat(element.dataset.touchStartY || "0");
+      const touchStartTime = parseInt(element.dataset.touchStartTime || "0");
+
+      if (e.changedTouches.length > 0) {
+        const touch = e.changedTouches[0];
+        const deltaX = Math.abs(touch.clientX - touchStartX);
+        const deltaY = Math.abs(touch.clientY - touchStartY);
+        const deltaTime = Date.now() - touchStartTime;
+
+        // Only treat as click if it's a quick tap with minimal movement
+        if (deltaX > 10 || deltaY > 10 || deltaTime > 300) {
+          return; // This was a drag, not a tap
+        }
+      }
+      e.preventDefault();
+    }
+
     const img = element.querySelector("img") as HTMLImageElement;
 
     // 1. Disable Draggable
@@ -649,6 +697,8 @@ const Gallery: React.FC = () => {
                 key={item.id}
                 className="grid-item"
                 onClick={(e) => handleItemClick(item, e)}
+                onTouchStart={handleTouchStart}
+                onTouchEnd={(e) => handleItemClick(item, e)}
                 style={{
                   transform: `translate3d(${item.x}px, ${item.y}px, 0)`,
                   width: `${BASE_WIDTH}px`,

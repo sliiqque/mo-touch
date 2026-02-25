@@ -1,11 +1,11 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import React, { useRef, useLayoutEffect, useState, useEffect } from "react";
 import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-import SectionFooter from "./layout/SectionFooter";
+import Header from "./layout/Header.js";
 import Marquee from "./layout/Marquee.js";
 import ContentCard from "./layout/ContentCard.js";
-import Header from "./layout/Header.js";
+import SectionFooter from "./layout/SectionFooter";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -155,7 +155,6 @@ const About: React.FC = () => {
         style={{ position: "relative", padding: "15vh 0", overflow: "hidden" }}
       >
         <div className="divider-line"></div>
-
         {/* Abstract Background Elements */}
         <div
           style={{

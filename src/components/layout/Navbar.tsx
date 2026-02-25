@@ -111,13 +111,13 @@ const Navbar: React.FC = () => {
       {/* Left: Logo */}
       <div className="nav-section logo-area">
         <div
-          className="logo-container"
-          ref={logoRef}
           style={{
             pointerEvents: isZoomed ? "none" : "auto",
             opacity: isZoomed ? 0.3 : 1,
             transition: "opacity 0.3s",
           }}
+          ref={logoRef}
+          className="logo-container"
         >
           <Link to="/">
             <div className="logo-circles">
@@ -159,9 +159,12 @@ const Navbar: React.FC = () => {
         <ul
           ref={menuRef}
           style={{
-            pointerEvents: isZoomed ? "none" : "auto",
-            opacity: isZoomed ? 0.3 : 1,
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
             transition: "opacity 0.3s",
+            opacity: isZoomed ? 0.3 : 1,
+            pointerEvents: isZoomed ? "none" : "auto",
           }}
         >
           {["Work", "About", "Services", "Contact"].map((item) => {
