@@ -782,7 +782,7 @@ const Gallery: React.FC = () => {
             <span className="indicator-dot"></span>ZOOM IN
           </button>
           <button
-            className="switch-button"
+            className={`switch-button ${activeZoom === 0.2 ? "switch-button-current" : ""}`}
             onClick={() => {
               handleZoom(0.2);
             }}
