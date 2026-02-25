@@ -120,6 +120,17 @@ body.zoom-mode {
   font-family: "TheGoodMonolith", monospace;
 }
 
+/* Hide footer on mobile */
+.footer-mobile-hidden {
+  display: none;
+}
+
+@media (min-width: 768px) {
+  .footer-mobile-hidden {
+    display: block;
+  }
+}
+
 /* Global link styling */
 a {
   position: relative;

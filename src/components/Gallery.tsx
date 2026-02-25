@@ -784,7 +784,7 @@ const Gallery: React.FC = () => {
           <button
             className="switch-button"
             onClick={() => {
-              /* Fit logic placeholder */
+              handleZoom(0.2);
             }}
           >
             <span className="indicator-dot"></span>FIT

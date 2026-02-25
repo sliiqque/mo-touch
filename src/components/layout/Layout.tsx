@@ -25,7 +25,9 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
       >
         {children}
       </main>
-      <Footer />
+      <div className="footer-mobile-hidden">
+        <Footer />
+      </div>
 
       {/* Vignette Effect */}
       <div className="page-vignette-container">
