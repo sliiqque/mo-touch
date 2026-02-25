@@ -6,7 +6,7 @@ import Header from "./layout/Header.js";
 import Marquee from "./layout/Marquee.js";
 import ContentCard from "./layout/ContentCard.js";
 import SectionFooter from "./layout/SectionFooter";
-import styled, { css } from "styled-components";
+import styled from "styled-components";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -206,24 +206,6 @@ const OnlineIndicator = styled.div`
   background: var(--color-gold);
   border: 3px solid #0a0a0a;
   z-index: 2;
-`;
-
-// Responsive styles
-const mobileStyles = css`
-  @media (max-width: 768px) {
-    padding: 100px 5vw 0 5vw;
-  }
-
-  @media (max-width: 1024px) {
-    .about-content {
-      grid-template-columns: 1fr;
-      gap: 1rem;
-    }
-
-    .item-value {
-      font-size: 6vw;
-    }
-  }
 `;
 
 const About: React.FC = () => {
