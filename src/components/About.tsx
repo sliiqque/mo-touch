@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import React, { useRef, useLayoutEffect, useState, useEffect } from "react";
 import gsap from "gsap";

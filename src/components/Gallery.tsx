@@ -103,7 +103,6 @@ const Gallery: React.FC = () => {
     };
   }, [setIsZoomed]);
 
-  const [loadingProgress, setLoadingProgress] = useState(0); // For percentage indicator
   const [imageErrors, setImageErrors] = useState<Set<number>>(new Set());
 
   // Handle image loading errors
@@ -217,22 +216,6 @@ const Gallery: React.FC = () => {
     }
     return gridItems;
   }, []);
-
-  // Initial Setup (Loading only)
-  useLayoutEffect(() => {
-    // Simulate loading
-    let progress = 0;
-    const interval = setInterval(() => {
-      progress += 2;
-      if (progress >= 100) {
-        progress = 100;
-        clearInterval(interval);
-      }
-      setLoadingProgress(progress);
-    }, 20);
-
-    return () => clearInterval(interval);
-  }, []); // Run once on mount
 
   // Calculate bounds for Draggable
   const getBounds = useCallback((zoomLevel?: number) => {
@@ -760,7 +743,7 @@ const Gallery: React.FC = () => {
         id="controlsContainer"
       >
         <div className="percentage-indicator" id="percentageIndicator">
-          {loadingProgress}%
+          {Math.round(activeZoom * 100)}%
         </div>
         <div className="switch" id="controls">
           <button
@@ -781,14 +764,14 @@ const Gallery: React.FC = () => {
           >
             <span className="indicator-dot"></span>ZOOM IN
           </button>
-          <button
+          {/* <button
             className={`switch-button ${activeZoom === 0.2 ? "switch-button-current" : ""}`}
             onClick={() => {
               handleZoom(0.2);
             }}
           >
             <span className="indicator-dot"></span>FIT
-          </button>
+          </button> */}
         </div>
       </div>
 

@@ -1,12 +1,13 @@
-import React, { createContext, useContext, useState } from "react";
+import React, { useContext, useState } from "react";
 import type { ReactNode } from "react";
+import { UIContext as BaseUIContext } from "../utils/ui-context-helpers";
 
 interface UIContextType {
   isZoomed: boolean;
   setIsZoomed: (zoomed: boolean) => void;
 }
 
-const UIContext = createContext<UIContextType | undefined>(undefined);
+const UIContext = BaseUIContext as React.Context<UIContextType | undefined>;
 
 export const UIProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const [isZoomed, setIsZoomed] = useState(false);
